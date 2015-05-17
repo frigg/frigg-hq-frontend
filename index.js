@@ -12,10 +12,17 @@ app.set('view engine', 'html');
 app.set('views', '' + __dirname);
 app.use('/static', express.static(__dirname + '/public'));
 
+var responses = {};
+
 app.get('/api/*', (req, res, next) => {
-  request(FRIGG_API + req.originalUrl)
+  var url = req.originalUrl;
+  if (responses.hasOwnProperty(url)) {
+    return res.json(responses[url]);
+  }
+  request(FRIGG_API + url)
     .end((err, apiRes) => {
       if (err) return next(err);
+      responses[url] = apiRes.body;
       res.json(apiRes.body);
     });
 });
