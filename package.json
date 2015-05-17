@@ -1,0 +1,41 @@
+{
+  "name": "@frigg/hq-frontend",
+  "version": "0.0.1",
+  "description": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "bundle": "browserify src/index.js -t babelify -o public/bundle.js && stylus --use nib src/stylus/main.styl -o public/main.css",
+    "watch": "watchify -d src/index.js -t babelify -o public/bundle.js & stylus --use nib -w src/stylus/main.styl -o public/main.css & babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frigg/frigg-frontend.git"
+  },
+  "author": "The frigg team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frigg/frigg-frontend/issues"
+  },
+  "homepage": "https://github.com/frigg/frigg-frontend#readme",
+  "dependencies": {
+    "babelify": "^6.1.1",
+    "bluebird": "^2.9.25",
+    "browserify": "^10.2.0",
+    "flux": "^2.0.3",
+    "moment": "^2.10.3",
+    "nib": "^1.1.0",
+    "react": "^0.13.3",
+    "react-router": "^0.13.3",
+    "reactify": "^1.1.1",
+    "stylus": "^0.51.1",
+    "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "ejs": "^2.3.1",
+    "express": "^4.12.3",
+    "watchify": "^3.2.1"
+  }
+}
