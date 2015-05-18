@@ -70,23 +70,21 @@ class Build extends React.Component {
     var time = moment(this.props.start_time).fromNow();
 
     return (
-      <div className={classes}>
+      <Link className={classes} to="build" params={{owner: this.props.project.owner, name: this.props.project.name, buildNumber: this.props.build_number}}>
         <h3>
-          <Link to="build" params={{owner: this.props.project.owner, name: this.props.project.name, buildNumber: this.props.build_number}}>
-            {this.props.project.owner} /
-            {this.props.project.name} /
-            {this.props.branch}
-            #{this.props.build_number}
-          </Link>
+          {this.props.project.owner} /
+          {this.props.project.name} /
+          {this.props.branch}
+          #{this.props.build_number}
         </h3>
-        <div className="meta">
+        <span className="meta">
           <div className="message">{this.props.short_message}</div>
           <span className="timestamp"><i className="fa fa-clock-o"></i> {time}</span>
           <span className="sha"><i className="fa fa-slack"></i> {this.props.sha.substr(0, 7)}</span>
           <AuthorLink {...this.props} />
           <PullRequestLink {...this.props} />
-        </div>
-      </div>
+        </span>
+      </Link>
     );
   }
 }
@@ -98,10 +96,8 @@ class AuthorLink extends React.Component {
     var url = 'https://github.com/' + this.props.author;
     return (
       <span className="author">
-        <a href={authorUrl}>
-          <i className="fa fa-user"></i>
-          {this.props.author}
-        </a>
+        <i className="fa fa-user"></i>
+        {this.props.author}
       </span>
     );
   }
@@ -112,10 +108,8 @@ class PullRequestLink extends React.Component {
     if (this.props.pull_request_id == 0) return false;
     return (
       <span className="pull-request">
-        <a href={this.props.pull_request_url}>
-          <i className="fa fa-code-fork fa-rotate-180"></i>
-          {this.props.pull_request_id}
-        </a>
+        <i className="fa fa-code-fork fa-rotate-180"></i>
+        {this.props.pull_request_id}
       </span>
     );
   }
