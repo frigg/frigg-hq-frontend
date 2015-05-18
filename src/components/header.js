@@ -6,10 +6,10 @@ export default class Header extends React.Component {
     return (
       <div className="header">
         <div className="container">
-          <Link to="/" className="brand">Frigg CI</Link>
+          <Link to="builds" className="brand">Frigg CI</Link>
           <div className="navigation">
-            <Link to="/" className="button">Builds</Link>
-            <Link to="/logout" className="button">Logout</Link>
+            <Link to="builds" className="button">Builds</Link>
+            <a href="/auth/logout/" className="button">Logout</a>
           </div>
         </div>
       </div>

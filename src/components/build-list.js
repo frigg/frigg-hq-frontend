@@ -58,7 +58,6 @@ export default class BuildList extends React.Component {
 
 class Build extends React.Component {
   render() {
-    var url = '/' + this.props.project.owner + '/' + this.props.project.name + '/' + this.props.build_number;
     var color = 'orange';
     var author;
     var pullRequest;
@@ -73,7 +72,7 @@ class Build extends React.Component {
     return (
       <div className={classes}>
         <h3>
-          <Link to={url}>
+          <Link to="build" params={{owner: this.props.project.owner, name: this.props.project.name, buildNumber: this.props.build_number}}>
             {this.props.project.owner} /
             {this.props.project.name} /
             {this.props.branch}

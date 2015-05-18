@@ -14,7 +14,7 @@ var routes = (
     <Route name='build' path='/:owner/:name/:buildNumber' handler={BuildDetails} />
     <Route name='builds-for-project' path='/:owner/:name' handler={BuildList} />
     <Route name='builds-for-owner' path='/:owner' handler={BuildList} />
-    <DefaultRoute handler={BuildList} />
+    <DefaultRoute name="builds" handler={BuildList} />
   </Route>
 );
 
