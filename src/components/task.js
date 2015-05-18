@@ -6,7 +6,7 @@ import BuildStore from '../stores/build-store';
 import Action from '../actions';
 import Loading from './loading';
 
-export class Task extends React.Component {
+export default class Task extends React.Component {
   constructor() {
     super();
     this.state = {show: false};
