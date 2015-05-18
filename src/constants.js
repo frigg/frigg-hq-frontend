@@ -1,0 +1,4 @@
+
+export var BUILDS_RECEIVE = 'BUILDS_RECEIVE';
+export var PROJECTS_RECEIVE = 'PROJECTS_RECEIVE';
+export var API_ERROR = 'API_ERROR';
