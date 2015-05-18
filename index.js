@@ -27,8 +27,12 @@ app.get('/api/*', (req, res, next) => {
     });
 });
 
-app.get('*', (req, res) => {
+app.get('/beta/*', (req, res) => {
   res.render('index', {});
+});
+
+app.get('/', (req, res) => {
+  res.redirect('/beta/');
 });
 
 var server = http.Server(app);
