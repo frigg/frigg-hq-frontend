@@ -10,7 +10,7 @@ var {Route, DefaultRoute} = Router;
 Bluebird.longStackTraces();
 
 var routes = (
-  <Route handler={App} path="/">
+  <Route handler={App} path="/beta/">
     <Route name='build' path='/:owner/:name/:buildNumber' handler={BuildDetails} />
     <Route name='builds-for-project' path='/:owner/:name' handler={BuildList} />
     <Route name='builds-for-owner' path='/:owner' handler={BuildList} />
