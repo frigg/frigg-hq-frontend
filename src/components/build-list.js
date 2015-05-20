@@ -12,12 +12,12 @@ export default class BuildList extends React.Component {
 
   constructor() {
     super();
-    this.state = {builds: []};
+    this.state = {builds: [], loading: false};
   }
 
   componentDidMount() {
     BuildStore.addChangeListener(this._onChange.bind(this));
-    this.setState({builds: BuildStore.getAll()});
+    this.setState({builds: BuildStore.getAll(), loading: true});
     Action.getBuilds();
   }
 
@@ -26,7 +26,7 @@ export default class BuildList extends React.Component {
   }
 
   _onChange() {
-    this.setState({builds: BuildStore.getAll()});
+    this.setState({builds: BuildStore.getAll(), loading: BuildStore.isLoading()});
   }
 
   render() {
@@ -48,9 +48,14 @@ export default class BuildList extends React.Component {
       );
     });
 
+    var loader = this.state.loading ? (<Loading minimal={true} />) : false;
+
     return (
-      <div className="build-list">
-        {builds}
+      <div>
+        {loader}
+        <div className="build-list">
+          {builds}
+        </div>
       </div>
     );
   }

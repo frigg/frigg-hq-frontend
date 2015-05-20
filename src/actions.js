@@ -2,6 +2,7 @@ import Promise from 'bluebird';
 import request from 'superagent';
 
 import Dispatcher from './dispatcher';
+import BuildStore from './stores/build-store';
 import {BUILDS_RECEIVE, PROJECTS_RECEIVE, API_ERROR} from './constants';
 
 Promise.promisifyAll(request);
@@ -19,6 +20,7 @@ var actions = {
   },
 
   getBuilds: () => {
+    BuildStore._loading = true;
     return actions.get('/api/builds')
       .then(res => {
         Dispatcher.handleViewAction({
@@ -30,6 +32,7 @@ var actions = {
   },
 
   getBuild: slug => {
+    BuildStore._loading = true;
     return actions.get('/api/builds/' + slug)
       .then(res => {
         Dispatcher.handleViewAction({

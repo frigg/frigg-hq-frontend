@@ -6,6 +6,11 @@ import {sortByAttributeComparator, Storage} from '../utils';
 var storage = new Storage('builds');
 
 class BuildStore extends Store {
+  constructor() {
+    super();
+    this._loading = false;
+  }
+
   getAll() {
     var builds = storage.getItem('builds') || {};
     var items = Object.keys(builds)
@@ -23,6 +28,10 @@ class BuildStore extends Store {
   getBuild(owner, project, buildNumber) {
     return storage.getItem('builds')[owner + project + buildNumber.toString()];
   }
+
+  isLoading() {
+    return this._loading;
+  }
 }
 
 var store = new BuildStore();
@@ -36,7 +45,7 @@ store.dispatcherToken = Dispatcher.register(payload => {
       builds[key].key = build.id;
     });
     storage.setItem('builds', builds);
-
+    store._loading = false;
     store.emitChange();
   };
 
