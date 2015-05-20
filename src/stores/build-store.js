@@ -11,7 +11,7 @@ class BuildStore extends Store {
       .map(key => {
         return builds[key];
       });
-    items.sort(sortByAttributeComparator('id'));
+    items.sort(sortByAttributeComparator('-id'));
     return items;
   }
 

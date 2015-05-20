@@ -6,7 +6,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha test --compilers js:babel/register",
     "bundle": "browserify src/index.js -t babelify -o public/bundle.js && stylus --use nib src/stylus/main.styl -o public/main.css",
     "watch": "watchify -d src/index.js -t babelify -o public/bundle.js & stylus --use nib -w src/stylus/main.styl -o public/main.css & babel-node index.js"
   },
@@ -34,6 +34,7 @@
     "superagent": "^1.2.0"
   },
   "devDependencies": {
+    "chai": "^2.3.0",
     "ejs": "^2.3.1",
     "express": "^4.12.3",
     "watchify": "^3.2.1"
