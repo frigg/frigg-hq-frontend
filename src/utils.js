@@ -16,3 +16,33 @@ export function sortByAttributeComparator(attribute) {
     return 0;
   };
 }
+
+export class Storage {
+  constructor(key) {
+    this.storage = {};
+    this.ttl = 1000 * 60 * 15;
+  }
+
+  getItem(key) {
+    if (window.localStorage) {
+      if (!window.localStorage.getItem(key)) return undefined;
+      var item = JSON.parse(window.localStorage.getItem(key));
+      if (Date.now() - item.timestamp < this.ttl) {
+        return item.value;
+      }
+    }
+
+    return this.storage[key];
+  }
+
+  setItem(key, value) {
+    if (window.localStorage) {
+      return window.localStorage.setItem(key, JSON.stringify({
+        value: value,
+        timestamp: Date.now()
+      }));
+    }
+
+    this.storage[key] = value;
+  }
+}

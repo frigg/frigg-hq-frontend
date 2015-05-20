@@ -1,12 +1,13 @@
 import Dispatcher from '../dispatcher';
 import Store from './store';
 import {BUILDS_RECEIVE} from '../constants';
-import {sortByAttributeComparator} from '../utils';
+import {sortByAttributeComparator, Storage} from '../utils';
 
-var builds = {};
+var storage = new Storage('builds');
 
 class BuildStore extends Store {
   getAll() {
+    var builds = storage.getItem('builds') || {};
     var items = Object.keys(builds)
       .map(key => {
         return builds[key];
@@ -16,11 +17,11 @@ class BuildStore extends Store {
   }
 
   getBuildById(buildId) {
-    return builds[buildId];
+    return storage.getItem('builds')[buildId];
   }
 
   getBuild(owner, project, buildNumber) {
-    return builds[owner + project + buildNumber.toString()];
+    return storage.getItem('builds')[owner + project + buildNumber.toString()];
   }
 }
 
@@ -28,11 +29,13 @@ var store = new BuildStore();
 store.dispatcherToken = Dispatcher.register(payload => {
   var actions = {};
   actions[BUILDS_RECEIVE] = payload => {
+    var builds = {};
     payload.action.builds.forEach(build => {
       var key = build.project.owner + build.project.name + build.build_number.toString();
       builds[key] = build;
       builds[key].key = build.id;
     });
+    storage.setItem('builds', builds);
 
     store.emitChange();
   };
