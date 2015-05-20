@@ -6,42 +6,50 @@ import {BUILDS_RECEIVE, PROJECTS_RECEIVE, API_ERROR} from './constants';
 
 Promise.promisifyAll(request);
 
-export default {
+var actions = {
+  get: url => {
+    return request.get(url).endAsync();
+  },
+
+  catch: error => {
+    Dispatcher.handleViewAction({
+      type: API_ERROR,
+      error: error
+    });
+  },
+
   getBuilds: () => {
-    return request
-      .get('/api/builds')
-      .endAsync()
+    return actions.get('/api/builds')
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
           builds: res.body.results
         });
       })
-      .catch(error => {
+      .catch(actions.catch);
+  },
+
+  getBuild: slug => {
+    return actions.get('/api/builds/' + slug)
+      .then(res => {
         Dispatcher.handleViewAction({
-          type: API_ERROR,
-          error: error
+          type: BUILDS_RECEIVE,
+          build: [res.body]
         });
-        throw error;
-      });
+      })
+      .catch(actions.catch);
   },
 
   getProjects: () => {
-    return request
-      .get('/api/projects')
-      .endAsync()
+      return actions.get('/api/projects')
       .then(res => {
         Dispatcher.handleViewAction({
           type: PROJECTS_RECEIVE,
           projects: res.body
         });
       })
-      .catch(error => {
-        Dispatcher.handleViewAction({
-          type: API_ERROR,
-          error: error
-        });
-        throw error;
-      });
+      .catch(actions.catch);
   }
 };
+
+export default actions;
