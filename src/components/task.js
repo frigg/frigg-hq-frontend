@@ -14,14 +14,25 @@ export default class Task extends React.Component {
   }
 
   handleClick(event) {
+    if (this.props.pending) return;
     var state = this.state;
     state.show = state.show === true ? false : true;
     this.setState(state);
   }
 
   render() {
-    var classes = 'fa fa-check green';
     var log = '';
+    var classes = 'fa';
+    var returnCode = false;
+
+    if(this.props.pending) {
+      classes += ' fa-spinner fa-spin orange';
+    } else if (this.props.succeeded) {
+      classes += ' fa-check green';
+    } else {
+      classes += ' fa-times red'
+    }
+
     //FIXME, colorify
 
     if (this.state.show) {
@@ -34,12 +45,18 @@ export default class Task extends React.Component {
       );
     }
 
+    if (!this.props.pending) {
+      returnCode = (
+        <span className="meta">Return code: {this.props.return_code}</span>
+      );
+    }
+
     return (
       <div className="task">
         <h3 onClick={this.handleClick}>
           <i className={classes}></i>
           {this.props.task}
-          <span className="meta">Return code: {this.props.return_code}</span>
+          {returnCode}
         </h3>
         {log}
       </div>

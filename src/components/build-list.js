@@ -67,8 +67,8 @@ class Build extends React.Component {
     var author;
     var pullRequest;
 
-    if (this.props.result) {
-      color = (this.props.result.succeeded ? 'green' : 'red');
+    if (this.props.result && !this.props.result.still_running) {
+      color = this.props.result.succeeded ? 'green' : 'red';
     }
 
     var classes = 'build ' + color;
