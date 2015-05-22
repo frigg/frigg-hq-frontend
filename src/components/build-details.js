@@ -52,9 +52,12 @@ export default class BuildDetails extends React.Component {
     var coverageDiff = '';
 
     if (build.result) {
-      state = (build.result.succeeded ? 'Success' : 'Failure');
-      coverage = build.result.coverage;
-      coverageDiff = build.result.coverage_diff;
+      if (!build.result.still_running) {
+        state = (build.result.succeeded ? 'Success' : 'Failure');
+        coverage = build.result.coverage;
+        coverageDiff = build.result.coverage_diff;
+      }
+
       tasks = this.state.build.result.tasks.map(task => {
         task.key = task.task;
         return (<Task {...task} />)
