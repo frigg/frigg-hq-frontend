@@ -48,14 +48,10 @@ export default class BuildDetails extends React.Component {
 
     var tasks = false;
     var state = 'Pending';
-    var coverage = '';
-    var coverageDiff = '';
 
     if (build.result) {
       if (!build.result.still_running) {
-        state = (build.result.succeeded ? 'Success' : 'Failure');
-        coverage = build.result.coverage;
-        coverageDiff = build.result.coverage_diff;
+        state = build.result.succeeded ? 'Success' : 'Failure';
       }
 
       tasks = this.state.build.result.tasks.map(task => {
@@ -77,14 +73,26 @@ export default class BuildDetails extends React.Component {
           <strong>Commit hash:</strong> {build.sha} <br/>
           <strong>Author:</strong> {build.author} <br/>
           <strong>Timestamp:</strong> {moment(build.start_time).fromNow()}<br/>
-          <strong>Coverage:</strong> {coverage} <br/>
-          <strong>Coverage difference from last master build:</strong> {coverageDiff}<br/>
           <strong>State:</strong> {state}
+          <Coverage result={build.result} />
         </div>
         <div className="message">
           {build.message}
         </div>
         <div className="tasks">{tasks}</div>
+      </div>
+    );
+  }
+}
+
+class Coverage extends React.Component {
+  render() {
+    if (!this.props.result || !this.props.result.coverage) return false;
+
+    return (
+      <div>
+        <strong>Coverage:</strong> {this.props.result.coverage} <br/>
+        <strong>Coverage difference from last master build:</strong> {this.props.result.coverage_diff}<br/>
       </div>
     );
   }
