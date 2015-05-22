@@ -22,11 +22,11 @@ class BuildStore extends Store {
   }
 
   getBuildById(buildId) {
-    return storage.getItem('builds')[buildId];
+    return (storage.getItem('builds') || {})[buildId];
   }
 
   getBuild(owner, project, buildNumber) {
-    return storage.getItem('builds')[owner + project + buildNumber.toString()];
+    return (storage.getItem('builds') || {})[owner + project + buildNumber.toString()];
   }
 
   isLoading() {
