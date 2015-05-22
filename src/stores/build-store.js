@@ -38,12 +38,13 @@ var store = new BuildStore();
 store.dispatcherToken = Dispatcher.register(payload => {
   var actions = {};
   actions[BUILDS_RECEIVE] = payload => {
-    var builds = {};
+    var builds = storage.getItem('builds') || {};
     payload.action.builds.forEach(build => {
       var key = build.project.owner + build.project.name + build.build_number.toString();
       builds[key] = build;
       builds[key].key = build.id;
     });
+
     storage.setItem('builds', builds);
     store._loading = false;
     store.emitChange();

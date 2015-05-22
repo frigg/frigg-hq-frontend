@@ -37,21 +37,21 @@ var actions = {
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
-          build: [res.body]
+          builds: [res.body]
         });
       })
       .catch(actions.catch);
   },
 
   getProjects: () => {
-      return actions.get('/api/projects')
-      .then(res => {
-        Dispatcher.handleViewAction({
-          type: PROJECTS_RECEIVE,
-          projects: res.body
-        });
-      })
-      .catch(actions.catch);
+    return actions.get('/api/projects')
+    .then(res => {
+      Dispatcher.handleViewAction({
+        type: PROJECTS_RECEIVE,
+        projects: res.body
+      });
+    })
+    .catch(actions.catch);
   }
 };
 

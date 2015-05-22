@@ -26,7 +26,11 @@ export default class BuildDetails extends React.Component {
   componentDidMount() {
     BuildStore.addChangeListener(this._onChange.bind(this));
     this.setState({build: this.get()});
-    Action.getBuilds();
+    Action.getBuild(
+      this.props.params.owner + '/' +
+      this.props.params.name + '/' +
+      this.props.params.buildNumber
+    );
   }
 
   componentWillUnmount() {
