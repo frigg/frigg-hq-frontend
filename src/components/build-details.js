@@ -30,6 +30,11 @@ export default class BuildDetails extends React.Component {
       this.props.params.name + '/' +
       this.props.params.buildNumber
     );
+    Action.addAlert({
+      message: 'We are currently loading new data from the server',
+      iconClasses: 'fa fa-spinner fa-pulse',
+      key: 'loading-data'
+    });
   }
 
   componentDidMount() {

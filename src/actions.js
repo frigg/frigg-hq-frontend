@@ -3,7 +3,7 @@ import request from 'superagent';
 
 import Dispatcher from './dispatcher';
 import BuildStore from './stores/build-store';
-import {BUILDS_RECEIVE, PROJECTS_RECEIVE, API_ERROR} from './constants';
+import {BUILDS_RECEIVE, PROJECTS_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
 
 Promise.promisifyAll(request);
 
@@ -43,15 +43,22 @@ var actions = {
       .catch(actions.catch);
   },
 
-  getProjects: () => {
-    return actions.get('/api/projects')
-    .then(res => {
+  addAlert: alert => {
+    setTimeout(() => {
       Dispatcher.handleViewAction({
-        type: PROJECTS_RECEIVE,
-        projects: res.body
+        type: ALERT_ADD,
+        alert: alert
       });
-    })
-    .catch(actions.catch);
+    }, 10);
+  },
+
+  removeAlert: key => {
+    setTimeout(() => {
+      Dispatcher.handleViewAction({
+        type: ALERT_REMOVE,
+        key: key
+      });
+    }, 100);
   }
 };
 

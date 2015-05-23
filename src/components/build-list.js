@@ -17,6 +17,11 @@ export default class BuildList extends React.Component {
 
   fetch() {
     Action.getBuilds();
+    Action.addAlert({
+      message: 'We are currently loading new data from the server',
+      iconClasses: 'fa fa-spinner fa-pulse',
+      key: 'loading-data'
+    });
   }
 
   componentDidMount() {
@@ -52,14 +57,21 @@ export default class BuildList extends React.Component {
       );
     });
 
-    var loader = this.state.loading ? (<Loading minimal={true} />) : false;
+    if (this.state.loading) {
+      Action.addAlert({
+        message: 'We are currently loading new data from the server',
+        iconClasses: 'fa fa-spinner fa-pulse',
+        key: 'loading-data'
+      });
+    } else {
+      Action.removeAlert('loading-data');
+    }
 
     clearTimeout(this.fetchTimeout);
     this.fetchTimeout = setTimeout(this.fetch.bind(this), 120000);
 
     return (
       <div>
-        {loader}
         <div className="build-list">
           {builds}
         </div>
