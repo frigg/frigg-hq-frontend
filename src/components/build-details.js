@@ -24,14 +24,18 @@ export default class BuildDetails extends React.Component {
     );
   }
 
-  componentDidMount() {
-    BuildStore.addChangeListener(this._onChange.bind(this));
-    this.setState({build: this.get()});
+  fetch() {
     Action.getBuild(
       this.props.params.owner + '/' +
       this.props.params.name + '/' +
       this.props.params.buildNumber
     );
+  }
+
+  componentDidMount() {
+    BuildStore.addChangeListener(this._onChange.bind(this));
+    this.setState({build: this.get()});
+    this.fetch();
   }
 
   componentWillUnmount() {
@@ -59,6 +63,11 @@ export default class BuildDetails extends React.Component {
         task.key = task.task;
         return (<Task {...task} />)
       });
+    }
+
+    if (!build.result || build.result.still_running) {
+      clearTimeout(this.fetchTimeout);
+      this.fetchTimeout = setTimeout(this.fetch.bind(this), 2000);
     }
 
     return (
