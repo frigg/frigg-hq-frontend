@@ -13,7 +13,7 @@ export default class BuildDetails extends React.Component {
 
   constructor() {
     super();
-    this.state = {build: null};
+    this.state = {build: null, loading: false};
   }
 
   get() {
@@ -39,7 +39,7 @@ export default class BuildDetails extends React.Component {
 
   componentDidMount() {
     BuildStore.addChangeListener(this._onChange.bind(this));
-    this.setState({build: this.get()});
+    this.setState({build: this.get(), loading: true});
     this.fetch();
   }
 
@@ -48,13 +48,17 @@ export default class BuildDetails extends React.Component {
   }
 
   _onChange() {
-    this.setState({build: this.get()});
+    this.setState({build: this.get(), loading: BuildStore.isLoading()});
   }
 
   render() {
+
+    if (!this.state.loading) Action.removeAlert('loading-data');
     var build = this.state.build;
 
     if (!build) return (<Loading />);
+
+
 
     var tasks = false;
     var state = 'Pending';
@@ -66,7 +70,7 @@ export default class BuildDetails extends React.Component {
 
       tasks = this.state.build.result.tasks.map(task => {
         task.key = task.task;
-        return (<Task {...task} />)
+        return (<Task {...task} />);
       });
     }
 
