@@ -5,6 +5,7 @@ import moment from 'moment';
 import BuildStore from '../stores/build-store';
 import Action from '../actions';
 import Loading from './loading';
+import {BuildTitle} from './build-list';
 import Task from './task';
 
 
@@ -62,12 +63,7 @@ export default class BuildDetails extends React.Component {
 
     return (
       <div className="build-details">
-        <h2>
-          {build.project.owner} /
-          {build.project.name} /
-          {build.branch}
-          #{build.build_number}
-        </h2>
+        <BuildTitle {...build} size={2}/>
         <div className="details">
           <strong>Branch:</strong> {build.branch} <br/>
           <strong>Commit hash:</strong> {build.sha} <br/>

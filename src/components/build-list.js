@@ -44,7 +44,7 @@ export default class BuildList extends React.Component {
       }
 
       return (
-        <Build {...build} />
+        <BuildListItem {...build} />
       );
     });
 
@@ -61,7 +61,7 @@ export default class BuildList extends React.Component {
   }
 }
 
-class Build extends React.Component {
+export class BuildListItem extends React.Component {
   render() {
     var color = 'orange';
     var author;
@@ -76,12 +76,7 @@ class Build extends React.Component {
 
     return (
       <Link className={classes} to="build" params={{owner: this.props.project.owner, name: this.props.project.name, buildNumber: this.props.build_number}}>
-        <h3>
-          {this.props.project.owner} /
-          {this.props.project.name} /
-          {this.props.branch}
-          #{this.props.build_number}
-        </h3>
+        <BuildTitle {...this.props}/>
         <span className="meta">
           <div className="message">{this.props.short_message}</div>
           <span className="timestamp"><i className="fa fa-clock-o"></i> {time}</span>
@@ -90,6 +85,30 @@ class Build extends React.Component {
           <PullRequestLink {...this.props} />
         </span>
       </Link>
+    );
+  }
+}
+
+export class BuildTitle extends React.Component {
+  render() {
+    if (this.props.size === 2) {
+      return (
+        <h2>
+          {this.props.project.owner} /
+          {this.props.project.name} /
+          {this.props.branch}
+          #{this.props.build_number}
+        </h2>
+      );
+    }
+
+    return (
+      <h3>
+        {this.props.project.owner} /
+        {this.props.project.name} /
+        {this.props.branch}
+        #{this.props.build_number}
+      </h3>
     );
   }
 }
