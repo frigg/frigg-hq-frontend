@@ -54,10 +54,8 @@ export default class BuildList extends React.Component {
 
     var loader = this.state.loading ? (<Loading minimal={true} />) : false;
 
-    if (!build.result || build.result.still_running) {
-      clearTimeout(this.fetchTimeout);
-      this.fetchTimeout = setTimeout(this.fetch.bind(this), 120000);
-    }
+    clearTimeout(this.fetchTimeout);
+    this.fetchTimeout = setTimeout(this.fetch.bind(this), 120000);
 
     return (
       <div>
