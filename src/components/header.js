@@ -3,10 +3,16 @@ import {Link} from 'react-router';
 
 export default class Header extends React.Component {
   render() {
+    var offline = false;
+    if (!navigator.onLine) offline = (<span className="offline">offline</span>);
+
     return (
       <div className="header">
         <div className="container">
-          <Link to="builds" className="brand">Frigg CI</Link>
+          <Link to="builds" className="brand">
+            Frigg CI
+            {offline}
+          </Link>
           <div className="navigation">
             <Link to="builds" className="button">Builds</Link>
             <StaffButton href="/stats/" text="Stats" {...this.props.user} />
