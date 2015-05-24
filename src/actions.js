@@ -21,8 +21,11 @@ var actions = {
 
     Dispatcher.handleViewAction({
       type: ALERT_ADD,
-      message: error.message,
-      iconClasses: 'fa fa-times'
+      alert: {
+        key: 'api-error',
+        message: 'Could not fetch data from our servers.',
+        iconClasses: 'fa fa-times'
+      }
     });
   },
 
