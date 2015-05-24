@@ -25,10 +25,14 @@ export class Storage {
 
   getItem(key) {
     if (window.localStorage) {
-      if (!window.localStorage.getItem(key)) return undefined;
-      var item = JSON.parse(window.localStorage.getItem(key));
-      if (Date.now() - item.timestamp < this.ttl) {
-        return item.value;
+      try {
+        if (!window.localStorage.getItem(key)) return undefined;
+        var item = JSON.parse(window.localStorage.getItem(key));
+        if (Date.now() - item.timestamp < this.ttl) {
+          return item.value;
+        }
+      } catch (e) {
+        console.log(e);
       }
     }
 
@@ -37,10 +41,14 @@ export class Storage {
 
   setItem(key, value) {
     if (window.localStorage) {
-      return window.localStorage.setItem(key, JSON.stringify({
-        value: value,
-        timestamp: Date.now()
-      }));
+      try {
+        return window.localStorage.setItem(key, JSON.stringify({
+          value: value,
+          timestamp: Date.now()
+        }));
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     this.storage[key] = value;

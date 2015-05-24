@@ -17,6 +17,12 @@ var actions = {
       type: API_ERROR,
       error: error
     });
+
+    Dispatcher.handleViewAction({
+      type: ALERT_ADD,
+      message: error.message,
+      iconClasses: 'fa fa-times'
+    });
   },
 
   getBuilds: () => {
