@@ -14,6 +14,14 @@ app.use('/static', express.static(__dirname + '/public'));
 
 var responses = {};
 
+app.get('/api/users/me/', (req, res, next) => {
+  res.json({
+    is_anonymous: !!process.env.IS_ANON,
+    is_staff: !!process.env.IS_STAFF,
+    username: 'dumbledore'
+  })
+});
+
 app.get('/api/*', (req, res, next) => {
   var url = req.originalUrl;
   if (responses.hasOwnProperty(url)) {

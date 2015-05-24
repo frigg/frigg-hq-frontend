@@ -4,10 +4,13 @@ import Router from 'react-router';
 import App from './components/app';
 import BuildList from './components/build-list';
 import BuildDetails from './components/build-details';
+import Action from './actions';
 
 var {Route, DefaultRoute} = Router;
 
 Bluebird.longStackTraces();
+
+Action.getUser();
 
 var routes = (
   <Route handler={App} path="/beta/">

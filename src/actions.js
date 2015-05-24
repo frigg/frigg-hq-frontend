@@ -3,7 +3,8 @@ import request from 'superagent';
 
 import Dispatcher from './dispatcher';
 import BuildStore from './stores/build-store';
-import {BUILDS_RECEIVE, PROJECTS_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
+import UserStore from './stores/user-store';
+import {BUILDS_RECEIVE, USER_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
 
 Promise.promisifyAll(request);
 
@@ -44,6 +45,18 @@ var actions = {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
           builds: [res.body]
+        });
+      })
+      .catch(actions.catch);
+  },
+
+  getUser: () => {
+    UserStore._loading = true;
+    return actions.get('/api/users/me/')
+      .then(res => {
+        Dispatcher.handleViewAction({
+          type: USER_RECEIVE,
+          user: res.body
         });
       })
       .catch(actions.catch);

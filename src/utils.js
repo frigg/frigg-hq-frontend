@@ -18,9 +18,9 @@ export function sortByAttributeComparator(attribute) {
 }
 
 export class Storage {
-  constructor(key) {
+  constructor(ttl) {
     this.storage = {};
-    this.ttl = 1000 * 60 * 15;
+    this.ttl = ttl || 1000 * 60 * 15;
   }
 
   getItem(key) {

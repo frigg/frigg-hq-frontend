@@ -3,7 +3,7 @@ import Store from './store';
 import {BUILDS_RECEIVE} from '../constants';
 import {sortByAttributeComparator, Storage} from '../utils';
 
-var storage = new Storage('builds');
+var storage = new Storage();
 
 class BuildStore extends Store {
   constructor() {
