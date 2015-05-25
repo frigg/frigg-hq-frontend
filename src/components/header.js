@@ -2,9 +2,24 @@ import React from 'react';
 import {Link} from 'react-router';
 
 export default class Header extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {online: navigator.onLine};
+  }
+
+  componentDidMoun() {
+    window.addEventListener('online', this.updateOnlineState.bind(this));
+    window.addEventListener('offline', this.updateOnlineState.bind(this));
+  }
+
+  updateOnlineState() {
+    this.setState({online: navigator.onLine});
+  }
+
   render() {
     var offline = false;
-    if (!navigator.onLine) offline = (<span className="offline">offline</span>);
+    if (!this.state.online) offline = (<span className="offline">offline</span>);
 
     return (
       <div className="header">
