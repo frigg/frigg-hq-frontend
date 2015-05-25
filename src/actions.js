@@ -19,13 +19,12 @@ var actions = {
       error: error
     });
 
-    Dispatcher.handleViewAction({
-      type: ALERT_ADD,
-      alert: {
-        key: 'api-error',
-        message: 'Could not fetch data from our servers.',
-        iconClasses: 'fa fa-times'
-      }
+    actions.removeAlert('loading-data');
+    actions.addAlert({
+      key: 'api-error',
+      message: 'Could not fetch data from our servers.',
+      iconClasses: 'fa fa-times',
+      ttl: 4000
     });
   },
 
@@ -72,6 +71,10 @@ var actions = {
         alert: alert
       });
     }, 10);
+
+    if (alert.ttl) {
+      actions.removeAlert(alert.key);
+    }
   },
 
   removeAlert: key => {
