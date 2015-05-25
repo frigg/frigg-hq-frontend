@@ -58,14 +58,20 @@ export default class BuildDetails extends React.Component {
 
     if (!build) return (<Loading />);
 
-
-
+    var setupTasks = false;
     var tasks = false;
     var state = 'Pending';
 
     if (build.result) {
       if (!build.result.still_running) {
         state = build.result.succeeded ? 'Success' : 'Failure';
+      }
+
+      if (this.state.build.result.setup_tasks) {
+        setupTasks = this.state.build.result.setup_tasks.map(task => {
+          task.key = task.task;
+          return (<Task {...task} />);
+        });
       }
 
       tasks = this.state.build.result.tasks.map(task => {
@@ -93,6 +99,7 @@ export default class BuildDetails extends React.Component {
         <div className="message">
           {build.message}
         </div>
+        <div className="tasks">{setupTasks}</div>
         <div className="tasks">{tasks}</div>
       </div>
     );
