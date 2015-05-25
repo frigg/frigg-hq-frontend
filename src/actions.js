@@ -24,6 +24,7 @@ var actions = {
       key: 'api-error',
       message: 'Could not fetch data from our servers.',
       iconClasses: 'fa fa-times',
+      alertType: 'error',
       ttl: 4000
     });
   },

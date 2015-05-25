@@ -42,6 +42,8 @@ export default class Alerts extends React.Component {
 export class Alert extends React.Component {
   render() {
     var icon = false;
+    var classes = 'alert';
+    if (this.props.alertType) classes += ' alert-' + this.props.alertType;
 
     if (this.props.iconClasses) {
       icon = (
@@ -50,7 +52,7 @@ export class Alert extends React.Component {
     }
 
     return (
-      <div className="alert">
+      <div className={classes}>
         {icon}
         {this.props.message}
       </div>
