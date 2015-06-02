@@ -16,7 +16,13 @@ export default class BuildList extends React.Component {
   }
 
   fetch() {
-    Action.getBuilds();
+    if (this.props.params.owner && this.props.params.name) {
+      Action.getBuilds('/' + this.props.params.owner + '/' + this.props.params.name);
+    } else if (this.props.params.owner) {
+      Action.getBuilds('/' + this.props.params.owner);
+    } else {
+      Action.getBuilds()
+    }
     Action.addAlert({
       message: 'We are currently loading new data from the server',
       iconClasses: 'fa fa-spinner fa-pulse',

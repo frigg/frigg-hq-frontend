@@ -29,13 +29,15 @@ var actions = {
     });
   },
 
-  getBuilds: () => {
+  getBuilds: slug => {
     BuildStore._loading = true;
-    return actions.get('/api/builds')
+    var url = '/api/builds';
+    if (slug) url = url + slug;
+    return actions.get(url)
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
-          builds: res.body.results
+          builds: res.body.results ? res.body.results : res.body
         });
       })
       .catch(actions.catch);
