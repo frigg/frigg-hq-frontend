@@ -104,10 +104,11 @@ export class BuildListItem extends React.Component {
         <BuildTitle {...this.props}/>
         <span className="meta">
           <div className="message">{this.props.short_message}</div>
-          <span className="timestamp"><i className="fa fa-clock-o"></i> {time}</span>
-          <span className="sha"><i className="fa fa-slack"></i> {this.props.sha.substr(0, 7)}</span>
+          <TimeLink time={time} />
+          <HashLink {...this.props} />
           <AuthorLink {...this.props} />
           <PullRequestLink {...this.props} />
+          <PRDeploymentLink {...this.props.deployment} />
         </span>
       </Link>
     );
@@ -138,28 +139,66 @@ export class BuildTitle extends React.Component {
   }
 }
 
-class AuthorLink extends React.Component {
+class MetaLink extends React.Component {
   render() {
-    if (!this.props.author) return false;
+    if (!this.value()) return false;
+    var iconClasses = 'fa ' + this.iconClass();
 
-    var url = 'https://github.com/' + this.props.author;
     return (
       <span className="author">
-        <i className="fa fa-user"></i>
-        {this.props.author}
+        <i className={iconClasses}></i>
+        {this.value()}
       </span>
     );
   }
 }
 
-class PullRequestLink extends React.Component {
-  render() {
-    if (this.props.pull_request_id == 0) return false;
-    return (
-      <span className="pull-request">
-        <i className="fa fa-code-fork fa-rotate-180"></i>
-        {this.props.pull_request_id}
-      </span>
-    );
+class TimeLink extends MetaLink {
+  iconClass() {
+    return 'fa-clock-o';
+  }
+
+  value() {
+    return this.props.time;
+  }
+}
+
+class HashLink extends MetaLink {
+  iconClass() {
+    return 'fa-slack';
+  }
+
+  value() {
+    return this.props.sha.substr(0, 7);
+  }
+}
+
+class AuthorLink extends MetaLink {
+  iconClass() {
+    return 'fa-user';
+  }
+
+  value() {
+    return this.props.author;
+  }
+}
+
+class PullRequestLink extends MetaLink {
+  iconClass() {
+    return 'fa-code-fork fa-rotate-180';
+  }
+
+  value() {
+    return this.props.pull_request_id;
+  }
+}
+
+class PRDeploymentLink extends MetaLink {
+  iconClass() {
+    return 'fa-eye';
+  }
+
+  value() {
+    return this.props.port;
   }
 }
