@@ -95,6 +95,7 @@ export default class BuildDetails extends React.Component {
           <strong>Timestamp:</strong> {moment(build.start_time).fromNow()}<br/>
           <strong>State:</strong> {state}
           <Coverage result={build.result} />
+          <DeploymentInfo {...build.deployment} />
         </div>
         <div className="message">
           {build.message}
@@ -115,6 +116,22 @@ class Coverage extends React.Component {
         <strong>Coverage:</strong> {this.props.result.coverage} <br/>
         <strong>Coverage difference from last master build:</strong> {this.props.result.coverage_diff}<br/>
       </div>
+    );
+  }
+}
+
+class DeploymentInfo extends React.Component {
+  url() {
+    return 'http://' + this.props.port + '.pr.frigg.io';
+  }
+
+  render() {
+    if (!this.props.succeeded) return false;
+    return (
+      <span>
+        <strong>Preview:</strong>
+        <a href={this.url()}>{this.url()}</a>
+      </span>
     );
   }
 }

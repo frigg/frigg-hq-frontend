@@ -24,6 +24,7 @@ export class Storage {
   }
 
   getItem(key) {
+    return this.storage[key];
     if (window.localStorage) {
       try {
         if (!window.localStorage.getItem(key)) return undefined;
@@ -40,6 +41,7 @@ export class Storage {
   }
 
   setItem(key, value) {
+    return this.storage[key] = value;
     if (window.localStorage) {
       try {
         return window.localStorage.setItem(key, JSON.stringify({
