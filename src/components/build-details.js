@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react/addons';
+import reactMixin from 'react-mixin';
 import request from 'superagent';
 import moment from 'moment';
 
@@ -7,7 +8,6 @@ import Action from '../actions';
 import Loading from './loading';
 import {BuildTitle} from './build-list';
 import Task from './task';
-
 
 export default class BuildDetails extends React.Component {
 
@@ -62,43 +62,43 @@ export default class BuildDetails extends React.Component {
     var tasks = false;
     var state = 'Pending';
 
-    if (build.result) {
-      if (!build.result.still_running) {
-        state = build.result.succeeded ? 'Success' : 'Failure';
+    if (build.get('result')) {
+      if (!build.get('result').still_running) {
+        state = build.get('result').succeeded ? 'Success' : 'Failure';
       }
 
-      if (this.state.build.result.setup_tasks) {
-        setupTasks = this.state.build.result.setup_tasks.map(task => {
+      if (build.get('result').setup_tasks) {
+        setupTasks = build.get('result').setup_tasks.map(task => {
           task.key = task.task;
           return (<Task {...task} />);
         });
       }
 
-      tasks = this.state.build.result.tasks.map(task => {
+      tasks = build.get('result').tasks.map(task => {
         task.key = task.task;
         return (<Task {...task} />);
       });
     }
 
-    if (!build.result || build.result.still_running) {
+    if (!build.get('result') || build.get('result').still_running) {
       clearTimeout(this.fetchTimeout);
       this.fetchTimeout = setTimeout(this.fetch.bind(this), 2000);
     }
 
     return (
       <div className="build-details">
-        <BuildTitle {...build} size={2}/>
+        <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
         <div className="details">
-          <strong>Branch:</strong> {build.branch} <br/>
-          <strong>Commit hash:</strong> {build.sha} <br/>
-          <strong>Author:</strong> {build.author} <br/>
-          <strong>Timestamp:</strong> {moment(build.start_time).fromNow()}<br/>
+          <strong>Branch:</strong> {build.get('branch')} <br/>
+          <strong>Commit hash:</strong> {build.get('sha')} <br/>
+          <strong>Author:</strong> {build.get('author')} <br/>
+          <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
           <strong>State:</strong> {state}
-          <Coverage result={build.result} />
-          <DeploymentInfo {...build.deployment} />
+          <Coverage result={build.get('result')} />
+          <DeploymentInfo {...build.get('deployment')} />
         </div>
         <div className="message">
-          {build.message}
+          {build.get('message')}
         </div>
         <div className="tasks">{setupTasks}</div>
         <div className="tasks">{tasks}</div>
@@ -106,6 +106,8 @@ export default class BuildDetails extends React.Component {
     );
   }
 }
+
+reactMixin(BuildDetails.prototype, React.addons.PureRenderMixin);
 
 class Coverage extends React.Component {
   render() {

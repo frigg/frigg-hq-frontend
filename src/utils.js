@@ -1,3 +1,4 @@
+import {OrderedMap, Map} from 'immutable';
 
 export function sortByAttributeComparator(attribute) {
   var factor = 1;
@@ -7,24 +8,24 @@ export function sortByAttributeComparator(attribute) {
   }
 
   return function sortByAttributeComparator(a, b) {
-    if (!a.hasOwnProperty(attribute) || !a.hasOwnProperty(attribute)) {
+    if (!a.has(attribute) || !a.has(attribute)) {
       throw new Error('Unknown attribute: ', attribute);
     }
 
-    if (a[attribute] < b[attribute]) return -1 * factor;
-    if (b[attribute] < a[attribute]) return 1 * factor;
+    if (a.get(attribute) < b.get(attribute)) return -1 * factor;
+    if (b.get(attribute) < a.get(attribute)) return 1 * factor;
     return 0;
   };
 }
 
 export class Storage {
   constructor(ttl) {
-    this.storage = {};
+    this.storage = OrderedMap();
     this.ttl = ttl || 1000 * 60 * 15;
   }
 
   getItem(key) {
-    return this.storage[key];
+    return this.storage.get(key);
     if (window.localStorage) {
       try {
         if (!window.localStorage.getItem(key)) return undefined;
@@ -41,7 +42,8 @@ export class Storage {
   }
 
   setItem(key, value) {
-    return this.storage[key] = value;
+    this.storage = this.storage.set(key, value);
+    return;
     if (window.localStorage) {
       try {
         return window.localStorage.setItem(key, JSON.stringify({

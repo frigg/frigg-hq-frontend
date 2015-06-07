@@ -30,9 +30,9 @@ export default class Header extends React.Component {
           </Link>
           <div className="navigation">
             <Link to="builds" className="button">Builds</Link>
-            <StaffButton href="/stats/" text="Stats" {...this.props.user} />
-            <StaffButton href="/admin/" text="Admin" {...this.props.user} />
-            <LogInOutButton {...this.props.user} />
+            <StaffButton href="/stats/" text="Stats" isStaff={this.props.user.get('is_staff')} />
+            <StaffButton href="/admin/" text="Admin" isStaff={this.props.user.get('is_staff')} />
+            <LogInOutButton isAnonymous={this.props.user.get('is_anonymous')} />
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default class Header extends React.Component {
 
 export class LogInOutButton extends React.Component {
   render() {
-    if (this.props.is_anonymous === false) {
+    if (this.props.isAnonymous === false) {
       return (
         <a href="/auth/logout/" className="button">Logout</a>
       );
@@ -57,7 +57,7 @@ export class LogInOutButton extends React.Component {
 
 export class StaffButton extends React.Component {
   render() {
-    if (this.props.is_staff === false) return false;
+    if (this.props.isStaff === false) return false;
     return (
       <a href={this.props.href} className="button">{this.props.text}</a>
     );

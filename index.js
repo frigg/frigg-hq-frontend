@@ -22,11 +22,27 @@ app.get('/api/users/me/', (req, res, next) => {
   })
 });
 
+app.get('/api/builds', (req, res, next) => {
+  var url = req.originalUrl;
+  if (responses.hasOwnProperty(url)) {
+    return res.json(responses[url]);
+  }
+
+  request(FRIGG_API + url)
+    .end((err, apiRes) => {
+      if (err) return next(err);
+      responses[url] = apiRes.body;
+      responses[url].results = responses[url].results.splice(0, 10);
+      res.json(responses[url]);
+    });
+});
+
 app.get('/api/*', (req, res, next) => {
   var url = req.originalUrl;
   if (responses.hasOwnProperty(url)) {
     return res.json(responses[url]);
   }
+
   request(FRIGG_API + url)
     .end((err, apiRes) => {
       if (err) return next(err);

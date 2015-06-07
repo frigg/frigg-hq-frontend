@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react/addons';
+import reactMixin from 'react-mixin';
 import request from 'superagent';
 import moment from 'moment';
 import {Link} from 'react-router';
@@ -21,7 +22,7 @@ export default class BuildList extends React.Component {
     } else if (this.props.params.owner) {
       Action.getBuilds('/' + this.props.params.owner);
     } else {
-      Action.getBuilds()
+      Action.getBuilds();
     }
     Action.addAlert({
       message: 'We are currently loading new data from the server',
@@ -45,21 +46,21 @@ export default class BuildList extends React.Component {
   }
 
   render() {
-    if (!this.state.builds.length) return (<Loading />);
+    if (!this.state.builds.size) return (<Loading />);
     var owner = this.props.params.owner;
     var project = this.props.params.name;
 
     var builds = this.state.builds.map(build => {
-      if (owner && build.project.owner !== owner) {
+      if (owner && build.get('project').owner !== owner) {
         return false;
       }
 
-      if (project && build.project.name !== project) {
+      if (project && build.get('project').name !== project) {
         return false;
       }
 
       return (
-        <BuildListItem {...build} />
+        <BuildListItem build={build} />
       );
     });
 
@@ -86,34 +87,38 @@ export default class BuildList extends React.Component {
   }
 }
 
+reactMixin(BuildList.prototype, React.addons.PureRenderMixin);
+
 export class BuildListItem extends React.Component {
   render() {
+    var build = this.props.build;
     var color = 'orange';
-    var author;
-    var pullRequest;
 
-    if (this.props.result && !this.props.result.still_running) {
-      color = this.props.result.succeeded ? 'green' : 'red';
+    if (build.get('result') && !build.get('result').still_running) {
+      color = build.get('result').succeeded ? 'green' : 'red';
     }
 
     var classes = 'build ' + color;
-    var time = moment(this.props.start_time).fromNow();
+    var time = moment(build.get('start_time')).fromNow();
+    var port = build.get('deployment') ? build.get('deployment').port : undefined;
 
     return (
-      <Link className={classes} to="build" params={{owner: this.props.project.owner, name: this.props.project.name, buildNumber: this.props.build_number}}>
-        <BuildTitle {...this.props}/>
+      <Link className={classes} to="build" params={{owner: build.get('project').owner, name: build.get('project').name, buildNumber: build.get('build_number')}}>
+        <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} />
         <span className="meta">
-          <div className="message">{this.props.short_message}</div>
-          <TimeLink time={time} />
-          <HashLink {...this.props} />
-          <AuthorLink {...this.props} />
-          <PullRequestLink {...this.props} />
-          <PRDeploymentLink {...this.props.deployment} />
+          <div className="message">{build.get('short_message')}</div>
+          <TimeLink value={time} />
+          <HashLink value={build.get('sha')} />
+          <AuthorLink value={build.get('author')} />
+          <PullRequestLink value={build.get('pull_request_id')} />
+          <PRDeploymentLink value={port} />
         </span>
       </Link>
     );
   }
 }
+
+reactMixin(BuildListItem.prototype, React.addons.PureRenderMixin);
 
 export class BuildTitle extends React.Component {
   render() {
@@ -123,7 +128,7 @@ export class BuildTitle extends React.Component {
           {this.props.project.owner} /
           {this.props.project.name} /
           {this.props.branch}
-          #{this.props.build_number}
+          #{this.props.buildNumber}
         </h2>
       );
     }
@@ -133,13 +138,17 @@ export class BuildTitle extends React.Component {
         {this.props.project.owner} /
         {this.props.project.name} /
         {this.props.branch}
-        #{this.props.build_number}
+        #{this.props.buildNumber}
       </h3>
     );
   }
 }
 
 class MetaLink extends React.Component {
+  value() {
+    return this.props.value;
+  }
+
   render() {
     if (!this.value()) return false;
     var iconClasses = 'fa ' + this.iconClass();
@@ -157,19 +166,15 @@ class TimeLink extends MetaLink {
   iconClass() {
     return 'fa-clock-o';
   }
-
-  value() {
-    return this.props.time;
-  }
 }
 
 class HashLink extends MetaLink {
-  iconClass() {
-    return 'fa-slack';
+  value() {
+    return this.props.value.substr(0, 7);
   }
 
-  value() {
-    return this.props.sha.substr(0, 7);
+  iconClass() {
+    return 'fa-slack';
   }
 }
 
@@ -177,28 +182,16 @@ class AuthorLink extends MetaLink {
   iconClass() {
     return 'fa-user';
   }
-
-  value() {
-    return this.props.author;
-  }
 }
 
 class PullRequestLink extends MetaLink {
   iconClass() {
     return 'fa-code-fork fa-rotate-180';
   }
-
-  value() {
-    return this.props.pull_request_id;
-  }
 }
 
 class PRDeploymentLink extends MetaLink {
   iconClass() {
     return 'fa-eye';
-  }
-
-  value() {
-    return this.props.port;
   }
 }

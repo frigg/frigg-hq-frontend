@@ -1,5 +1,6 @@
 import React from 'react';
 import {RouteHandler} from 'react-router';
+import {Map} from 'immutable';
 
 import UserStore from '../stores/user-store';
 import Header from '../components/header';
@@ -10,7 +11,7 @@ export default class App extends React.Component {
 
   constructor() {
     super();
-    this.state = {user: {}};
+    this.state = {user: new Map()};
   }
 
   componentDidMount() {
