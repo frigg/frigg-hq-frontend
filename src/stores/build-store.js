@@ -12,21 +12,11 @@ class BuildStore extends Store {
   }
 
   getAll() {
-    var builds = storage.getItem('builds') || {};
-    var items = Object.keys(builds)
-      .map(key => {
-        return builds[key];
-      });
-    items.sort(sortByAttributeComparator('-id'));
-    return items;
-  }
-
-  getBuildById(buildId) {
-    return (storage.getItem('builds') || {})[buildId];
+    return this.data.sort(sortByAttributeComparator('-id'));
   }
 
   getBuild(owner, project, buildNumber) {
-    return (storage.getItem('builds') || {})[owner + project + buildNumber.toString()];
+    return this.getItem(owner + project + buildNumber.toString());
   }
 
   isLoading() {
@@ -41,11 +31,10 @@ store.dispatcherToken = Dispatcher.register(payload => {
     var builds = storage.getItem('builds') || {};
     payload.action.builds.forEach(build => {
       var key = build.project.owner + build.project.name + build.build_number.toString();
-      builds[key] = build;
-      builds[key].key = build.id;
+      build.key = key;
+      store.setItem(key, build);
     });
 
-    storage.setItem('builds', builds);
     store._loading = false;
     store.emitChange();
   };

@@ -1,10 +1,24 @@
 import {EventEmitter} from 'events';
+import {OrderedMap, Map} from 'immutable';
 
 const CHANGE_EVENT = 'change';
 
 export default class Store extends EventEmitter {
 
-  getStat() {
+  constructor() {
+    super();
+    this.data = OrderedMap();
+  }
+
+  setItem(key, value) {
+    this.data = this.data.set(key, Map(value));
+  }
+
+  getItem(key) {
+    return this.data.get(key);
+  }
+
+  getState() {
     return this.data;
   }
 

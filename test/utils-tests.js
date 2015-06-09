@@ -1,10 +1,11 @@
 import {expect} from 'chai';
+import {Map} from 'immutable';
 
 import {sortByAttributeComparator} from '../src/utils';
 
 describe('sortByAttributeComparator(attr)', () => {
-  var a = {id: 100};
-  var b = {id: 200};
+  var a = Map({id: 100});
+  var b = Map({id: 200});
 
   describe('ascending', () => {
     it('should return 0 if a equals b', () => {

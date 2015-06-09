@@ -1,3 +1,5 @@
+import {Map} from 'immutable';
+
 import Dispatcher from '../dispatcher';
 import Store from './store';
 import {USER_RECEIVE} from '../constants';
@@ -12,7 +14,7 @@ class UserStore extends Store {
   }
 
   getCurrentUser() {
-    return (storage.getItem('user') || {});
+    return this.getItem('user') || Map({is_anonymous: true});
   }
 
   isLoading() {
@@ -24,7 +26,7 @@ var store = new UserStore();
 store.dispatcherToken = Dispatcher.register(payload => {
   var actions = {};
   actions[USER_RECEIVE] = payload => {
-    storage.setItem('user', payload.action.user);
+    store.setItem('user', payload.action.user);
     store._loading = false;
     store.emitChange();
   };
