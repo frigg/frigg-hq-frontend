@@ -5,9 +5,10 @@ import App from './components/app';
 import BuildList from './components/build-list';
 import BuildDetails from './components/build-details';
 import DeploymentDetails from './components/deployment-details';
+import {FourOFour} from './components/error-pages';
 import Action from './actions';
 
-var {Route, DefaultRoute} = Router;
+var {Route, DefaultRoute, NotFoundRoute} = Router;
 
 Bluebird.longStackTraces();
 
@@ -20,6 +21,7 @@ var routes = (
     <Route name='builds-for-project' path='/beta/:owner/:name' handler={BuildList} />
     <Route name='builds-for-owner' path='/beta/:owner' handler={BuildList} />
     <DefaultRoute name="builds" handler={BuildList} />
+    <NotFoundRoute handler={FourOFour}/>
   </Route>
 );
 
