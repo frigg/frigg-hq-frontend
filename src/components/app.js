@@ -11,7 +11,7 @@ export default class App extends React.Component {
 
   constructor() {
     super();
-    this.state = {user: new Map()};
+    this.state = {user: Map({is_anonymous: true})};
   }
 
   componentDidMount() {

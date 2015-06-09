@@ -2,6 +2,7 @@ import React from 'react/addons';
 import reactMixin from 'react-mixin';
 import request from 'superagent';
 import moment from 'moment';
+import {Link} from 'react-router';
 
 import BuildStore from '../stores/build-store';
 import Action from '../actions';
@@ -95,7 +96,7 @@ export default class BuildDetails extends React.Component {
           <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
           <strong>State:</strong> {state}
           <Coverage result={build.get('result')} />
-          <DeploymentInfo {...build.get('deployment')} />
+          <DeploymentInfo build={build} {...build.get('deployment')} />
         </div>
         <div className="message">
           {build.get('message')}
@@ -128,12 +129,26 @@ class DeploymentInfo extends React.Component {
   }
 
   render() {
-    if (!this.props.succeeded) return false;
+    var build = this.props.build;
+    if (!this.props.succeeded) {
+      return (
+        <div>
+          <strong>Preview:</strong>
+          {this.props.is_pending ? 'Pending' : 'Could not deploy.'}
+          (<Link to="deployment" params={{owner: build.get('project').owner, name: build.get('project').name, buildNumber: build.get('build_number')}}>
+            Deploy details
+          </Link>)
+        </div>
+      );
+    }
     return (
-      <span>
+      <div>
         <strong>Preview:</strong>
         <a href={this.url()}>{this.url()}</a>
-      </span>
+        (<Link to="deployment" params={{owner: build.get('project').owner, name: build.get('project').name, buildNumber: build.get('build_number')}}>
+          Deploy details
+        </Link>)
+      </div>
     );
   }
 }
