@@ -5,6 +5,7 @@ import moment from 'moment';
 import {Map} from 'immutable';
 
 import BuildStore from '../stores/build-store';
+import strings from '../strings';
 import Action from '../actions';
 import Loading from './loading';
 import Task from './task';
@@ -32,7 +33,7 @@ export default class DeploymentDetails extends React.Component {
       this.props.params.buildNumber
     );
     Action.addAlert({
-      message: 'We are currently loading new data from the server',
+      message: strings.LOADING,
       iconClasses: 'fa fa-spinner fa-pulse',
       key: 'loading-data'
     });

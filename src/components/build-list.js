@@ -5,6 +5,7 @@ import moment from 'moment';
 import {Link} from 'react-router';
 
 import BuildStore from '../stores/build-store';
+import strings from '../strings';
 import Action from '../actions';
 import Loading from './loading';
 
@@ -25,7 +26,7 @@ export default class BuildList extends React.Component {
       Action.getBuilds();
     }
     Action.addAlert({
-      message: 'We are currently loading new data from the server',
+      message: strings.LOADING,
       iconClasses: 'fa fa-spinner fa-pulse',
       key: 'loading-data'
     });
@@ -66,7 +67,7 @@ export default class BuildList extends React.Component {
 
     if (this.state.loading) {
       Action.addAlert({
-        message: 'We are currently loading new data from the server',
+        message: strings.LOADING,
         iconClasses: 'fa fa-spinner fa-pulse',
         key: 'loading-data'
       });
