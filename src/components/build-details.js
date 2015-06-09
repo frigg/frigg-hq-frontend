@@ -92,7 +92,8 @@ export default class BuildDetails extends React.Component {
         <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
         <div className="details">
           <strong>Branch:</strong> {build.get('branch')} <br/>
-          <strong>Commit hash:</strong> {build.get('sha')} <br/>
+          <PullRequestInfo id={build.get('pull_request_id')} url={build.get('pull_request_url')} />
+          <strong>Commit hash:</strong> <a href={build.get('commit_url')}>{build.get('sha')}</a> <br/>
           <strong>Author:</strong> {build.get('author')} <br/>
           <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
           <strong>State:</strong> {state}
@@ -118,6 +119,17 @@ class Coverage extends React.Component {
     return (
       <div>
         <strong>Coverage:</strong> {this.props.result.coverage} <br/>
+      </div>
+    );
+  }
+}
+
+class PullRequestInfo extends React.Component {
+  render() {
+    if (this.props.id === 0) return false;
+    return (
+      <div>
+        <strong>Pull Request:</strong> <a href={this.props.url}>#{this.props.id}</a>
       </div>
     );
   }
