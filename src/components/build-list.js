@@ -93,13 +93,7 @@ reactMixin(BuildList.prototype, React.addons.PureRenderMixin);
 export class BuildListItem extends React.Component {
   render() {
     var build = this.props.build;
-    var color = 'orange';
-
-    if (build.get('result') && !build.get('result').still_running) {
-      color = build.get('result').succeeded ? 'green' : 'red';
-    }
-
-    var classes = 'build ' + color;
+    var classes = 'build ' + build.get('color');
     var time = moment(build.get('start_time')).fromNow();
     var port = build.get('deployment') ? build.get('deployment').port : undefined;
 

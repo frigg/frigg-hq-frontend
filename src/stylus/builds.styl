@@ -15,6 +15,7 @@
     .meta
       margin-top 1em
       display block
+      color link-color
 
       span
         font-size 0.9em
@@ -49,6 +50,14 @@
       &:hover
         border-color darken(build-background-orange, 10%)
         background darken(build-background-orange, 10%)
+
+    &.gray
+      border-left 10px solid build-color-gray
+      background build-background-gray
+
+      &:hover
+        border-color darken(build-background-gray, 10%)
+        background darken(build-background-gray, 10%)
 
 .build-details
   width: 90%
