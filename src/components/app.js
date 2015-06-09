@@ -35,7 +35,7 @@ export default class App extends React.Component {
         <div className="content container">
           <RouteHandler  {...this.props}/>
         </div>
-        <Footer  {...this.props}/>
+        <Footer user={this.state.user} {...this.props}/>
       </div>
     );
   }

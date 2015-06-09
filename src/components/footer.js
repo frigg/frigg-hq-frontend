@@ -12,9 +12,9 @@ export default class Footer extends React.Component {
             <a href="https://frigg.io/feed.xml"><i className="fa fa-rss-square"></i></a>
             <a href="https://twitter.com/frigg_io"><i className="fa fa-twitter-square"></i></a>
           </div>
-          <div className="text-center">
+          {this.props.user.is_staff ? (<div className="text-center">
             <a href="https://frigg.io/terms">Terms of Service</a>
-          </div>
+          </div>) : false}
         </div>
       </div>
     );
