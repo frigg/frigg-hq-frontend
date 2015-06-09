@@ -118,7 +118,6 @@ class Coverage extends React.Component {
     return (
       <div>
         <strong>Coverage:</strong> {this.props.result.coverage} <br/>
-        <strong>Coverage difference from last master build:</strong> {this.props.result.coverage_diff}<br/>
       </div>
     );
   }
@@ -132,7 +131,7 @@ class DeploymentInfo extends React.Component {
   render() {
     var build = this.props.build;
     if (!build.deployment) return false;
-    
+
     if (!this.props.succeeded) {
       return (
         <div>
