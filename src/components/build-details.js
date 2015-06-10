@@ -111,8 +111,13 @@ export default class BuildDetails extends React.Component {
         <div className="message">
           {build.get('message')}
         </div>
-        <div className="tasks">{setupTasks}</div>
-        <div className="tasks">{tasks}</div>
+        <div className="tasks">
+          {setupTasks.length ? (<h3>Setup tasks:</h3>) : false}
+          {setupTasks}
+
+          <h3>Tasks:</h3>
+          {tasks}
+        </div>
       </div>
     );
   }
