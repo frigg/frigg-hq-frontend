@@ -59,6 +59,14 @@ export default class BuildDetails extends React.Component {
     var build = this.state.build;
 
     if (!build) return (<Loading />);
+    if (build.get('color') === 'gray') {
+      return (
+      <div className="build-details">
+        <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
+        <h3 className='text-center'>{strings.BUILD_ERRORED}</h3>
+      </div>
+      );
+    }
 
     var setupTasks = false;
     var tasks = false;
