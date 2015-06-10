@@ -11,6 +11,7 @@ class UserStore extends Store {
   constructor() {
     super();
     this._loading = false;
+    this.key = 'user';
   }
 
   getCurrentUser() {

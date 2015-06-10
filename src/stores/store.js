@@ -1,5 +1,6 @@
 import {EventEmitter} from 'events';
 import {OrderedMap, Map} from 'immutable';
+import {compress, decompress} from 'lz-string';
 
 const CHANGE_EVENT = 'change';
 
@@ -7,11 +8,17 @@ export default class Store extends EventEmitter {
 
   constructor() {
     super();
-    this.data = OrderedMap();
+    var data = localStorage.getItem(this.key);
+    if (data) {
+      this.data = OrderedMap(JSON.parse(decompress(data)));
+    } else {
+      this.data = OrderedMap();
+    }
   }
 
   setItem(key, value) {
     this.data = this.data.set(key, Map(value));
+    localStorage.setItem(this.key, compress(JSON.stringify(this.data)));
   }
 
   getItem(key) {
