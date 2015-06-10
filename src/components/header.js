@@ -8,12 +8,12 @@ export default class Header extends React.Component {
     this.state = {online: navigator.onLine};
   }
 
-  componentDidMoun() {
+  componentDidMount() {
     window.addEventListener('online', this.updateOnlineState.bind(this));
     window.addEventListener('offline', this.updateOnlineState.bind(this));
   }
 
-  updateOnlineState() {
+  updateOnlineState(event) {
     this.setState({online: navigator.onLine});
   }
 
