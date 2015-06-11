@@ -18,7 +18,9 @@ export default class Store extends EventEmitter {
 
   setItem(key, value) {
     this.data = this.data.set(key, Map(value));
-    localStorage.setItem(this.key, compress(JSON.stringify(this.data)));
+    setTimeout(function() {
+      localStorage.setItem(this.key, compress(JSON.stringify(this.data)));
+    }.bind(this), 100);
   }
 
   getItem(key) {
