@@ -1,4 +1,4 @@
-import Promise from 'bluebird';
+import Bluebird from 'bluebird';
 import request from 'superagent';
 
 import Dispatcher from './dispatcher';
@@ -6,7 +6,7 @@ import BuildStore from './stores/build-store';
 import UserStore from './stores/user-store';
 import {BUILDS_RECEIVE, USER_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
 
-Promise.promisifyAll(request);
+Bluebird.promisifyAll(request);
 
 var actions = {
   get: url => {

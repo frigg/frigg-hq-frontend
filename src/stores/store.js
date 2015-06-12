@@ -1,3 +1,4 @@
+import Bluebird from 'bluebird';
 import {EventEmitter} from 'events';
 import {OrderedMap, Map} from 'immutable';
 import {compress, decompress} from 'lz-string';
@@ -8,23 +9,34 @@ export default class Store extends EventEmitter {
 
   constructor() {
     super();
-    var data = localStorage.getItem(this.key);
-    if (data) {
-      this.data = OrderedMap(JSON.parse(decompress(data)));
-    } else {
-      this.data = OrderedMap();
-    }
   }
 
   setItem(key, value) {
     this.data = this.data.set(key, Map(value));
-    /*setTimeout(function() {
-      localStorage.setItem(this.key, compress(JSON.stringify(this.data)));
-    }.bind(this), 100);*/
   }
 
   getItem(key) {
     return this.data.get(key);
+  }
+
+  save() {
+    var that = this;
+    return new Bluebird(resolve => {
+      setTimeout(function() {
+        resolve(localStorage.setItem(that.key, compress(JSON.stringify(that.data))));
+      }, 100);
+    });
+  }
+
+  load() {
+    return new Bluebird(resolve => {
+      var data = localStorage.getItem(this.key);
+      if (data) {
+        resolve(OrderedMap(JSON.parse(decompress(data))));
+      } else {
+        resolve(OrderedMap());
+      }
+    });
   }
 
   getState() {
