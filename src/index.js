@@ -1,6 +1,7 @@
 import Bluebird from 'bluebird';
 import React from 'react';
 import Router from 'react-router';
+
 import App from './components/app';
 import BuildList from './components/build-list';
 import BuildDetails from './components/build-details';
@@ -10,7 +11,7 @@ import Action from './actions';
 
 var {Route, DefaultRoute, NotFoundRoute} = Router;
 
-Bluebird.longStackTraces();
+//Bluebird.longStackTraces();
 
 Action.getUser();
 

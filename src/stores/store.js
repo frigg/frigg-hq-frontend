@@ -1,4 +1,5 @@
 import Bluebird from 'bluebird';
+import work from 'webworkify';
 import {EventEmitter} from 'events';
 import {OrderedMap, Map} from 'immutable';
 import {compress, decompress} from 'lz-string';
@@ -9,6 +10,11 @@ export default class Store extends EventEmitter {
 
   constructor() {
     super();
+    this.worker = work(require('../workers/compressor'));
+    this.data = OrderedMap();
+    this.load().then(data => {
+      this.data = data;
+    });
   }
 
   setItem(key, value) {
@@ -22,20 +28,36 @@ export default class Store extends EventEmitter {
   save() {
     var that = this;
     return new Bluebird(resolve => {
-      setTimeout(function() {
-        resolve(localStorage.setItem(that.key, compress(JSON.stringify(that.data))));
-      }, 100);
+      that.worker.addEventListener('message', event => {
+        if (event.data.type === 'compressed') {
+          resolve(event.data.data);
+          localStorage.setItem(that.key, event.data.data);
+        }
+      });
+
+      that.worker.postMessage({
+        type: 'compress',
+        data: that.data
+      });
     });
   }
 
   load() {
+    var that = this;
     return new Bluebird(resolve => {
-      var data = localStorage.getItem(this.key);
-      if (data) {
-        resolve(OrderedMap(JSON.parse(decompress(data))));
-      } else {
-        resolve(OrderedMap());
-      }
+      var data = localStorage.getItem(that.key);
+      if (!data) return resolve(OrderedMap());
+
+      that.worker.addEventListener('message', event => {
+        if (event.data.type === 'decompressed') {
+          resolve(event.data.data);
+        }
+      });
+
+      that.worker.postMessage({
+        type: 'decompress',
+        data: data
+      });
     });
   }
 

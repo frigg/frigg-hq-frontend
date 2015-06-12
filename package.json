@@ -35,7 +35,8 @@
     "react-router": "^0.13.3",
     "reactify": "^1.1.1",
     "stylus": "^0.51.1",
-    "superagent": "^1.2.0"
+    "superagent": "^1.2.0",
+    "webworkify": "^1.0.2"
   },
   "devDependencies": {
     "chai": "^2.3.0",
