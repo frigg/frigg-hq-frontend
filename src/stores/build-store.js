@@ -36,7 +36,6 @@ store.dispatcherToken = Dispatcher.register(payload => {
       store.setItem(key, build);
     });
 
-    store.save();
     store._loading = false;
     store.emitChange();
   };
