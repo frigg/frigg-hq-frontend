@@ -9,7 +9,7 @@ import DeploymentDetails from './components/deployment-details';
 import {FourOFour} from './components/error-pages';
 import Action from './actions';
 
-var {Route, DefaultRoute, NotFoundRoute} = Router;
+var {Route, DefaultRoute, NotFoundRoute, Redirect} = Router;
 
 //Bluebird.longStackTraces();
 
@@ -17,10 +17,16 @@ Action.getUser();
 
 var routes = (
   <Route handler={App} path="/beta/">
-    <Route name='build' path='/beta/:owner/:name/:buildNumber' handler={BuildDetails} />
-    <Route name='deployment' path='/beta/:owner/:name/:buildNumber/deployment' handler={DeploymentDetails} />
-    <Route name='builds-for-project' path='/beta/:owner/:name' handler={BuildList} />
-    <Route name='builds-for-owner' path='/beta/:owner' handler={BuildList} />
+    <Route name='build' path='/beta/:owner/:name/:buildNumber/' handler={BuildDetails} />
+    <Route name='deployment' path='/beta/:owner/:name/:buildNumber/deployment/' handler={DeploymentDetails} />
+    <Route name='builds-for-project' path='/beta/:owner/:name/' handler={BuildList} />
+    <Route name='builds-for-owner' path='/beta/:owner/' handler={BuildList} />
+
+    <Redirect from='/beta/:owner/:name/:buildNumber/deployment' to='deployment' />
+    <Redirect from='/beta/:owner/:name/:buildNumber' to='build' />
+    <Redirect from='/beta/:owner/:name' to='builds-for-project' />
+    <Redirect from='/beta/:owner' to='build-for-owner' />
+
     <DefaultRoute name="builds" handler={BuildList} />
     <NotFoundRoute handler={FourOFour}/>
   </Route>
