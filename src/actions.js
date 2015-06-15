@@ -31,7 +31,7 @@ var actions = {
 
   getBuilds: slug => {
     BuildStore._loading = true;
-    var url = '/api/builds';
+    var url = '/api/builds/';
     if (slug) url = url + slug;
     return actions.get(url)
       .then(res => {
@@ -45,7 +45,7 @@ var actions = {
 
   getBuild: slug => {
     BuildStore._loading = true;
-    return actions.get('/api/builds/' + slug)
+    return actions.get('/api/builds/' + slug + '/')
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
