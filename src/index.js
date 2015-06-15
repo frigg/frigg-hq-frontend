@@ -16,16 +16,16 @@ var {Route, DefaultRoute, NotFoundRoute, Redirect} = Router;
 Action.getUser();
 
 var routes = (
-  <Route handler={App} path="/beta/">
-    <Route name='build' path='/beta/:owner/:name/:buildNumber/' handler={BuildDetails} />
-    <Route name='deployment' path='/beta/:owner/:name/:buildNumber/deployment/' handler={DeploymentDetails} />
-    <Route name='builds-for-project' path='/beta/:owner/:name/' handler={BuildList} />
-    <Route name='builds-for-owner' path='/beta/:owner/' handler={BuildList} />
+  <Route handler={App} path="/">
+    <Route name='build' path='/:owner/:name/:buildNumber/' handler={BuildDetails} />
+    <Route name='deployment' path='/:owner/:name/:buildNumber/deployment/' handler={DeploymentDetails} />
+    <Route name='builds-for-project' path='/:owner/:name/' handler={BuildList} />
+    <Route name='builds-for-owner' path='/:owner/' handler={BuildList} />
 
-    <Redirect from='/beta/:owner/:name/:buildNumber/deployment' to='deployment' />
-    <Redirect from='/beta/:owner/:name/:buildNumber' to='build' />
-    <Redirect from='/beta/:owner/:name' to='builds-for-project' />
-    <Redirect from='/beta/:owner' to='build-for-owner' />
+    <Redirect from='/:owner/:name/:buildNumber/deployment' to='deployment' />
+    <Redirect from='/:owner/:name/:buildNumber' to='build' />
+    <Redirect from='/:owner/:name' to='builds-for-project' />
+    <Redirect from='/:owner' to='build-for-owner' />
 
     <DefaultRoute name="builds" handler={BuildList} />
     <NotFoundRoute handler={FourOFour}/>
