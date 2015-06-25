@@ -19,9 +19,9 @@ export default class BuildList extends React.Component {
 
   fetch() {
     if (this.props.params.owner && this.props.params.name) {
-      Action.getBuilds('/' + this.props.params.owner + '/' + this.props.params.name);
+      Action.getBuilds(this.props.params.owner + '/' + this.props.params.name);
     } else if (this.props.params.owner) {
-      Action.getBuilds('/' + this.props.params.owner);
+      Action.getBuilds(this.props.params.owner);
     } else {
       Action.getBuilds();
     }
