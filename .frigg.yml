@@ -4,12 +4,11 @@ setup_tasks:
 tasks:
  - npm test
 
-deploy_tasks:
- - mkdir public
- - npm install
- - npm install forever
- - npm run bundle
- - PORT=8000 ./node_modules/.bin/forever start node_modules/.bin/babel-node index.js
-
-deployment:
+preview:
  image: frigg/frigg-test-base
+ tasks:
+  - mkdir public
+  - npm install
+  - npm install forever
+  - npm run bundle
+  - PORT=8000 ./node_modules/.bin/forever start node_modules/.bin/babel-node index.js
