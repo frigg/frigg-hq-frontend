@@ -18,11 +18,11 @@ Action.getUser();
 var routes = (
   <Route handler={App} path="/">
     <Route name='build' path='/:owner/:name/:buildNumber/' handler={BuildDetails} />
-    <Route name='deployment' path='/:owner/:name/:buildNumber/deployment/' handler={DeploymentDetails} />
+    <Route name='deployment' path='/:owner/:name/:buildNumber/preview/' handler={DeploymentDetails} />
     <Route name='builds-for-project' path='/:owner/:name/' handler={BuildList} />
     <Route name='builds-for-owner' path='/:owner/' handler={BuildList} />
 
-    <Redirect from='/:owner/:name/:buildNumber/deployment' to='deployment' />
+    <Redirect from='/:owner/:name/:buildNumber/preview' to='deployment' />
     <Redirect from='/:owner/:name/:buildNumber' to='build' />
     <Redirect from='/:owner/:name' to='builds-for-project' />
     <Redirect from='/:owner' to='build-for-owner' />
