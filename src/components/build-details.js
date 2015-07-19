@@ -155,7 +155,7 @@ class DeploymentInfo extends React.Component {
 
   render() {
     var build = this.props.build;
-    if (!build.deployment) return false;
+    if (!build.get('deployment')) return false;
 
     if (!this.props.succeeded) {
       return (
