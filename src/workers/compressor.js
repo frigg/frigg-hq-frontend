@@ -1,7 +1,7 @@
 import {compress, decompress} from 'lz-string';
 
 export default function(self) {
-  self.addEventListener(event => {
+  self.addEventListener('event', event => {
     var output;
     if (event.data.type === 'compress') {
       output = compress(JSON.stringify(event.data.data));
