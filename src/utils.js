@@ -8,7 +8,7 @@ export function sortByAttributeComparator(attribute) {
   }
 
   return function sortByAttributeComparator(a, b) {
-    if (!a.has(attribute) || !a.has(attribute)) {
+    if (!a.has(attribute) || !b.has(attribute)) {
       throw new Error('Unknown attribute: ', attribute);
     }
 
