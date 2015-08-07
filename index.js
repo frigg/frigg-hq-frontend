@@ -18,7 +18,7 @@ app.get('/api/users/me/', (req, res, next) => {
   res.json({
     is_anonymous: !!process.env.IS_ANON,
     is_staff: !!process.env.IS_STAFF,
-    username: 'dumbledore'
+    username: 'dumbledore',
   });
 });
 
@@ -59,5 +59,9 @@ var server = http.Server(app);
 var port = process.env.PORT || 3000;
 
 server.listen(port, () => {
-  console.log('listening on *:' + port);
+  if (process.env.NODE_ENV !== 'test') {
+    console.log('listening on *:' + port);
+  }
 });
+
+export default server;

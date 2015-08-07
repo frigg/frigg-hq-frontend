@@ -2,11 +2,10 @@
   "name": "@frigg/hq-frontend",
   "version": "0.0.1",
   "description": "",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "test": "mocha test --compilers js:babel/register",
+    "unittest": "mocha test --compilers js:babel/register",
+    "cucumber": "node_modules/.bin/cucumber.js",
+    "test": "npm run unittest && npm run cucumber",
     "bundle": "browserify src/index.js -t babelify -o public/bundle.js && stylus --use nib src/stylus/main.styl -o public/main.css",
     "watch": "watchify -d src/index.js -t babelify -o public/bundle.js & stylus --use nib -w src/stylus/main.styl -o public/main.css & babel-node index.js"
   },
@@ -39,10 +38,15 @@
     "webworkify": "^1.0.2"
   },
   "devDependencies": {
-    "chai": "^2.3.0",
+    "assert": "^1.3.0",
+    "babel-core": "^5.8.21",
+    "chai": "^3.2.0",
+    "cucumber": "^0.5.2",
+    "cucumber-wd-plugin": "^0.2.1",
     "ejs": "^2.3.1",
     "express": "^4.12.3",
     "mocha": "^2.2.5",
-    "watchify": "^3.2.1"
+    "watchify": "^3.2.1",
+    "wd": "^0.3.12"
   }
 }

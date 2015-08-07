@@ -1,8 +1,13 @@
 setup_tasks:
  - npm install
+ - apt-get update && apt-get install -y libicu-dev chrpath libxft-dev libfreetype6 libfreetype6-dev libfontconfig1 libfontconfig1-dev
+ - git clone https://github.com/ariya/phantomjs.git /tmp/phantomjs && cd /tmp/phantomjs && git checkout 2.0.0 && ./build.sh --confirm && mv bin/phantomjs /usr/local/bin && rm -rf /tmp/phantomjs
+ - nohup phantomjs --webdriver=4444 &
+ - phantomjs --version
 
 tasks:
- - npm test
+ - npm run unittest
+ - npm run cucumber
 
 preview:
  image: frigg/frigg-test-base
