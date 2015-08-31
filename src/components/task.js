@@ -26,7 +26,7 @@ export default class Task extends React.Component {
     var returnCode = false;
 
     if(this.props.pending) {
-      classes += ' fa-spinner fa-spin orange';
+      classes += ' fa-spinner fa-pulse orange';
     } else if (this.props.succeeded) {
       classes += ' fa-check green';
     } else {
