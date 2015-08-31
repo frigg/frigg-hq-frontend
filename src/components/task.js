@@ -1,6 +1,7 @@
 import React from 'react';
 import request from 'superagent';
 import moment from 'moment';
+import {ansi_to_html} from 'ansi_up';
 
 import BuildStore from '../stores/build-store';
 import Action from '../actions';
@@ -30,17 +31,13 @@ export default class Task extends React.Component {
     } else if (this.props.succeeded) {
       classes += ' fa-check green';
     } else {
-      classes += ' fa-times red'
+      classes += ' fa-times red';
     }
-
-    //FIXME, colorify
 
     if (this.state.show) {
       log = (
         <pre>
-          <code>
-            {this.props.log}
-          </code>
+          <code dangerouslySetInnerHTML={{__html: ansi_to_html(this.props.log)}}></code>
         </pre>
       );
     }
