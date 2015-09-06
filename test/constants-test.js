@@ -1,11 +1,12 @@
-import _ from "lodash";
-import {expect} from "chai";
+/* eslint-env mocha */
+import _ from 'lodash';
+import {expect} from 'chai';
 
-import * as Actions from "../src/constants";
+import * as Actions from '../src/constants';
 
-describe("Actions", function () {
-  it("should contain the key as a string", function () {
-    _.forOwn(Actions, function (key, value) {
+describe('Actions', () => {
+  it('should contain the key as a string', () => {
+    _.forOwn(Actions, (value, key) => {
       expect(key).to.equal(value);
     });
   });

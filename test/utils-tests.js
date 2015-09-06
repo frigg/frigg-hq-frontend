@@ -1,11 +1,12 @@
+/* eslint-env mocha */
 import {expect} from 'chai';
 import {Map} from 'immutable';
 
 import {sortByAttributeComparator} from '../src/utils';
 
 describe('sortByAttributeComparator(attr)', () => {
-  var a = Map({id: 100});
-  var b = Map({id: 200});
+  const a = Map({id: 100});
+  const b = Map({id: 200});
 
   describe('ascending', () => {
     it('should return 0 if a equals b', () => {

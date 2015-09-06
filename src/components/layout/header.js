@@ -1,5 +1,8 @@
-import React from 'react';
+import React from 'react/addons';
 import {Link} from 'react-router';
+
+import StaffButton from '../buttons/staff_button';
+import LogInOutButton from '../buttons/loginout_button';
 
 export default class Header extends React.Component {
 
@@ -18,7 +21,7 @@ export default class Header extends React.Component {
   }
 
   render() {
-    var offline = false;
+    let offline = false;
     if (!this.state.online) offline = (<span className="offline">offline</span>);
 
     return (
@@ -40,26 +43,6 @@ export default class Header extends React.Component {
   }
 }
 
-export class LogInOutButton extends React.Component {
-  render() {
-    if (this.props.isAnonymous === false) {
-      return (
-        <a href="/auth/logout/" className="button">Logout</a>
-      );
-    } else {
-      return (
-        <a href="/auth/login/" className="button">Login</a>
-      );
-    }
-  }
-}
-
-
-export class StaffButton extends React.Component {
-  render() {
-    if (this.props.isStaff === false) return false;
-    return (
-      <a href={this.props.href} className="button">{this.props.text}</a>
-    );
-  }
-}
+Header.propTypes = {
+  user: React.PropTypes.object
+};

@@ -8,7 +8,7 @@ import {BUILDS_RECEIVE, USER_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from '
 
 Bluebird.promisifyAll(request);
 
-var actions = {
+const actions = {
   get: url => {
     return request.get(url).endAsync();
   },
@@ -31,7 +31,7 @@ var actions = {
 
   getBuilds: slug => {
     BuildStore._loading = true;
-    var url = '/api/builds/';
+    let url = '/api/builds/';
     if (slug) url = url + slug;
     return actions.get(url)
       .then(res => {

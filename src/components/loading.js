@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react/addons';
 
 import strings from '../strings';
 
 export default class Loading extends React.Component {
   render() {
-    var message = false;
-    var classes = 'text-center loading';
-    var iconClasses = 'fa fa-spinner fa-pulse fa-4x';
+    let message = false;
+    const classes = 'text-center loading';
+    const iconClasses = 'fa fa-spinner fa-pulse fa-4x';
 
     if (!navigator.onLine) {
       message = (

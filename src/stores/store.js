@@ -2,7 +2,6 @@ import Bluebird from 'bluebird';
 import work from 'webworkify';
 import {EventEmitter} from 'events';
 import {OrderedMap, Map} from 'immutable';
-import {compress, decompress} from 'lz-string';
 
 const CHANGE_EVENT = 'change';
 
@@ -26,7 +25,7 @@ export default class Store extends EventEmitter {
   }
 
   save() {
-    var that = this;
+    const that = this;
     return new Bluebird(resolve => {
       that.worker.addEventListener('message', event => {
         if (event.data.type === 'compressed') {
@@ -43,9 +42,9 @@ export default class Store extends EventEmitter {
   }
 
   load() {
-    var that = this;
+    const that = this;
     return new Bluebird(resolve => {
-      var data = localStorage.getItem(that.key);
+      const data = localStorage.getItem(that.key);
       if (!data) return resolve(OrderedMap());
 
       that.worker.addEventListener('message', event => {

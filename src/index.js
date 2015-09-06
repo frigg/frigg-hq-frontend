@@ -1,34 +1,28 @@
-import Bluebird from 'bluebird';
-import React from 'react';
+import React from 'react/addons';
 import Router from 'react-router';
 
 import App from './components/app';
-import BuildList from './components/build-list';
-import BuildDetails from './components/build-details';
-import DeploymentDetails from './components/deployment-details';
-import {FourOFour} from './components/error-pages';
-import Action from './actions';
+import Actions from './actions';
+import {BuildListPage, BuildDetailsPage, DeploymentDetailsPage, FourOFourPage} from './pages';
 
-var {Route, DefaultRoute, NotFoundRoute, Redirect} = Router;
+const {Route, DefaultRoute, NotFoundRoute, Redirect} = Router;
 
-//Bluebird.longStackTraces();
+Actions.getUser();
 
-Action.getUser();
-
-var routes = (
+const routes = (
   <Route handler={App} path="/">
-    <Route name='build' path='/:owner/:name/:buildNumber/' handler={BuildDetails} />
-    <Route name='deployment' path='/:owner/:name/:buildNumber/preview/' handler={DeploymentDetails} />
-    <Route name='builds-for-project' path='/:owner/:name/' handler={BuildList} />
-    <Route name='builds-for-owner' path='/:owner/' handler={BuildList} />
+    <Route name='build' path='/:owner/:name/:buildNumber/' handler={BuildDetailsPage} />
+    <Route name='deployment' path='/:owner/:name/:buildNumber/preview/' handler={DeploymentDetailsPage} />
+    <Route name='builds-for-project' path='/:owner/:name/' handler={BuildListPage} />
+    <Route name='builds-for-owner' path='/:owner/' handler={BuildListPage} />
 
     <Redirect from='/:owner/:name/:buildNumber/preview' to='deployment' />
     <Redirect from='/:owner/:name/:buildNumber' to='build' />
     <Redirect from='/:owner/:name' to='builds-for-project' />
     <Redirect from='/:owner' to='build-for-owner' />
 
-    <DefaultRoute name="builds" handler={BuildList} />
-    <NotFoundRoute handler={FourOFour}/>
+    <DefaultRoute name="builds" handler={BuildListPage} />
+    <NotFoundRoute handler={FourOFourPage}/>
   </Route>
 );
 

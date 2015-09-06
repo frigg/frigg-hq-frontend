@@ -1,18 +1,19 @@
+/* eslint-disable new-cap */
 import express from 'express';
 import http from 'http';
 import {renderFile} from 'ejs';
 import request from 'superagent';
 
-var app = express();
+const app = express();
 
-var FRIGG_API = process.env.FRIGG_API || 'https://ci.frigg.io';
+const FRIGG_API = process.env.FRIGG_API || 'https://ci.frigg.io';
 
 app.engine('html', renderFile);
 app.set('view engine', 'html');
 app.set('views', '' + __dirname);
 app.use('/static', express.static(__dirname + '/public'));
 
-var responses = {};
+const responses = {};
 
 app.get('/api/users/me/', (req, res, next) => {
   res.json({
@@ -23,7 +24,7 @@ app.get('/api/users/me/', (req, res, next) => {
 });
 
 app.get('/api/builds', (req, res, next) => {
-  var url = req.originalUrl;
+  const url = req.originalUrl;
   if (responses.hasOwnProperty(url)) {
     return res.json(responses[url]);
   }
@@ -38,7 +39,7 @@ app.get('/api/builds', (req, res, next) => {
 });
 
 app.get('/api/*', (req, res, next) => {
-  var url = req.originalUrl;
+  const url = req.originalUrl;
   if (responses.hasOwnProperty(url)) {
     return res.json(responses[url]);
   }
@@ -55,8 +56,8 @@ app.get('/*', (req, res) => {
   res.render('index', {});
 });
 
-var server = http.Server(app);
-var port = process.env.PORT || 3000;
+const server = http.Server(app);
+const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
   console.log('listening on *:' + port);
