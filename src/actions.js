@@ -1,18 +1,11 @@
-import Bluebird from 'bluebird';
-import request from 'superagent';
-
 import Dispatcher from './dispatcher';
+import * as ApiService from './api-service';
 import BuildStore from './stores/build-store';
 import UserStore from './stores/user-store';
 import {BUILDS_RECEIVE, USER_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
 
-Bluebird.promisifyAll(request);
 
 const actions = {
-  get: url => {
-    return request.get(url).endAsync();
-  },
-
   catch: error => {
     Dispatcher.dispatch({
       type: API_ERROR,
@@ -31,9 +24,7 @@ const actions = {
 
   getBuilds: slug => {
     BuildStore._loading = true;
-    let url = '/api/builds/';
-    if (slug) url = url + slug;
-    return actions.get(url)
+    return ApiService.getBuilds(slug)
       .then(res => {
         Dispatcher.dispatch({
           type: BUILDS_RECEIVE,
@@ -45,7 +36,7 @@ const actions = {
 
   getBuild: slug => {
     BuildStore._loading = true;
-    return actions.get('/api/builds/' + slug + '/')
+    return ApiService.getBuild(slug)
       .then(res => {
         Dispatcher.dispatch({
           type: BUILDS_RECEIVE,
@@ -57,7 +48,7 @@ const actions = {
 
   getUser: () => {
     UserStore._loading = true;
-    return actions.get('/api/users/me/')
+    return ApiService.getUser()
       .then(res => {
         Dispatcher.dispatch({
           type: USER_RECEIVE,
