@@ -1,9 +1,8 @@
-import Dispatcher from '../dispatcher';
 import Store from './store';
 import {BUILDS_RECEIVE} from '../constants';
 import {sortByAttributeComparator} from '../utils';
 
-class BuildStore extends Store {
+export class BuildStore extends Store {
   constructor() {
     super();
     this._loading = false;
@@ -21,25 +20,21 @@ class BuildStore extends Store {
   isLoading() {
     return this._loading;
   }
+
+  loadActionHandlers() {
+    this.actions[BUILDS_RECEIVE] = action => {
+      action.builds.forEach(build => {
+        const key = build.project.owner + build.project.name + build.build_number.toString();
+        build.key = key;
+        this.setItem(key, build);
+      });
+
+      this._loading = false;
+      this.emitChange();
+    };
+  }
 }
 
 const store = new BuildStore();
-store.dispatcherToken = Dispatcher.register(payload => {
-  const actions = {};
-  actions[BUILDS_RECEIVE] = action => {
-    action.builds.forEach(build => {
-      const key = build.project.owner + build.project.name + build.build_number.toString();
-      build.key = key;
-      store.setItem(key, build);
-    });
-
-    store._loading = false;
-    store.emitChange();
-  };
-
-  if (actions.hasOwnProperty(payload.type)) {
-    actions[payload.type](payload);
-  }
-});
-
+store.register();
 export default store;

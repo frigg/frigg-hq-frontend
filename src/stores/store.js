@@ -2,6 +2,8 @@ import Bluebird from 'bluebird';
 import {EventEmitter} from 'events';
 import {OrderedMap, Map} from 'immutable';
 
+import Dispatcher from '../dispatcher';
+
 const CHANGE_EVENT = 'change';
 
 export default class Store extends EventEmitter {
@@ -12,6 +14,8 @@ export default class Store extends EventEmitter {
     this.load().then(data => {
       this.data = data;
     });
+    this.actions = {};
+    this.loadActionHandlers();
   }
 
   setItem(key, value) {
@@ -20,6 +24,10 @@ export default class Store extends EventEmitter {
 
   getItem(key) {
     return this.data.get(key);
+  }
+
+  removeItem(key) {
+    this.data = this.data.delete(key);
   }
 
   save() {
@@ -73,4 +81,18 @@ export default class Store extends EventEmitter {
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   }
+
+  register() {
+    this.dispatcherId = Dispatcher.register(payload => {
+      if (this.actions.hasOwnProperty(payload.type)) {
+        this.actions[payload.type](payload);
+      }
+    });
+  }
+
+  unregister() {
+    Dispatcher.unregister(this.dispatcherId);
+  }
+
+  loadActionHandlers() { }
 }

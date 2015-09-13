@@ -1,41 +1,28 @@
-import Dispatcher from '../dispatcher';
 import Store from './store';
 import {ALERT_ADD, ALERT_REMOVE} from '../constants';
 
-const alerts = {};
 
 class AlertStore extends Store {
-  constructor() {
-    super();
-  }
 
   getAll() {
+    const alerts = this.data.toJS();
     return Object.keys(alerts).map(key => { return alerts[key]; });
   }
 
-  getById(id) {
-    return alerts[id];
-  }
+  loadActionHandlers() {
+    this.actions[ALERT_ADD] = action => {
+      const alert = action.alert;
+      this.setItem(alert.key, alert);
+      this.emitChange();
+    };
 
+    this.actions[ALERT_REMOVE] = action => {
+      this.removeItem(action.key);
+      this.emitChange();
+    };
+  }
 }
 
 const store = new AlertStore();
-store.dispatcherToken = Dispatcher.register(payload => {
-  const actions = {};
-  actions[ALERT_ADD] = action => {
-    const alert = action.alert;
-    alerts[alert.key] = alert;
-    store.emitChange();
-  };
-
-  actions[ALERT_REMOVE] = action => {
-    delete alerts[action.key];
-    store.emitChange();
-  };
-
-  if (actions.hasOwnProperty(payload.type)) {
-    actions[payload.type](payload);
-  }
-});
-
+store.register();
 export default store;
