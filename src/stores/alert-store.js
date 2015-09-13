@@ -23,18 +23,18 @@ const store = new AlertStore();
 store.dispatcherToken = Dispatcher.register(payload => {
   const actions = {};
   actions[ALERT_ADD] = action => {
-    const alert = action.action.alert;
+    const alert = action.alert;
     alerts[alert.key] = alert;
     store.emitChange();
   };
 
   actions[ALERT_REMOVE] = action => {
-    delete alerts[action.action.key];
+    delete alerts[action.key];
     store.emitChange();
   };
 
-  if (actions.hasOwnProperty(payload.action.type)) {
-    actions[payload.action.type](payload);
+  if (actions.hasOwnProperty(payload.type)) {
+    actions[payload.type](payload);
   }
 });
 
