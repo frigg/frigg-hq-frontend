@@ -1,3 +1,4 @@
+/* eslint-env node */
 /* eslint-disable no-var */
 var _ = require('lodash');
 var path = require('path');

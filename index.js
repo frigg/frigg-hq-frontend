@@ -1,3 +1,4 @@
+/* eslint-env node */
 /* eslint-disable new-cap */
 import express from 'express';
 import http from 'http';

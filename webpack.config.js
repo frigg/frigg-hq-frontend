@@ -1,3 +1,4 @@
+/* eslint-env node */
 module.exports = require('./conf/webpack.' + (process.env.WEBPACK_ENV || 'dev'));
 
 if (!!process.env.VERBOSE) {
