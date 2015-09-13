@@ -1,11 +1,7 @@
 import React from 'react';
-import request from 'superagent';
-import moment from 'moment';
+/* eslint-disable camelcase */
 import {ansi_to_html} from 'ansi_up';
-
-import BuildStore from '../stores/build-store';
-import Action from '../actions';
-import Loading from './loading';
+/* eslint-enable */
 
 export default class Task extends React.Component {
   constructor() {
@@ -16,17 +12,17 @@ export default class Task extends React.Component {
 
   handleClick(event) {
     if (this.props.pending) return;
-    var state = this.state;
+    const state = this.state;
     state.show = state.show === true ? false : true;
     this.setState(state);
   }
 
   render() {
-    var log = '';
-    var classes = 'fa';
-    var returnCode = false;
+    let log = '';
+    let classes = 'fa';
+    let returnCode = false;
 
-    if(this.props.pending) {
+    if (this.props.pending) {
       classes += ' fa-spinner fa-pulse orange';
     } else if (this.props.succeeded) {
       classes += ' fa-check green';
@@ -47,7 +43,6 @@ export default class Task extends React.Component {
         <span className="meta">Return code: {this.props.return_code}</span>
       );
     }
-
     return (
       <div className="task">
         <h3 onClick={this.handleClick}>
@@ -60,3 +55,11 @@ export default class Task extends React.Component {
     );
   }
 }
+
+Task.propTypes = {
+  pending: React.PropTypes.bool,
+  log: React.PropTypes.string,
+  return_code: React.PropTypes.number,
+  task: React.PropTypes.string,
+  succeeded: React.PropTypes.bool,
+};

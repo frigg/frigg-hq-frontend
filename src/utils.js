@@ -1,13 +1,13 @@
-import {OrderedMap, Map} from 'immutable';
+import {OrderedMap} from 'immutable';
 
 export function sortByAttributeComparator(attribute) {
-  var factor = 1;
+  let factor = 1;
   if (attribute.substr(0, 1) === '-') {
     attribute = attribute.substr(1, attribute.length - 1);
     factor = -1;
   }
 
-  return function sortByAttributeComparator(a, b) {
+  return function sort(a, b) {
     if (!a.has(attribute) || !b.has(attribute)) {
       throw new Error('Unknown attribute: ', attribute);
     }
@@ -18,6 +18,7 @@ export function sortByAttributeComparator(attribute) {
   };
 }
 
+/* eslint-disable no-unreachable */
 export class Storage {
   constructor(ttl) {
     this.storage = OrderedMap();
@@ -26,35 +27,10 @@ export class Storage {
 
   getItem(key) {
     return this.storage.get(key);
-    if (window.localStorage) {
-      try {
-        if (!window.localStorage.getItem(key)) return undefined;
-        var item = JSON.parse(window.localStorage.getItem(key));
-        if (Date.now() - item.timestamp < this.ttl) {
-          return item.value;
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
-    return this.storage[key];
   }
 
   setItem(key, value) {
     this.storage = this.storage.set(key, value);
     return;
-    if (window.localStorage) {
-      try {
-        return window.localStorage.setItem(key, JSON.stringify({
-          value: value,
-          timestamp: Date.now()
-        }));
-      } catch (e) {
-        console.log(e);
-      }
-    }
-
-    this.storage[key] = value;
   }
 }

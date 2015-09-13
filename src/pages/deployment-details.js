@@ -1,17 +1,16 @@
-import React from 'react/addons';
+import React from 'react';
 import reactMixin from 'react-mixin';
-import request from 'superagent';
 import moment from 'moment';
 import {Map} from 'immutable';
 
 import BuildStore from '../stores/build-store';
 import strings from '../strings';
-import Action from '../actions';
-import Loading from './loading';
-import Task from './task';
-import {BooleanIcon} from './icons';
+import Actions from '../actions';
+import Loading from '../components/loading';
+import Task from '../components/task';
+import {BooleanIcon} from '../components/boolean-icon';
 
-export default class DeploymentDetails extends React.Component {
+export default class DeploymentDetailsPage extends React.Component {
 
   constructor() {
     super();
@@ -27,15 +26,15 @@ export default class DeploymentDetails extends React.Component {
   }
 
   fetch() {
-    Action.getBuild(
+    Actions.getBuild(
       this.props.params.owner + '/' +
       this.props.params.name + '/' +
       this.props.params.buildNumber
     );
-    Action.addAlert({
+    Actions.addAlert({
       message: strings.LOADING,
       iconClasses: 'fa fa-spinner fa-pulse',
-      key: 'loading-data'
+      key: 'loading-data',
     });
   }
 
@@ -54,21 +53,15 @@ export default class DeploymentDetails extends React.Component {
   }
 
   render() {
-
-    if (!this.state.loading) Action.removeAlert('loading-data');
-    var build = this.state.build;
-    var deployment = build.get('deployment');
+    if (!this.state.loading) Actions.removeAlert('loading-data');
+    const build = this.state.build;
+    const deployment = build.get('deployment');
 
     if (!deployment) return (<Loading />);
 
-    var setupTasks = false;
-    var tasks = false;
-    var state = 'Pending';
-    var link = 'http://' + deployment.port + '.pr.frigg.io';
-
-    if (!deployment.is_pending) {
-      state = build.get('result').succeeded ? 'Success' : 'Failure';
-    }
+    let setupTasks = false;
+    let tasks = false;
+    const link = 'http://' + deployment.port + '.pr.frigg.io';
 
     if (deployment.setup_tasks) {
       setupTasks = deployment.setup_tasks.map(task => {
@@ -106,4 +99,8 @@ export default class DeploymentDetails extends React.Component {
   }
 }
 
-reactMixin(DeploymentDetails.prototype, React.addons.PureRenderMixin);
+DeploymentDetailsPage.propTypes = {
+  params: React.PropTypes.object,
+};
+
+reactMixin(DeploymentDetailsPage.prototype, React.addons.PureRenderMixin);

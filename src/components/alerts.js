@@ -1,8 +1,9 @@
-import React from 'react/addons';
+/* eslint-disable react/no-multi-comp */
+import React from 'react';
 
 import AlertStore from '../stores/alert-store';
 
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default class Alerts extends React.Component {
 
@@ -25,7 +26,7 @@ export default class Alerts extends React.Component {
   }
 
   render() {
-    var alerts = this.state.alerts.map(alert => {
+    const alerts = this.state.alerts.map(alert => {
       return (<Alert {...alert} />);
     });
 
@@ -41,8 +42,8 @@ export default class Alerts extends React.Component {
 
 export class Alert extends React.Component {
   render() {
-    var icon = false;
-    var classes = 'alert';
+    let icon = false;
+    let classes = 'alert';
     if (this.props.alertType) classes += ' alert-' + this.props.alertType;
 
     if (this.props.iconClasses) {
@@ -59,3 +60,9 @@ export class Alert extends React.Component {
     );
   }
 }
+
+Alert.propTypes = {
+  alertType: React.PropTypes.string,
+  message: React.PropTypes.string,
+  iconClasses: React.PropTypes.string,
+};

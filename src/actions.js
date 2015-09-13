@@ -8,7 +8,7 @@ import {BUILDS_RECEIVE, USER_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from '
 
 Bluebird.promisifyAll(request);
 
-var actions = {
+const actions = {
   get: url => {
     return request.get(url).endAsync();
   },
@@ -16,7 +16,7 @@ var actions = {
   catch: error => {
     Dispatcher.handleViewAction({
       type: API_ERROR,
-      error: error
+      error: error,
     });
 
     actions.removeAlert('loading-data');
@@ -25,19 +25,19 @@ var actions = {
       message: 'Could not fetch data from our servers.',
       iconClasses: 'fa fa-times',
       alertType: 'error',
-      ttl: 4000
+      ttl: 4000,
     });
   },
 
   getBuilds: slug => {
     BuildStore._loading = true;
-    var url = '/api/builds/';
+    let url = '/api/builds/';
     if (slug) url = url + slug;
     return actions.get(url)
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
-          builds: res.body.results ? res.body.results : res.body
+          builds: res.body.results ? res.body.results : res.body,
         });
       })
       .catch(actions.catch);
@@ -49,7 +49,7 @@ var actions = {
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
-          builds: [res.body]
+          builds: [res.body],
         });
       })
       .catch(actions.catch);
@@ -61,7 +61,7 @@ var actions = {
       .then(res => {
         Dispatcher.handleViewAction({
           type: USER_RECEIVE,
-          user: res.body
+          user: res.body,
         });
       })
       .catch(actions.catch);
@@ -71,7 +71,7 @@ var actions = {
     setTimeout(() => {
       Dispatcher.handleViewAction({
         type: ALERT_ADD,
-        alert: alert
+        alert: alert,
       });
     }, 10);
 
@@ -84,10 +84,10 @@ var actions = {
     setTimeout(() => {
       Dispatcher.handleViewAction({
         type: ALERT_REMOVE,
-        key: key
+        key: key,
       });
     }, 100);
-  }
+  },
 };
 
 export default actions;

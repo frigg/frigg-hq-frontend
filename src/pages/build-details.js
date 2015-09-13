@@ -1,17 +1,17 @@
-import React from 'react/addons';
+/* eslint-disable react/no-multi-comp */
+import React from 'react';
 import reactMixin from 'react-mixin';
-import request from 'superagent';
 import moment from 'moment';
 import {Link} from 'react-router';
 
 import BuildStore from '../stores/build-store';
 import strings from '../strings';
-import Action from '../actions';
-import Loading from './loading';
-import {BuildTitle} from './build-list';
-import Task from './task';
+import Actions from '../actions';
+import Loading from '../components/loading';
+import BuildTitle from '../components/builds/build-title';
+import Task from '../components/task';
 
-export default class BuildDetails extends React.Component {
+export default class BuildDetailsPage extends React.Component {
 
   constructor() {
     super();
@@ -27,15 +27,15 @@ export default class BuildDetails extends React.Component {
   }
 
   fetch() {
-    Action.getBuild(
+    Actions.getBuild(
       this.props.params.owner + '/' +
       this.props.params.name + '/' +
       this.props.params.buildNumber
     );
-    Action.addAlert({
+    Actions.addAlert({
       message: strings.LOADING,
       iconClasses: 'fa fa-spinner fa-pulse',
-      key: 'loading-data'
+      key: 'loading-data',
     });
   }
 
@@ -54,9 +54,8 @@ export default class BuildDetails extends React.Component {
   }
 
   render() {
-
-    if (!this.state.loading) Action.removeAlert('loading-data');
-    var build = this.state.build;
+    if (!this.state.loading) Actions.removeAlert('loading-data');
+    const build = this.state.build;
 
     if (!build) return (<Loading />);
     if (build.get('color') === 'gray') {
@@ -68,9 +67,9 @@ export default class BuildDetails extends React.Component {
       );
     }
 
-    var setupTasks = false;
-    var tasks = false;
-    var state = 'Pending';
+    let setupTasks = false;
+    let tasks = false;
+    let state = 'Pending';
 
     if (build.get('result')) {
       if (!build.get('result').still_running) {
@@ -94,7 +93,6 @@ export default class BuildDetails extends React.Component {
       clearTimeout(this.fetchTimeout);
       this.fetchTimeout = setTimeout(this.fetch.bind(this), 2000);
     }
-
     return (
       <div className="build-details">
         <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
@@ -123,7 +121,10 @@ export default class BuildDetails extends React.Component {
   }
 }
 
-reactMixin(BuildDetails.prototype, React.addons.PureRenderMixin);
+reactMixin(BuildDetailsPage.prototype, React.addons.PureRenderMixin);
+BuildDetailsPage.propTypes = {
+  params: React.PropTypes.object,
+};
 
 class Coverage extends React.Component {
   render() {
@@ -137,6 +138,10 @@ class Coverage extends React.Component {
   }
 }
 
+Coverage.propTypes = {
+  result: React.PropTypes.object,
+};
+
 class PullRequestInfo extends React.Component {
   render() {
     if (this.props.id === 0) return false;
@@ -148,13 +153,18 @@ class PullRequestInfo extends React.Component {
   }
 }
 
+PullRequestInfo.propTypes = {
+  url: React.PropTypes.string,
+  id: React.PropTypes.number,
+};
+
 class DeploymentInfo extends React.Component {
   url() {
     return 'http://' + this.props.port + '.pr.frigg.io';
   }
 
   render() {
-    var build = this.props.build;
+    const build = this.props.build;
     if (!build.get('deployment')) return false;
 
     if (!this.props.succeeded) {
@@ -179,3 +189,10 @@ class DeploymentInfo extends React.Component {
     );
   }
 }
+
+DeploymentInfo.propTypes = {
+  succeeded: React.PropTypes.bool,
+  is_pending: React.PropTypes.bool,
+  build: React.PropTypes.object,
+  port: React.PropTypes.number,
+};

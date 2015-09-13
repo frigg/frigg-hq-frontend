@@ -3,9 +3,6 @@ import {Map} from 'immutable';
 import Dispatcher from '../dispatcher';
 import Store from './store';
 import {USER_RECEIVE} from '../constants';
-import {sortByAttributeComparator, Storage} from '../utils';
-
-var storage = new Storage(1000 * 60);
 
 class UserStore extends Store {
   constructor() {
@@ -23,11 +20,11 @@ class UserStore extends Store {
   }
 }
 
-var store = new UserStore();
+const store = new UserStore();
 store.dispatcherToken = Dispatcher.register(payload => {
-  var actions = {};
-  actions[USER_RECEIVE] = payload => {
-    store.setItem('user', payload.action.user);
+  const actions = {};
+  actions[USER_RECEIVE] = action => {
+    store.setItem('user', action.action.user);
     store._loading = false;
     store.emitChange();
   };

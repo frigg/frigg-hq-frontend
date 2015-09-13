@@ -3,9 +3,9 @@ import {RouteHandler} from 'react-router';
 import {Map} from 'immutable';
 
 import UserStore from '../stores/user-store';
-import Header from '../components/header';
-import Footer from '../components/footer';
-import Alerts from '../components/alerts';
+import Header from './layout/header';
+import Footer from './layout/footer';
+import Alerts from './alerts';
 
 export default class App extends React.Component {
 
@@ -39,4 +39,4 @@ export default class App extends React.Component {
       </div>
     );
   }
-};
+}

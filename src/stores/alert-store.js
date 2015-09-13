@@ -1,9 +1,8 @@
 import Dispatcher from '../dispatcher';
 import Store from './store';
 import {ALERT_ADD, ALERT_REMOVE} from '../constants';
-import {sortByAttributeComparator, Storage} from '../utils';
 
-var alerts = {};
+const alerts = {};
 
 class AlertStore extends Store {
   constructor() {
@@ -20,17 +19,17 @@ class AlertStore extends Store {
 
 }
 
-var store = new AlertStore();
+const store = new AlertStore();
 store.dispatcherToken = Dispatcher.register(payload => {
-  var actions = {};
-  actions[ALERT_ADD] = payload => {
-    var alert = payload.action.alert;
+  const actions = {};
+  actions[ALERT_ADD] = action => {
+    const alert = action.action.alert;
     alerts[alert.key] = alert;
     store.emitChange();
   };
 
-  actions[ALERT_REMOVE] = payload => {
-    delete alerts[payload.action.key];
+  actions[ALERT_REMOVE] = action => {
+    delete alerts[action.action.key];
     store.emitChange();
   };
 
