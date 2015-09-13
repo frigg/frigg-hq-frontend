@@ -1,6 +1,5 @@
 /* eslint-disable react/no-multi-comp */
 import React from 'react';
-import reactMixin from 'react-mixin';
 import {Link} from 'react-router';
 import moment from 'moment';
 
@@ -30,7 +29,6 @@ export default class BuildListItem extends React.Component {
   }
 }
 
-reactMixin(BuildListItem.prototype, React.addons.PureRenderMixin);
 BuildListItem.propTypes = {
   build: React.PropTypes.object,
 };

@@ -21,7 +21,7 @@ const routes = (
     <Redirect from='/:owner/:name/:buildNumber/preview' to='deployment' />
     <Redirect from='/:owner/:name/:buildNumber' to='build' />
     <Redirect from='/:owner/:name' to='builds-for-project' />
-    <Redirect from='/:owner' to='build-for-owner' />
+    <Redirect from='/:owner' to='builds-for-owner' />
 
     <DefaultRoute name="builds" handler={BuildListPage} />
     <NotFoundRoute handler={FourOFourPage}/>

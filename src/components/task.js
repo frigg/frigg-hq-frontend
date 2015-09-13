@@ -10,7 +10,7 @@ export default class Task extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
+  handleClick() {
     if (this.props.pending) return;
     const state = this.state;
     state.show = state.show === true ? false : true;

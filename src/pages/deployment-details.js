@@ -1,5 +1,4 @@
 import React from 'react';
-import reactMixin from 'react-mixin';
 import moment from 'moment';
 import {Map} from 'immutable';
 
@@ -14,7 +13,7 @@ export default class DeploymentDetailsPage extends React.Component {
 
   constructor() {
     super();
-    this.state = {build: Map(), loading: false};
+    this.state = {build: Map(), loading: true};
   }
 
   get() {
@@ -54,6 +53,7 @@ export default class DeploymentDetailsPage extends React.Component {
 
   render() {
     if (!this.state.loading) Actions.removeAlert('loading-data');
+    if (!build) return (<Loading />);
     const build = this.state.build;
     const deployment = build.get('deployment');
 
@@ -102,5 +102,3 @@ export default class DeploymentDetailsPage extends React.Component {
 DeploymentDetailsPage.propTypes = {
   params: React.PropTypes.object,
 };
-
-reactMixin(DeploymentDetailsPage.prototype, React.addons.PureRenderMixin);

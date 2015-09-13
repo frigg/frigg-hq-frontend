@@ -18,7 +18,7 @@ app.use('/static', express.static(__dirname + '/public'));
 
 const responses = {};
 
-app.get('/api/users/me/', (req, res, next) => {
+app.get('/api/users/me/', (req, res) => {
   res.json({
     is_anonymous: !!process.env.IS_ANON,
     is_staff: !!process.env.IS_STAFF,

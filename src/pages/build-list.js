@@ -1,5 +1,4 @@
 import React from 'react';
-import reactMixin from 'react-mixin';
 
 import BuildStore from '../stores/build-store';
 import strings from '../strings';
@@ -86,7 +85,6 @@ export default class BuildListPage extends React.Component {
   }
 }
 
-reactMixin(BuildListPage.prototype, React.addons.PureRenderMixin);
 BuildListPage.propTypes = {
   params: React.PropTypes.object,
 };
