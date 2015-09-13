@@ -10,7 +10,7 @@ export default class Loading extends React.Component {
 
     if (!navigator.onLine) {
       message = (
-        <h2>{strings.OFFLINE_NO_DATA}</h2>
+        <h2>{strings('OFFLINE_NO_DATA')}</h2>
       );
     }
 

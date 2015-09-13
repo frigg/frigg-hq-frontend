@@ -24,7 +24,7 @@ export default class BuildListPage extends React.Component {
       Actions.getBuilds();
     }
     Actions.addAlert({
-      message: strings.LOADING,
+      message: strings('LOADING'),
       iconClasses: 'fa fa-spinner fa-pulse',
       key: 'loading-data',
     });
@@ -65,7 +65,7 @@ export default class BuildListPage extends React.Component {
 
     if (this.state.loading) {
       Actions.addAlert({
-        message: strings.LOADING,
+        message: strings('LOADING'),
         iconClasses: 'fa fa-spinner fa-pulse',
         key: 'loading-data',
       });

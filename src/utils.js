@@ -34,3 +34,5 @@ export class Storage {
     return;
   }
 }
+
+export const isInTest = typeof global.it === 'function';

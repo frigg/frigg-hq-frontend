@@ -33,7 +33,7 @@ export default class BuildDetailsPage extends React.Component {
       this.props.params.buildNumber
     );
     Actions.addAlert({
-      message: strings.LOADING,
+      message: strings('LOADING'),
       iconClasses: 'fa fa-spinner fa-pulse',
       key: 'loading-data',
     });
@@ -62,7 +62,7 @@ export default class BuildDetailsPage extends React.Component {
       return (
       <div className="build-details">
         <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
-        <h3 className='text-center'>{strings.BUILD_ERRORED}</h3>
+        <h3 className='text-center'>{strings('BUILD_ERRORED')}</h3>
       </div>
       );
     }

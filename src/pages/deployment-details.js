@@ -32,7 +32,7 @@ export default class DeploymentDetailsPage extends React.Component {
       this.props.params.buildNumber
     );
     Actions.addAlert({
-      message: strings.LOADING,
+      message: strings('LOADING'),
       iconClasses: 'fa fa-spinner fa-pulse',
       key: 'loading-data',
     });
