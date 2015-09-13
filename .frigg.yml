@@ -3,6 +3,7 @@ setup_tasks:
 
 tasks:
  - npm test
+ - npm run lint
 
 preview:
  image: frigg/frigg-test-base
