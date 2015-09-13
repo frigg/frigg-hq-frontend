@@ -14,7 +14,7 @@ const actions = {
   },
 
   catch: error => {
-    Dispatcher.handleViewAction({
+    Dispatcher.dispatch({
       type: API_ERROR,
       error: error,
     });
@@ -35,7 +35,7 @@ const actions = {
     if (slug) url = url + slug;
     return actions.get(url)
       .then(res => {
-        Dispatcher.handleViewAction({
+        Dispatcher.dispatch({
           type: BUILDS_RECEIVE,
           builds: res.body.results ? res.body.results : res.body,
         });
@@ -47,7 +47,7 @@ const actions = {
     BuildStore._loading = true;
     return actions.get('/api/builds/' + slug + '/')
       .then(res => {
-        Dispatcher.handleViewAction({
+        Dispatcher.dispatch({
           type: BUILDS_RECEIVE,
           builds: [res.body],
         });
@@ -59,7 +59,7 @@ const actions = {
     UserStore._loading = true;
     return actions.get('/api/users/me/')
       .then(res => {
-        Dispatcher.handleViewAction({
+        Dispatcher.dispatch({
           type: USER_RECEIVE,
           user: res.body,
         });
@@ -69,7 +69,7 @@ const actions = {
 
   addAlert: alert => {
     setTimeout(() => {
-      Dispatcher.handleViewAction({
+      Dispatcher.dispatch({
         type: ALERT_ADD,
         alert: alert,
       });
@@ -82,7 +82,7 @@ const actions = {
 
   removeAlert: key => {
     setTimeout(() => {
-      Dispatcher.handleViewAction({
+      Dispatcher.dispatch({
         type: ALERT_REMOVE,
         key: key,
       });

@@ -24,13 +24,13 @@ const store = new UserStore();
 store.dispatcherToken = Dispatcher.register(payload => {
   const actions = {};
   actions[USER_RECEIVE] = action => {
-    store.setItem('user', action.action.user);
+    store.setItem('user', action.user);
     store._loading = false;
     store.emitChange();
   };
 
-  if (actions.hasOwnProperty(payload.action.type)) {
-    actions[payload.action.type](payload);
+  if (actions.hasOwnProperty(payload.type)) {
+    actions[payload.type](payload);
   }
 });
 

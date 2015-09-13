@@ -1,18 +1,12 @@
 import {Dispatcher} from 'flux';
 
-class AppDispatcher extends Dispatcher {
+export class AppDispatcher extends Dispatcher {
   dispatch(payload) {
-    super.dispatch(payload);
-  }
-
-  handleViewAction(action) {
     setTimeout(() => {
       try {
-        this.dispatch({
-          action: action,
-        });
+        super.dispatch(payload);
       } catch (e) {
-        console.log('dispatcher threw an error', action);
+        console.log('Dispatcher threw an error', payload);
         console.log(e.stack);
       }
     });

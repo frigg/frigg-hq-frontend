@@ -27,7 +27,7 @@ const store = new BuildStore();
 store.dispatcherToken = Dispatcher.register(payload => {
   const actions = {};
   actions[BUILDS_RECEIVE] = action => {
-    action.action.builds.forEach(build => {
+    action.builds.forEach(build => {
       const key = build.project.owner + build.project.name + build.build_number.toString();
       build.key = key;
       store.setItem(key, build);
@@ -37,8 +37,8 @@ store.dispatcherToken = Dispatcher.register(payload => {
     store.emitChange();
   };
 
-  if (actions.hasOwnProperty(payload.action.type)) {
-    actions[payload.action.type](payload);
+  if (actions.hasOwnProperty(payload.type)) {
+    actions[payload.type](payload);
   }
 });
 
