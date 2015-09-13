@@ -17,7 +17,3 @@ module.exports = _.assign({}, base, {
     new webpack.optimize.DedupePlugin(),
   ],
 });
-
-if (!!process.env.VERBOSE) {
-  console.log(JSON.stringify(module.exports, null, 2));
-}
