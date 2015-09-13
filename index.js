@@ -3,6 +3,8 @@ import express from 'express';
 import http from 'http';
 import {renderFile} from 'ejs';
 import request from 'superagent';
+import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
 
 const app = express();
 
@@ -51,6 +53,10 @@ app.get('/api/*', (req, res, next) => {
       res.json(apiRes.body);
     });
 });
+
+app.use(webpackDevMiddleware(webpack(require('./webpack.config')), {
+  contentBase: '',
+}));
 
 app.get('/*', (req, res) => {
   res.render('index', {});

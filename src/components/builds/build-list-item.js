@@ -1,5 +1,5 @@
 /* eslint-disable react/no-multi-comp */
-import React from 'react/addons';
+import React from 'react';
 import reactMixin from 'react-mixin';
 import {Link} from 'react-router';
 import moment from 'moment';

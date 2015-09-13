@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import reactMixin from 'react-mixin';
 import moment from 'moment';
 import {Map} from 'immutable';

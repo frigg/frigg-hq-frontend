@@ -1,5 +1,4 @@
 import Bluebird from 'bluebird';
-import work from 'webworkify';
 import {EventEmitter} from 'events';
 import {OrderedMap, Map} from 'immutable';
 
@@ -9,7 +8,6 @@ export default class Store extends EventEmitter {
 
   constructor() {
     super();
-    this.worker = work(require('../workers/compressor'));
     this.data = OrderedMap();
     this.load().then(data => {
       this.data = data;

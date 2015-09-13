@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 export default class BuildTitle extends React.Component {
   render() {

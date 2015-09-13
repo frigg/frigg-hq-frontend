@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 /* eslint-disable camelcase */
 import {ansi_to_html} from 'ansi_up';
 /* eslint-enable */

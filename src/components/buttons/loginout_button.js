@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 
 export default class LogInOutButton extends React.Component {
   render() {

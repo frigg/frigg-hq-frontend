@@ -1,4 +1,4 @@
-import React from 'react/addons';
+import React from 'react';
 import reactMixin from 'react-mixin';
 
 import BuildStore from '../stores/build-store';
