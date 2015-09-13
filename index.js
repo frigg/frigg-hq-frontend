@@ -19,7 +19,7 @@ app.get('/api/users/me/', (req, res, next) => {
   res.json({
     is_anonymous: !!process.env.IS_ANON,
     is_staff: !!process.env.IS_STAFF,
-    username: 'dumbledore'
+    username: 'dumbledore',
   });
 });
 

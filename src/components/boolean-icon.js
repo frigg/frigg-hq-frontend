@@ -11,5 +11,5 @@ export class BooleanIcon extends React.Component {
 }
 
 BooleanIcon.propTypes = {
-  value: React.PropTypes.boolean
+  value: React.PropTypes.boolean,
 };

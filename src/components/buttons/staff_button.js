@@ -12,5 +12,5 @@ export default class StaffButton extends React.Component {
 StaffButton.propTypes = {
   isStaff: React.PropTypes.bool,
   href: React.PropTypes.string,
-  text: React.PropTypes.string
+  text: React.PropTypes.string,
 };

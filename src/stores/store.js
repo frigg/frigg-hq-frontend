@@ -36,7 +36,7 @@ export default class Store extends EventEmitter {
 
       that.worker.postMessage({
         type: 'compress',
-        data: that.data
+        data: that.data,
       });
     });
   }
@@ -55,7 +55,7 @@ export default class Store extends EventEmitter {
 
       that.worker.postMessage({
         type: 'decompress',
-        data: data
+        data: data,
       });
     });
   }

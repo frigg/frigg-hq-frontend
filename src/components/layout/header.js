@@ -44,5 +44,5 @@ export default class Header extends React.Component {
 }
 
 Header.propTypes = {
-  user: React.PropTypes.object
+  user: React.PropTypes.object,
 };

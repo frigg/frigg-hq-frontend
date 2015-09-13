@@ -34,7 +34,7 @@ export default class DeploymentDetailsPage extends React.Component {
     Actions.addAlert({
       message: strings.LOADING,
       iconClasses: 'fa fa-spinner fa-pulse',
-      key: 'loading-data'
+      key: 'loading-data',
     });
   }
 
@@ -100,7 +100,7 @@ export default class DeploymentDetailsPage extends React.Component {
 }
 
 DeploymentDetailsPage.propTypes = {
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
 };
 
 reactMixin(DeploymentDetailsPage.prototype, React.addons.PureRenderMixin);

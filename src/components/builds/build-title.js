@@ -28,5 +28,5 @@ BuildTitle.propTypes = {
   project: React.PropTypes.object,
   branch: React.PropTypes.string,
   size: React.PropTypes.number,
-  buildNumber: React.PropTypes.number
+  buildNumber: React.PropTypes.number,
 };

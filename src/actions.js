@@ -16,7 +16,7 @@ const actions = {
   catch: error => {
     Dispatcher.handleViewAction({
       type: API_ERROR,
-      error: error
+      error: error,
     });
 
     actions.removeAlert('loading-data');
@@ -25,7 +25,7 @@ const actions = {
       message: 'Could not fetch data from our servers.',
       iconClasses: 'fa fa-times',
       alertType: 'error',
-      ttl: 4000
+      ttl: 4000,
     });
   },
 
@@ -37,7 +37,7 @@ const actions = {
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
-          builds: res.body.results ? res.body.results : res.body
+          builds: res.body.results ? res.body.results : res.body,
         });
       })
       .catch(actions.catch);
@@ -49,7 +49,7 @@ const actions = {
       .then(res => {
         Dispatcher.handleViewAction({
           type: BUILDS_RECEIVE,
-          builds: [res.body]
+          builds: [res.body],
         });
       })
       .catch(actions.catch);
@@ -61,7 +61,7 @@ const actions = {
       .then(res => {
         Dispatcher.handleViewAction({
           type: USER_RECEIVE,
-          user: res.body
+          user: res.body,
         });
       })
       .catch(actions.catch);
@@ -71,7 +71,7 @@ const actions = {
     setTimeout(() => {
       Dispatcher.handleViewAction({
         type: ALERT_ADD,
-        alert: alert
+        alert: alert,
       });
     }, 10);
 
@@ -84,10 +84,10 @@ const actions = {
     setTimeout(() => {
       Dispatcher.handleViewAction({
         type: ALERT_REMOVE,
-        key: key
+        key: key,
       });
     }, 100);
-  }
+  },
 };
 
 export default actions;

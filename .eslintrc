@@ -4,6 +4,7 @@
     "react/no-multi-comp": 0,
     "no-param-reassign": 0,
     "no-undef": 1,
+    "comma-dangle": [2, "always-multiline"],
     "new-cap": [2, { "capIsNewExceptions": ["List", "Map", "OrderedMap"] }]
   }
 }

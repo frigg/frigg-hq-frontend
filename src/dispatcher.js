@@ -9,7 +9,7 @@ class AppDispatcher extends Dispatcher {
     setTimeout(() => {
       try {
         this.dispatch({
-          action: action
+          action: action,
         });
       } catch (e) {
         console.log('dispatcher threw an error', action);

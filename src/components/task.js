@@ -61,5 +61,5 @@ Task.propTypes = {
   log: React.PropTypes.string,
   return_code: React.PropTypes.number,
   task: React.PropTypes.string,
-  succeeded: React.PropTypes.bool
+  succeeded: React.PropTypes.bool,
 };

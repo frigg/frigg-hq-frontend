@@ -32,7 +32,7 @@ export default class BuildListItem extends React.Component {
 
 reactMixin(BuildListItem.prototype, React.addons.PureRenderMixin);
 BuildListItem.propTypes = {
-  build: React.PropTypes.object
+  build: React.PropTypes.object,
 };
 
 class MetaLink extends React.Component {
@@ -54,7 +54,7 @@ class MetaLink extends React.Component {
 }
 
 MetaLink.propTypes = {
-  value: React.PropTypes.string
+  value: React.PropTypes.string,
 };
 
 class TimeLink extends MetaLink {

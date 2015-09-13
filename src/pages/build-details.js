@@ -35,7 +35,7 @@ export default class BuildDetailsPage extends React.Component {
     Actions.addAlert({
       message: strings.LOADING,
       iconClasses: 'fa fa-spinner fa-pulse',
-      key: 'loading-data'
+      key: 'loading-data',
     });
   }
 
@@ -123,7 +123,7 @@ export default class BuildDetailsPage extends React.Component {
 
 reactMixin(BuildDetailsPage.prototype, React.addons.PureRenderMixin);
 BuildDetailsPage.propTypes = {
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
 };
 
 class Coverage extends React.Component {
@@ -139,7 +139,7 @@ class Coverage extends React.Component {
 }
 
 Coverage.propTypes = {
-  result: React.PropTypes.object
+  result: React.PropTypes.object,
 };
 
 class PullRequestInfo extends React.Component {
@@ -155,7 +155,7 @@ class PullRequestInfo extends React.Component {
 
 PullRequestInfo.propTypes = {
   url: React.PropTypes.string,
-  id: React.PropTypes.number
+  id: React.PropTypes.number,
 };
 
 class DeploymentInfo extends React.Component {
@@ -194,5 +194,5 @@ DeploymentInfo.propTypes = {
   succeeded: React.PropTypes.bool,
   is_pending: React.PropTypes.bool,
   build: React.PropTypes.object,
-  port: React.PropTypes.number
+  port: React.PropTypes.number,
 };

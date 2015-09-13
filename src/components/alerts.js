@@ -64,5 +64,5 @@ export class Alert extends React.Component {
 Alert.propTypes = {
   alertType: React.PropTypes.string,
   message: React.PropTypes.string,
-  iconClasses: React.PropTypes.string
+  iconClasses: React.PropTypes.string,
 };

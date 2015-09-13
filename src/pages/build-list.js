@@ -26,7 +26,7 @@ export default class BuildListPage extends React.Component {
     Actions.addAlert({
       message: strings.LOADING,
       iconClasses: 'fa fa-spinner fa-pulse',
-      key: 'loading-data'
+      key: 'loading-data',
     });
   }
 
@@ -67,7 +67,7 @@ export default class BuildListPage extends React.Component {
       Actions.addAlert({
         message: strings.LOADING,
         iconClasses: 'fa fa-spinner fa-pulse',
-        key: 'loading-data'
+        key: 'loading-data',
       });
     } else {
       Actions.removeAlert('loading-data');
@@ -88,5 +88,5 @@ export default class BuildListPage extends React.Component {
 
 reactMixin(BuildListPage.prototype, React.addons.PureRenderMixin);
 BuildListPage.propTypes = {
-  params: React.PropTypes.object
+  params: React.PropTypes.object,
 };

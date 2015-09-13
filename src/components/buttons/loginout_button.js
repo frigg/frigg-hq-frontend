@@ -14,5 +14,5 @@ export default class LogInOutButton extends React.Component {
 }
 
 LogInOutButton.propTypes = {
-  isAnonymous: React.PropTypes.bool
+  isAnonymous: React.PropTypes.bool,
 };
