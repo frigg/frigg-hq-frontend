@@ -13,7 +13,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'react': 'react/addons',
+      'react': path.resolve(__dirname, '..', 'node_modules/react/dist/react-with-addons'),
+      'react-router': path.resolve(__dirname, '..', 'node_modules/react-router/umd/ReactRouter'),
     },
   },
   module: {
@@ -27,6 +28,10 @@ module.exports = {
         test: /\.json$/,
         exclude: /node_modules|vendor/,
         loaders: ['json-loader'],
+      },
+      {
+        test: /\.styl$/,
+        loaders: ['style-loader', 'css-loader', 'stylus-loader'],
       },
       {
         test: /\.css$/,

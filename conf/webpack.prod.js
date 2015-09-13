@@ -9,7 +9,7 @@ module.exports = _.assign({}, base, {
   resolve: {
     alias: {
       'react': path.resolve(__dirname, '..', 'node_modules/react/dist/react-with-addons.min'),
-      'react-router': path.resolve(__dirname, '..', 'node_modules/react-router/umd/ReactRouter.min.js'),
+      'react-router': path.resolve(__dirname, '..', 'node_modules/react-router/umd/ReactRouter.min'),
     },
   },
   plugins: [

@@ -5,6 +5,8 @@ import App from './components/app';
 import Actions from './actions';
 import {BuildListPage, BuildDetailsPage, DeploymentDetailsPage, FourOFourPage} from './pages';
 
+import './stylus/main.styl';
+
 const {Route, DefaultRoute, NotFoundRoute, Redirect} = Router;
 
 Actions.getUser();
