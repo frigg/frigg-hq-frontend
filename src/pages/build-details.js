@@ -4,6 +4,7 @@ import moment from 'moment';
 import {Link} from 'react-router';
 
 import BuildStore from '../stores/build-store';
+import UserStore from '../stores/user-store';
 import strings from '../strings';
 import Actions from '../actions';
 import Loading from '../components/loading';
@@ -55,6 +56,7 @@ export default class BuildDetailsPage extends React.Component {
   render() {
     if (!this.state.loading) Actions.removeAlert('loading-data');
     const build = this.state.build;
+    const user = UserStore.getCurrentUser();
 
     if (!build) return (<Loading />);
     if (build.get('color') === 'gray') {
@@ -92,6 +94,7 @@ export default class BuildDetailsPage extends React.Component {
       clearTimeout(this.fetchTimeout);
       this.fetchTimeout = setTimeout(this.fetch.bind(this), 2000);
     }
+
     return (
       <div className="build-details">
         <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
@@ -103,6 +106,7 @@ export default class BuildDetailsPage extends React.Component {
           <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
           <strong>State:</strong> {state}
           <Coverage result={build.get('result')} />
+          {user.get('is_staff') ? (<span><strong>Worker:</strong> {build.get('worker_host')}</span>) : false}
           <DeploymentInfo build={build} {...build.get('deployment')} />
         </div>
         <div className="message">
