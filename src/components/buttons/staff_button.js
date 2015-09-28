@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class StaffButton extends React.Component {
   render() {
-    if (this.props.isStaff === false) return false;
+    if (!this.props.isStaff) return false;
     return (
       <a href={this.props.href} className="button">{this.props.text}</a>
     );
