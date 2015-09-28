@@ -34,6 +34,7 @@ export default class Header extends React.Component {
           <div className="navigation">
             <Link to="builds" className="button">Builds</Link>
             <StaffButton href="/stats/" text="Stats" isStaff={this.props.user.get('is_staff')} />
+            <StaffButton href="/workers/" text="Workers" isStaff={this.props.user.get('is_staff')} />
             <StaffButton href="/admin/" text="Admin" isStaff={this.props.user.get('is_staff')} />
             <LogInOutButton isAnonymous={this.props.user.get('is_anonymous')} />
           </div>

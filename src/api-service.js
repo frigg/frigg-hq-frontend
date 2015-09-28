@@ -49,6 +49,11 @@ export function getBuilds(slug) {
   const url = '/api/builds/';
   return http.get(slug ? url + slug : url);
 }
+
 export function getBuild(slug) {
   return http.get('/api/builds/' + slug);
+}
+
+export function getWorkerStats() {
+  return http.get('http://jobs.frigg.io/stats');
 }

@@ -2,7 +2,7 @@ import Dispatcher from './dispatcher';
 import * as ApiService from './api-service';
 import BuildStore from './stores/build-store';
 import UserStore from './stores/user-store';
-import {BUILDS_RECEIVE, USER_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
+import {BUILDS_RECEIVE, USER_RECEIVE, WORKER_STATS_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
 
 
 const actions = {
@@ -53,6 +53,18 @@ const actions = {
         Dispatcher.dispatch({
           type: USER_RECEIVE,
           user: res.body,
+        });
+      })
+      .catch(actions.catch);
+  },
+
+  getWorkerStats: () => {
+    UserStore._loading = true;
+    return ApiService.getWorkerStats()
+      .then(res => {
+        Dispatcher.dispatch({
+          type: WORKER_STATS_RECEIVE,
+          stats: res.body.stats,
         });
       })
       .catch(actions.catch);

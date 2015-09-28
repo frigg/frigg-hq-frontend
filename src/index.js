@@ -3,7 +3,7 @@ import Router from 'react-router';
 
 import App from './components/app';
 import Actions from './actions';
-import {BuildListPage, BuildDetailsPage, DeploymentDetailsPage, FourOFourPage} from './pages';
+import {BuildListPage, BuildDetailsPage, DeploymentDetailsPage, FourOFourPage, WorkerStatsPage} from './pages';
 
 import './stylus/main.styl';
 
@@ -13,6 +13,7 @@ Actions.getUser();
 
 const routes = (
   <Route handler={App} path="/">
+    <Route name='worker-stats' path='/workers/' handler={WorkerStatsPage} />
     <Route name='build' path='/:owner/:name/:buildNumber/' handler={BuildDetailsPage} />
     <Route name='deployment' path='/:owner/:name/:buildNumber/preview/' handler={DeploymentDetailsPage} />
     <Route name='builds-for-project' path='/:owner/:name/' handler={BuildListPage} />
