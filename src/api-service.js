@@ -55,5 +55,5 @@ export function getBuild(slug) {
 }
 
 export function getWorkerStats() {
-  return http.get('https://jobs.frigg.io/stats');
+  return http.get('/api/stats');
 }
