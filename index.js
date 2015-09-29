@@ -67,5 +67,5 @@ const server = http.Server(app);
 const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
-  console.log('listening on *:' + port);
+  console.log('listening on *:' + port); // eslint-disable-line no-console
 });

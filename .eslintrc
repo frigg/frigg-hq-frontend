@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb/react",
+  "extends": "frigg/react",
   "rules": {
     "react/jsx-quotes": 0,
     "react/sort-comp": 0,

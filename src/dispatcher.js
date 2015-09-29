@@ -6,8 +6,10 @@ export class AppDispatcher extends Dispatcher {
       try {
         super.dispatch(payload);
       } catch (e) {
+        /* eslint-disable no-console */
         console.log('Dispatcher threw an error', payload);
         console.log(e.stack);
+        /* eslint-enable no-console */
       }
     });
   }
