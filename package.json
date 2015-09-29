@@ -9,7 +9,7 @@
     "test": "mocha test -r mock-local-storage --compilers js:babel/register --recursive",
     "lint": "eslint .",
     "coverage": "istanbul cover node_modules/.bin/_mocha test -- -r mock-local-storage --compilers js:babel/register --recursive",
-    "bundle": "WEBPACK_ENV=prod webpack",
+    "bundle": "NODE_ENV=production WEBPACK_ENV=prod webpack",
     "start": "babel-node index.js"
   },
   "repository": {

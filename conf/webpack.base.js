@@ -12,12 +12,6 @@ module.exports = {
     path: path.join(root, 'public'),
     filename: '[name].js',
   },
-  resolve: {
-    alias: {
-      'react': path.resolve(__dirname, '..', 'node_modules/react/dist/react-with-addons'),
-      'react-router': path.resolve(__dirname, '..', 'node_modules/react-router/umd/ReactRouter'),
-    },
-  },
   module: {
     loaders: [
       {
