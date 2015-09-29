@@ -14,7 +14,6 @@ export class WorkerStatsStore extends Store {
   }
 
   getState() {
-    console.log("getState", this.getItem(this.key))
     return {stats: this.getItem(this.key) || Map()};
   }
 
