@@ -105,7 +105,7 @@ export default class BuildDetailsPage extends React.Component {
           <strong>Author:</strong> {build.get('author')} <br/>
           <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
           <strong>State:</strong> {state}<br/>
-          {user.get('is_staff') ? (<span><strong>Worker:</strong> {build.get('worker_host')}</span>) : false}
+          {user.get('is_staff') ? (<span><strong>Worker:</strong> {build.get('result').worker_host}</span>) : false}
           <Coverage result={build.get('result')} />
           <DeploymentInfo build={build} {...build.get('deployment')} />
         </div>
