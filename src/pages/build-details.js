@@ -104,9 +104,9 @@ export default class BuildDetailsPage extends React.Component {
           <strong>Commit hash:</strong> <a href={build.get('commit_url')}>{build.get('sha')}</a> <br/>
           <strong>Author:</strong> {build.get('author')} <br/>
           <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
-          <strong>State:</strong> {state}
-          <Coverage result={build.get('result')} />
+          <strong>State:</strong> {state}<br/>
           {user.get('is_staff') ? (<span><strong>Worker:</strong> {build.get('worker_host')}</span>) : false}
+          <Coverage result={build.get('result')} />
           <DeploymentInfo build={build} {...build.get('deployment')} />
         </div>
         <div className="message">
