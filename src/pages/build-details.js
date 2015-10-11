@@ -64,6 +64,7 @@ export default class BuildDetailsPage extends React.Component {
       <div className="build-details">
         <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
         <h3 className='text-center'>{strings('BUILD_ERRORED')}</h3>
+        <p className='text-center'>{build.get('result').get('tasks')}</p>
       </div>
       );
     }
@@ -73,24 +74,22 @@ export default class BuildDetailsPage extends React.Component {
     let state = 'Pending';
 
     if (build.get('result')) {
-      if (!build.get('result').still_running) {
-        state = build.get('result').succeeded ? 'Success' : 'Failure';
+      if (!build.get('result').get('still_running')) {
+        state = build.get('result').get('succeeded') ? 'Success' : 'Failure';
       }
 
-      if (build.get('result').setup_tasks) {
-        setupTasks = build.get('result').setup_tasks.map(task => {
-          task.key = task.task;
-          return (<Task {...task} />);
+      if (build.get('result').get('setup_tasks')) {
+        setupTasks = build.get('result').get('setup_tasks').map(task => {
+          return (<Task task={task} />);
         });
       }
 
-      tasks = build.get('result').tasks.map(task => {
-        task.key = task.task;
-        return (<Task {...task} />);
+      tasks = build.get('result').get('tasks').map(task => {
+        return (<Task task={task} />);
       });
     }
 
-    if (!build.get('result') || build.get('result').still_running) {
+    if (!build.get('result') || build.get('result').get('still_running')) {
       clearTimeout(this.fetchTimeout);
       this.fetchTimeout = setTimeout(this.fetch.bind(this), 2000);
     }
@@ -105,15 +104,15 @@ export default class BuildDetailsPage extends React.Component {
           <strong>Author:</strong> {build.get('author')} <br/>
           <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
           <strong>State:</strong> {state}<br/>
-          {user.get('is_staff') && build.get('result') ? (<span><strong>Worker:</strong> {build.get('result').worker_host}</span>) : false}
+          {user.get('is_staff') && build.get('result') ? (<span><strong>Worker:</strong> {build.get('result').get('worker_host')}</span>) : false}
           <Coverage result={build.get('result')} />
-          <DeploymentInfo build={build} {...build.get('deployment')} />
+          <DeploymentInfo build={build} deployment={build.get('deployment')} />
         </div>
         <div className="message">
           {build.get('message')}
         </div>
         <div className="tasks">
-          {setupTasks.length ? (<h3>Setup tasks:</h3>) : false}
+          {setupTasks.size ? (<h3>Setup tasks:</h3>) : false}
           {setupTasks}
 
           <h3>Tasks:</h3>
@@ -162,19 +161,27 @@ PullRequestInfo.propTypes = {
 
 class DeploymentInfo extends React.Component {
   url() {
-    return 'http://' + this.props.port + '.pr.frigg.io';
+    return 'http://' + this.props.deployment.get('port') + '.pr.frigg.io';
+  }
+
+  getLinkParams(build) {
+    return {
+      owner: build.get('project').get('owner'),
+      name: build.get('project').get('name'),
+      buildNumber: build.get('build_number'),
+    };
   }
 
   render() {
     const build = this.props.build;
     if (!build.get('deployment')) return false;
 
-    if (!this.props.succeeded) {
+    if (!this.props.deployment.get('succeeded')) {
       return (
         <div>
           <strong>Preview:</strong>
-          {this.props.is_pending ? 'Pending' : 'Could not deploy.'}
-          (<Link to="deployment" params={{owner: build.get('project').owner, name: build.get('project').name, buildNumber: build.get('build_number')}}>
+          {this.props.deployment.get('is_pending') ? 'Pending' : 'Could not deploy.'}
+          (<Link to="deployment" params={this.getLinkParams(build)}>
             Deploy details
           </Link>)
         </div>
@@ -184,7 +191,7 @@ class DeploymentInfo extends React.Component {
       <div>
         <strong>Preview:</strong>
         <a href={this.url()}>{this.url()}</a>
-        (<Link to="deployment" params={{owner: build.get('project').owner, name: build.get('project').name, buildNumber: build.get('build_number')}}>
+        (<Link to="deployment" params={this.getLinkParams(build)}>
           Deploy details
         </Link>)
       </div>
@@ -193,8 +200,6 @@ class DeploymentInfo extends React.Component {
 }
 
 DeploymentInfo.propTypes = {
-  succeeded: React.PropTypes.bool,
-  is_pending: React.PropTypes.bool,
   build: React.PropTypes.object,
-  port: React.PropTypes.number,
+  deployment: React.PropTypes.object,
 };

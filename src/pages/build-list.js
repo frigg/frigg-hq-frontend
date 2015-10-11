@@ -49,11 +49,11 @@ export default class BuildListPage extends React.Component {
     const project = this.props.params.name;
 
     const builds = this.state.builds.map(build => {
-      if (owner && build.get('project').owner !== owner) {
+      if (owner && build.get('project').get('owner') !== owner) {
         return false;
       }
 
-      if (project && build.get('project').name !== project) {
+      if (project && build.get('project').get('name') !== project) {
         return false;
       }
 

@@ -40,12 +40,22 @@ export default class WorkerPage extends React.Component {
       <div className="worker-stats-page">
         <h2 className="text-center">Worker stats</h2>
 
-        <h3>Last seen:</h3>
-        <ul>
-          {_.map(this.state.stats.get("lastSeen"), (value, key) => {
+        <ul className="worker-list">
+          {this.state.workers.map(worker => {
             return (
               <li>
-                {typeof key === 'undefined' ? 'Unknown' : key}: {moment(value).fromNow()}
+                <h3>{worker.get('host')}</h3>
+                {moment(worker.get('lastSeen')).fromNow()}
+                <dl className="versions">
+                  {(worker.get('versions') || []).map((value, key) => {
+                    return (
+                      <span>
+                        <dt>{key}</dt>
+                        <dd>{value}</dd>
+                      </span>
+                    );
+                  })}
+                </dl>
               </li>
             );
           })}

@@ -22,9 +22,9 @@ export default class Task extends React.Component {
     let classes = 'fa';
     let returnCode = false;
 
-    if (this.props.pending) {
+    if (this.props.task.get('pending')) {
       classes += ' fa-spinner fa-pulse orange';
-    } else if (this.props.succeeded) {
+    } else if (this.props.task.get('succeeded')) {
       classes += ' fa-check green';
     } else {
       classes += ' fa-times red';
@@ -33,21 +33,21 @@ export default class Task extends React.Component {
     if (this.state.show) {
       log = (
         <pre>
-          <code dangerouslySetInnerHTML={{__html: ansi_to_html(this.props.log)}}></code>
+          <code dangerouslySetInnerHTML={{__html: ansi_to_html(this.props.task.get('log'))}}></code>
         </pre>
       );
     }
 
-    if (!this.props.pending) {
+    if (!this.props.task.get('pending')) {
       returnCode = (
-        <span className="meta">Return code: {this.props.return_code}</span>
+        <span className="meta">Return code: {this.props.task.get('return_code')}</span>
       );
     }
     return (
       <div className="task">
         <h3 onClick={this.handleClick}>
           <i className={classes}></i>
-          {this.props.task}
+          {this.props.task.get('task')}
           {returnCode}
         </h3>
         {log}
@@ -57,9 +57,5 @@ export default class Task extends React.Component {
 }
 
 Task.propTypes = {
-  pending: React.PropTypes.bool,
-  log: React.PropTypes.string,
-  return_code: React.PropTypes.number,
-  task: React.PropTypes.string,
-  succeeded: React.PropTypes.bool,
+  task: React.PropTypes.object,
 };

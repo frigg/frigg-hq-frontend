@@ -1,0 +1,41 @@
+.worker-list
+  list-style-type none
+
+  li
+    width 80%
+    padding 1em
+    margin 0.5em auto
+    display inline-block
+    border link-color 1px solid
+
+
+  h3
+    margin 0
+
+  .versions
+    margin 0
+
+    dt
+      font-weight 400
+      display inline-block
+      margin .4em
+
+      &:first-child
+        margin-left 0
+
+    dd
+      display inline-block
+      margin 0
+      margin-right .8em
+
+@media screen and (min-width 900px)
+  .worker-list
+    li
+      max-width 46%
+
+      &:nth-child(2n)
+        float right
+        margin-right 0
+
+      &:nth-child(n)
+        margin-left 0

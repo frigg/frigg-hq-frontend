@@ -1,6 +1,6 @@
 import Bluebird from 'bluebird';
 import {EventEmitter} from 'events';
-import {OrderedMap, Map} from 'immutable';
+import immutable, {OrderedMap, Map} from 'immutable';
 
 import Dispatcher from '../dispatcher';
 
@@ -19,11 +19,11 @@ export default class Store extends EventEmitter {
   }
 
   setItem(key, value) {
-    this.data = this.data.set(key, Map(value));
+    this.data = this.data.set(key, immutable.fromJS(value));
   }
 
   getItem(key) {
-    return this.data.get(key);
+    return this.data.get(key) || Map();
   }
 
   removeItem(key) {

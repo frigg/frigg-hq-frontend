@@ -7,14 +7,23 @@ import BuildTitle from './build-title';
 
 
 export default class BuildListItem extends React.Component {
+
+  getLinkParams() {
+    return {
+      owner: this.props.build.get('project').get('owner'),
+      name: this.props.build.get('project').get('name'),
+      buildNumber: this.props.build.get('build_number'),
+    };
+  }
+
   render() {
     const build = this.props.build;
     const classes = 'build ' + build.get('color');
     const time = moment(build.get('start_time')).fromNow();
-    const port = build.get('deployment') ? build.get('deployment').port : undefined;
+    const port = build.get('deployment') ? build.get('deployment').get('port') : undefined;
 
     return (
-      <Link className={classes} to="build" params={{owner: build.get('project').owner, name: build.get('project').name, buildNumber: build.get('build_number')}}>
+      <Link className={classes} to="build" params={this.getLinkParams()}>
         <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} />
         <span className="meta">
           <div className="message">{build.get('short_message')}</div>
