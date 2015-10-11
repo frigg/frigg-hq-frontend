@@ -5,10 +5,10 @@ export class AppDispatcher extends Dispatcher {
     setTimeout(() => {
       try {
         super.dispatch(payload);
-      } catch (e) {
+      } catch (error) {
         /* eslint-disable no-console */
         console.log('Dispatcher threw an error', payload);
-        console.log(e.stack);
+        console.log(error.stack);
         /* eslint-enable no-console */
       }
     });

@@ -1,6 +1,6 @@
 /* eslint-env node, mocha */
 import Promise from 'bluebird';
-import fs from 'fs';
+import fs from 'fs'; // eslint-disable-line
 import path from 'path';
 
 Promise.promisifyAll(fs);

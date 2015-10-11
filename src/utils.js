@@ -7,13 +7,13 @@ export function sortByAttributeComparator(attribute) {
     factor = -1;
   }
 
-  return function sort(a, b) {
-    if (!a.has(attribute) || !b.has(attribute)) {
+  return function sort(first, second) {
+    if (!first.has(attribute) || !second.has(attribute)) {
       throw new Error('Unknown attribute: ', attribute);
     }
 
-    if (a.get(attribute) < b.get(attribute)) return -1 * factor;
-    if (b.get(attribute) < a.get(attribute)) return 1 * factor;
+    if (first.get(attribute) < second.get(attribute)) return -1 * factor;
+    if (second.get(attribute) < first.get(attribute)) return 1 * factor;
     return 0;
   };
 }

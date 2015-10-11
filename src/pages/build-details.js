@@ -99,7 +99,7 @@ export default class BuildDetailsPage extends React.Component {
         <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} size={2}/>
         <div className="details">
           <strong>Branch:</strong> {build.get('branch')} <br/>
-          <PullRequestInfo id={build.get('pull_request_id')} url={build.get('pull_request_url')} />
+          <PullRequestInfo pull_request_id={build.get('pull_request_id')} url={build.get('pull_request_url')} />
           <strong>Commit hash:</strong> <a href={build.get('commit_url')}>{build.get('sha')}</a> <br/>
           <strong>Author:</strong> {build.get('author')} <br/>
           <strong>Timestamp:</strong> {moment(build.get('start_time')).fromNow()}<br/>
@@ -145,7 +145,7 @@ Coverage.propTypes = {
 
 class PullRequestInfo extends React.Component {
   render() {
-    if (this.props.id === 0) return false;
+    if (this.props.pull_request_id === 0) return false;
     return (
       <div>
         <strong>Pull Request:</strong> <a href={this.props.url}>#{this.props.id}</a>
@@ -156,7 +156,7 @@ class PullRequestInfo extends React.Component {
 
 PullRequestInfo.propTypes = {
   url: React.PropTypes.string,
-  id: React.PropTypes.number,
+  pull_request_id: React.PropTypes.number,
 };
 
 class DeploymentInfo extends React.Component {
