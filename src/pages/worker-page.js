@@ -50,7 +50,7 @@ export default class WorkerPage extends React.Component {
                     return (
                       <span>
                         <dt>{key}</dt>
-                        <dd>{value}</dd>
+                        <dd>{value.get('current')}</dd>
                       </span>
                     );
                   })}
