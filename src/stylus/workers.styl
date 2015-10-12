@@ -7,7 +7,7 @@
     width 80%
     padding 1em
     margin 0.5em auto
-    display inline-block
+    display block
     border link-color 1px solid
 
   h3
@@ -35,9 +35,15 @@
     li
       max-width 46%
 
+      &:nth-child(n)
+        float left
+        margin-left 0
+
       &:nth-child(2n)
         float right
         margin-right 0
 
-      &:nth-child(n)
-        margin-left 0
+    &:after
+      content ""
+      clear both
+      display block
