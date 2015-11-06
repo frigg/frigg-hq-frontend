@@ -33,7 +33,7 @@ export default class Task extends React.Component {
     if (this.state.show) {
       log = (
         <pre>
-          <code dangerouslySetInnerHTML={{__html: ansi_to_html(this.props.task.get('log'))}}></code>
+          <code dangerouslySetInnerHTML={{__html: ansi_to_html(this.props.task.get('log') || '')}}></code>
         </pre>
       );
     }
