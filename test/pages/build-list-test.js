@@ -12,7 +12,7 @@ describe('BuildListPage', () => {
   it("should render component", () => {
     sinon.stub(BuildStore, 'getAll').returns([fixtures.BUILD]);
     const component = TestUtils.renderIntoDocument(
-      <BuildListPage params={params}/>
+      <BuildListPage params={params} />
     );
 
     expect(component).to.have.xpath('//div[@class="build-list"]')
