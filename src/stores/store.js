@@ -1,69 +1,28 @@
-import Bluebird from 'bluebird';
-import {EventEmitter} from 'events';
-import immutable, {OrderedMap, Map} from 'immutable';
+import EventEmitter from 'eventemitter3';
 
 import Dispatcher from '../dispatcher';
 
 const CHANGE_EVENT = 'change';
 
 export default class Store extends EventEmitter {
-
   constructor() {
     super();
-    this.data = OrderedMap();
-    this.load().then(data => {
-      this.data = data;
-    });
+
+    this.data = {};
     this.actions = {};
     this.loadActionHandlers();
   }
 
   setItem(key, value) {
-    this.data = this.data.set(key, immutable.fromJS(value));
+    this.data[key] = value;
   }
 
   getItem(key) {
-    return this.data.get(key) || Map();
+    return this.data[key] || {};
   }
 
   removeItem(key) {
-    this.data = this.data.delete(key);
-  }
-
-  save() {
-    const that = this;
-    return new Bluebird(resolve => {
-      that.worker.addEventListener('message', event => {
-        if (event.data.type === 'compressed') {
-          resolve(event.data.data);
-          localStorage.setItem(that.key, event.data.data);
-        }
-      });
-
-      that.worker.postMessage({
-        type: 'compress',
-        data: that.data,
-      });
-    });
-  }
-
-  load() {
-    const that = this;
-    return new Bluebird(resolve => {
-      const data = localStorage.getItem(that.key);
-      if (!data) return resolve(OrderedMap());
-
-      that.worker.addEventListener('message', event => {
-        if (event.data.type === 'decompressed') {
-          resolve(event.data.data);
-        }
-      });
-
-      that.worker.postMessage({
-        type: 'decompress',
-        data: data,
-      });
-    });
+    delete this.data[key];
   }
 
   getState() {

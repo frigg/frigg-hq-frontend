@@ -17,13 +17,13 @@ export class WorkerStatsStore extends Store {
     let workers = [];
     const stats = this.getItem(this.key);
     if (stats.has('lastSeen')) {
-      workers = Object.keys(stats.get('lastSeen').toJS());
+      workers = Object.keys(stats.lastSeen);
     }
     return {workers: Immutable.fromJS(workers.map(worker => {
       return {
         host: worker,
-        lastSeen: stats.get('lastSeen').get(worker),
-        versions: stats.get('versions').get(worker),
+        lastSeen: stats.lastSeen.get(worker),
+        versions: stats.versions.get(worker),
       };
     }))};
   }

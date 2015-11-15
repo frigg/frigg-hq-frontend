@@ -27,16 +27,16 @@ export default class Header extends React.Component {
     return (
       <div className="header">
         <div className="container">
-          <Link to="builds" className="brand">
+          <Link to="/" className="brand">
             Frigg CI
             {offline}
           </Link>
           <div className="navigation">
-            <Link to="builds" className="button">Builds</Link>
-            <StaffButton href="/stats/" text="Stats" isStaff={this.props.user.get('is_staff')} />
-            <StaffButton href="/workers/" text="Workers" isStaff={this.props.user.get('is_staff')} />
-            <StaffButton href="/admin/" text="Admin" isStaff={this.props.user.get('is_staff')} />
-            <LogInOutButton isAnonymous={this.props.user.get('is_anonymous')} />
+            <Link to="/" className="button">Builds</Link>
+            <StaffButton href="/stats/" text="Stats" isStaff={this.props.user.is_staff} />
+            <StaffButton href="/workers/" text="Workers" isStaff={this.props.user.is_staff} />
+            <StaffButton href="/admin/" text="Admin" isStaff={this.props.user.is_staff} />
+            <LogInOutButton isAnonymous={this.props.user.is_anonymous} />
           </div>
         </div>
       </div>

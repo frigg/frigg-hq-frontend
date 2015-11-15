@@ -1,5 +1,4 @@
 import React from 'react';
-import {RouteHandler} from 'react-router';
 import {Map} from 'immutable';
 
 import UserStore from '../stores/user-store';
@@ -33,7 +32,7 @@ export default class App extends React.Component {
         <Alerts />
         <Header user={this.state.user} {...this.props}/>
         <div className="content container">
-          <RouteHandler  {...this.props}/>
+          {this.props.children}
         </div>
         <Footer user={this.state.user} {...this.props}/>
       </div>

@@ -12,8 +12,8 @@ export default class BuildTitle extends React.Component {
     if (this.props.size === 2) {
       return (
         <h2>
-          {this.props.project.get('owner')} /
-          {this.props.project.get('name')} /
+          {this.props.project.owner} /
+          {this.props.project.name} /
           {this.props.branch}
           #{this.props.buildNumber}
         </h2>
@@ -22,8 +22,8 @@ export default class BuildTitle extends React.Component {
 
     return (
       <h3>
-        {this.props.project.get('owner')} /
-        {this.props.project.get('name')} /
+        {this.props.project.owner} /
+        {this.props.project.name} /
         {this.props.branch}
         #{this.props.buildNumber}
       </h3>

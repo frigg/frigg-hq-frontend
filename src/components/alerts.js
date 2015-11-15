@@ -1,9 +1,8 @@
 /* eslint-disable react/no-multi-comp */
-import React from 'react/addons';
+import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 import AlertStore from '../stores/alert-store';
-
-const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default class Alerts extends React.Component {
 
@@ -13,8 +12,11 @@ export default class Alerts extends React.Component {
   }
 
   componentDidMount() {
-    AlertStore.addChangeListener(this._onChange.bind(this));
     this.setState({alerts: AlertStore.getAll()});
+  }
+
+  componentWillMount() {
+    AlertStore.addChangeListener(this._onChange.bind(this));
   }
 
   componentWillUnmount() {
@@ -32,7 +34,7 @@ export default class Alerts extends React.Component {
 
     return (
       <div className="alerts">
-        <ReactCSSTransitionGroup transitionName="alert">
+        <ReactCSSTransitionGroup transitionName="alert" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
         {alerts}
         </ReactCSSTransitionGroup>
       </div>

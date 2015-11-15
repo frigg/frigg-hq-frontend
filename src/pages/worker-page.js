@@ -18,9 +18,12 @@ export default class WorkerPage extends React.Component {
   }
 
   componentDidMount() {
-    WorkerStatsStore.addChangeListener(this._onChange.bind(this));
     this.setState(WorkerStatsStore.getState());
     this.fetch();
+  }
+
+  componentWillMount() {
+    WorkerStatsStore.addChangeListener(this._onChange.bind(this));
   }
 
   componentWillUnmount() {
@@ -43,14 +46,14 @@ export default class WorkerPage extends React.Component {
           {this.state.workers.map(worker => {
             return (
               <li>
-                <h3>{worker.get('host')}</h3>
-                {moment(worker.get('lastSeen')).fromNow()}
+                <h3>{worker.host}</h3>
+                {moment(worker.lastSeen).fromNow()}
                 <dl className="versions">
-                  {(worker.get('versions') || []).map((value, key) => {
+                  {(worker.versions || []).map((value, key) => {
                     return (
                       <span>
                         <dt>{key}</dt>
-                        <dd>{value.get('current')}</dd>
+                        <dd>{value.current}</dd>
                       </span>
                     );
                   })}

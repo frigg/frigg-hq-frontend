@@ -5,7 +5,7 @@ import {ALERT_ADD, ALERT_REMOVE} from '../constants';
 class AlertStore extends Store {
 
   getAll() {
-    const alerts = this.data.toJS();
+    const alerts = this.data;
     return Object.keys(alerts).map(key => { return alerts[key]; });
   }
 

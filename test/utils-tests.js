@@ -1,12 +1,11 @@
 /* eslint-env mocha */
 import {expect} from 'chai';
-import {Map} from 'immutable';
 
 import {sortByAttributeComparator} from '../src/utils';
 
 describe('sortByAttributeComparator(attr)', () => {
-  const first = Map({value: 100});
-  const second = Map({value: 200});
+  const first = {value: 100};
+  const second = {value: 200};
 
   describe('ascending', () => {
     it('should return 0 if a equals b', () => {
@@ -34,7 +33,7 @@ describe('sortByAttributeComparator(attr)', () => {
     });
 
     it('should return 1 if a is less than b', () => {
-      expect(sortByAttributeComparator('-id')(first, second)).to.equal(1);
+      expect(sortByAttributeComparator('-value')(first, second)).to.equal(1);
     });
   });
 });

@@ -1,90 +1,56 @@
 import React from 'react';
 
+import {StoreMixin} from '../mixins/page-mixins';
 import BuildStore from '../stores/build-store';
-import strings from '../strings';
 import Actions from '../actions';
 import BuildListItem from '../components/builds/build-list-item';
 import Loading from '../components/loading';
 
+export default React.createClass({
+  displayName: "BuildListPage",
 
-export default class BuildListPage extends React.Component {
+  stores: [BuildStore],
+  mixins: [StoreMixin],
 
-  constructor() {
-    super();
-    this.state = {builds: [], loading: false};
-  }
+  propTypes: {
+    params: React.PropTypes.object,
+  },
 
-  fetch() {
-    if (this.props.params.owner && this.props.params.name) {
-      Actions.getBuilds(this.props.params.owner + '/' + this.props.params.name);
-    } else if (this.props.params.owner) {
-      Actions.getBuilds(this.props.params.owner);
-    } else {
-      Actions.getBuilds();
-    }
-    Actions.addAlert({
-      message: strings('LOADING'),
-      iconClasses: 'fa fa-spinner fa-pulse',
-      key: 'loading-data',
-    });
-  }
+  fetch: function() {
+    Actions.getBuilds(this.props.params);
+  },
 
-  componentDidMount() {
-    BuildStore.addChangeListener(this._onChange.bind(this));
+  getInitialState: function() {
+    return {builds: {}};
+  },
+
+  componentDidMount: function() {
     this.setState({builds: BuildStore.getAll(), loading: true});
     this.fetch();
-  }
+  },
 
-  componentWillUnmount() {
-    BuildStore.removeChangeListener(this._onChange.bind(this));
-  }
-
-  _onChange() {
+  onChange: function() {
     this.setState({builds: BuildStore.getAll(), loading: BuildStore.isLoading()});
-  }
+  },
 
-  render() {
-    if (!this.state.builds.size) return (<Loading />);
-    const owner = this.props.params.owner;
-    const project = this.props.params.name;
-
-    const builds = this.state.builds.map(build => {
-      if (owner && build.get('project').get('owner') !== owner) {
-        return false;
-      }
-
-      if (project && build.get('project').get('name') !== project) {
-        return false;
-      }
-
-      return (
-        <BuildListItem build={build} />
-      );
-    });
-
-    if (this.state.loading) {
-      Actions.addAlert({
-        message: strings('LOADING'),
-        iconClasses: 'fa fa-spinner fa-pulse',
-        key: 'loading-data',
-      });
-    } else {
-      Actions.removeAlert('loading-data');
-    }
-
-    clearTimeout(this.fetchTimeout);
-    this.fetchTimeout = setTimeout(this.fetch.bind(this), 120000);
+  render: function() {
+    if (!this.state.builds.length) return <Loading />;
+    const {owner, project} = this.props.params;
 
     return (
-      <div>
-        <div className="build-list">
-          {builds}
-        </div>
+      <div className="build-list">
+        {this.state.builds.filter(build => {
+          if (project && build.project.name !== project) {
+            return false;
+          }
+          if (owner && build.project.owner !== owner) {
+            return false
+          }
+          return true;
+        }).map(build => {
+          return <BuildListItem key={build.id} build={build} />;
+        })}
       </div>
     );
-  }
-}
-
-BuildListPage.propTypes = {
-  params: React.PropTypes.object,
-};
+  },
+});

@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Store from './store';
 import {BUILDS_RECEIVE} from '../constants';
 import {sortByAttributeComparator} from '../utils';
@@ -10,7 +12,7 @@ export class BuildStore extends Store {
   }
 
   getAll() {
-    return this.data.sort(sortByAttributeComparator('-id'));
+    return _.toArray(this.data).sort(sortByAttributeComparator('-id'));
   }
 
   getBuild(owner, project, buildNumber) {
@@ -37,4 +39,5 @@ export class BuildStore extends Store {
 
 const store = new BuildStore();
 store.register();
+
 export default store;

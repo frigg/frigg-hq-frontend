@@ -22,9 +22,9 @@ const actions = {
     });
   },
 
-  getBuilds: slug => {
+  getBuilds: (params) => {
     BuildStore._loading = true;
-    return ApiService.getBuilds(slug)
+    return ApiService.getBuilds(params)
       .then(res => {
         Dispatcher.dispatch({
           type: BUILDS_RECEIVE,

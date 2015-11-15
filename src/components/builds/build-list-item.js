@@ -4,33 +4,31 @@ import {Link} from 'react-router';
 import moment from 'moment';
 
 import BuildTitle from './build-title';
+import {getUrlForProject} from '../../helpers/projects';
 
 
 export default class BuildListItem extends React.Component {
 
-  getLinkParams() {
-    return {
-      owner: this.props.build.get('project').get('owner'),
-      name: this.props.build.get('project').get('name'),
-      buildNumber: this.props.build.get('build_number'),
-    };
+  getUrl() {
+    const build = this.props.build;
+    return getUrlForProject(build.project) + `${this.props.build.build_number}/`;
   }
 
   render() {
     const build = this.props.build;
-    const classes = 'build ' + build.get('color');
-    const time = moment(build.get('start_time')).fromNow();
-    const port = build.get('deployment') ? build.get('deployment').get('port') : undefined;
+    const classes = 'build ' + build.color;
+    const time = moment(build.start_time).fromNow();
+    const port = build.deployment ? build.deployment.port : undefined;
 
     return (
-      <Link className={classes} to="build" params={this.getLinkParams()}>
-        <BuildTitle project={build.get('project')} branch={build.get('branch')} buildNumber={build.get('build_number')} />
+      <Link className={classes} to={this.getUrl()}>
+        <BuildTitle project={build.project} branch={build.branch} buildNumber={build.build_number} />
         <span className="meta">
-          <div className="message">{build.get('short_message')}</div>
+          <div className="message">{build.short_message}</div>
           <TimeLink value={time} />
-          <HashLink value={build.get('sha')} />
-          <AuthorLink value={build.get('author')} />
-          <PullRequestLink value={build.get('pull_request_id')} />
+          <HashLink value={build.sha} />
+          <AuthorLink value={build.author} />
+          <PullRequestLink value={build.pull_request_id.toString()} />
           <PRDeploymentLink value={port} />
         </span>
       </Link>

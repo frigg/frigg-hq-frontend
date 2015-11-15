@@ -41,17 +41,23 @@ const http = {
 
 export default http;
 
+export function createSlug({owner: owner, name: name, buildNumber: buildNumber}) {
+  if (!owner) return '';
+  if (!name) return `${owner}/`;
+  if (!buildNumber) return `${owner}/${name}/`;
+  return `${owner}/${name}/${buildNumber}/`;
+}
+
 export function getUser() {
   return http.get('/api/users/me');
 }
 
-export function getBuilds(slug) {
-  const url = '/api/builds/';
-  return http.get(slug ? url + slug : url);
+export function getBuilds(params) {
+  return http.get(`/api/builds/${createSlug(params)}`);
 }
 
-export function getBuild(slug) {
-  return http.get('/api/builds/' + slug);
+export function getBuild(params) {
+  return http.get(`/api/builds/${createSlug(params)}`);
 }
 
 export function getWorkerStats() {

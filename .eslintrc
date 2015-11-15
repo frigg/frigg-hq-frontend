@@ -11,10 +11,16 @@
     "comma-dangle": [2, "always-multiline"],
     "new-cap": [2, { "capIsNewExceptions": ["List", "Map", "OrderedMap"] }]
   },
+  "ecmaFeatures": {
+    "templateStrings": true,
+  },
   "env": {
     "browser": true
   },
   "globals": {
-    "global": true
+    "global": false,
+    "sinon": false,
+    "expect": false,
+    "fixtures": false,
   }
 }

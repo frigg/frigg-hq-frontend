@@ -1,4 +1,3 @@
-import {OrderedMap} from 'immutable';
 
 export function sortByAttributeComparator(attribute) {
   let factor = 1;
@@ -8,12 +7,12 @@ export function sortByAttributeComparator(attribute) {
   }
 
   return function sort(first, second) {
-    if (!first.has(attribute) || !second.has(attribute)) {
+    if (!first[attribute] || !second[attribute]) {
       throw new Error('Unknown attribute: ', attribute);
     }
 
-    if (first.get(attribute) < second.get(attribute)) return -1 * factor;
-    if (second.get(attribute) < first.get(attribute)) return 1 * factor;
+    if (first[attribute] < second[attribute]) return -1 * factor;
+    if (second[attribute] < first[attribute]) return 1 * factor;
     return 0;
   };
 }
@@ -21,7 +20,7 @@ export function sortByAttributeComparator(attribute) {
 /* eslint-disable no-unreachable */
 export class Storage {
   constructor(ttl) {
-    this.storage = OrderedMap();
+    this.storage = {};
     this.ttl = ttl || 1000 * 60 * 15;
   }
 
