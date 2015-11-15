@@ -7,7 +7,7 @@ import {BuildListPage, BuildDetailsPage, DeploymentDetailsPage, FourOFourPage, W
 import './stylus/main.styl';
 
 export default (
-  <Route component={App} path="/">
+  <Route component={App} path='/'>
     <IndexRoute component={BuildListPage}/>
     <Route name='worker-stats' path='/workers/' component={WorkerStatsPage} />
     <Route name='build' path='/:owner/:name/:buildNumber/' component={BuildDetailsPage} />
@@ -15,6 +15,6 @@ export default (
     <Route name='builds-for-project' path='/:owner/:name/' component={BuildListPage} />
     <Route name='builds-for-owner' path='/:owner/' component={BuildListPage} />
 
-    <Route path="*" component={FourOFourPage}/>
+    <Route path='*' component={FourOFourPage}/>
   </Route>
 );

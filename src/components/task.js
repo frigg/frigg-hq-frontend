@@ -11,7 +11,7 @@ export default class Task extends React.Component {
   }
 
   handleClick() {
-    if (this.props.pending) return;
+    if (this.props.task.pending) return;
     const state = this.state;
     state.show = state.show === true ? false : true;
     this.setState(state);
@@ -40,11 +40,11 @@ export default class Task extends React.Component {
 
     if (!this.props.task.pending) {
       returnCode = (
-        <span className="meta">Return code: {this.props.task.return_code}</span>
+        <span className='meta'>Return code: {this.props.task.return_code}</span>
       );
     }
     return (
-      <div className="task">
+      <div className='task'>
         <h3 onClick={this.handleClick}>
           <i className={classes}></i>
           {this.props.task.task}

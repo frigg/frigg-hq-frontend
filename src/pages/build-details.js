@@ -14,13 +14,14 @@ import BuildTitle from '../components/builds/build-title';
 import Task from '../components/task';
 
 export default React.createClass({
-  displayName: "BuildDetailsPage",
+  displayName: 'BuildDetailsPage',
 
   stores: [BuildStore],
   mixins: [StoreMixin],
 
   propTypes: {
-    params: React.PropTypes.object,
+    params: React.PropTypes.object.isRequired,
+    location: React.PropTypes.object.isRequired,
   },
 
   getInitialState: function() {
@@ -58,7 +59,7 @@ export default React.createClass({
     if (!build) return (<Loading />);
     if (build.color === 'gray') {
       return (
-      <div className="build-details">
+      <div className='build-details'>
         <BuildTitle project={build.project} branch={build.branch} buildNumber={build.build_number} size={2}/>
         <h3 className='text-center'>{strings('BUILD_ERRORED')}</h3>
         <p className='text-center'>{build.result.tasks}</p>
@@ -80,9 +81,9 @@ export default React.createClass({
     }
 
     return (
-      <div className="build-details">
+      <div className='build-details'>
         <BuildTitle project={build.project} branch={build.branch} buildNumber={build.build_number} size={2}/>
-        <div className="details">
+        <div className='details'>
           <strong>Branch:</strong> {build.branch} <br/>
           <PullRequestInfo pull_request_id={build.pull_request_id} url={build.pull_request_url} />
           <strong>Commit hash:</strong> <a href={build.commit_url}>{build.sha}</a> <br/>
@@ -94,11 +95,11 @@ export default React.createClass({
           <DeploymentInfo build={build} deployment={build.deployment} location={this.props.location} />
         </div>
 
-        <div className="message">
+        <div className='message'>
           {build.message}
         </div>
 
-        <div className="tasks">
+        <div className='tasks'>
           {this.showSetupTasks() && <h3>Setup tasks:</h3>}
           {this.showSetupTasks() && build.result.setup_tasks.map(task => {
             return (<Task task={task} />);
@@ -182,4 +183,5 @@ class DeploymentInfo extends React.Component {
 DeploymentInfo.propTypes = {
   build: React.PropTypes.object,
   deployment: React.PropTypes.object,
+  location: React.PropTypes.object,
 };

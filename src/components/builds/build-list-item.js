@@ -23,8 +23,8 @@ export default class BuildListItem extends React.Component {
     return (
       <Link className={classes} to={this.getUrl()}>
         <BuildTitle project={build.project} branch={build.branch} buildNumber={build.build_number} />
-        <span className="meta">
-          <div className="message">{build.short_message}</div>
+        <span className='meta'>
+          <div className='message'>{build.short_message}</div>
           <TimeLink value={time} />
           <HashLink value={build.sha} />
           <AuthorLink value={build.author} />
@@ -50,7 +50,7 @@ class MetaLink extends React.Component {
     const iconClasses = 'fa ' + this.iconClass();
 
     return (
-      <span className="author">
+      <span className='author'>
         <i className={iconClasses}></i>
         {this.value()}
       </span>

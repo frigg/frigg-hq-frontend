@@ -11,7 +11,7 @@ import Task from '../components/task';
 import {BooleanIcon} from '../components/boolean-icon';
 
 export default React.createClass({
-  displayName: "DeploymentDetailsPage",
+  displayName: 'DeploymentDetailsPage',
 
   stores: [BuildStore],
   mixins: [StoreMixin],
@@ -66,16 +66,16 @@ export default React.createClass({
     }
 
     return (
-      <div className="deployment-details">
-        <div className="details">
+      <div className='deployment-details'>
+        <div className='details'>
           <strong>Link:</strong> <a href={link}>{link}</a> <br/>
           <strong>Timestamp:</strong> {deployment.start_time ? moment(deployment.start_time).fromNow() : ''}<br/>
           <strong>Should be live:</strong> <BooleanIcon value={deployment.is_alive} />
         </div>
-        <div className="message">
+        <div className='message'>
           {build.message}
         </div>
-        <div className="tasks">
+        <div className='tasks'>
           {this.showSetupTasks() && <h3>Setup tasks:</h3>}
           {this.showSetupTasks() && deployment.result.setup_tasks.map(task => {
             return (<Task task={task} />);

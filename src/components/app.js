@@ -28,10 +28,10 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="wrapper">
+      <div className='wrapper'>
         <Alerts />
         <Header user={this.state.user} {...this.props}/>
-        <div className="content container">
+        <div className='content container'>
           {this.props.children}
         </div>
         <Footer user={this.state.user} {...this.props}/>
@@ -39,3 +39,7 @@ export default class App extends React.Component {
     );
   }
 }
+
+App.propTypes = {
+  children: React.PropTypes.object,
+};

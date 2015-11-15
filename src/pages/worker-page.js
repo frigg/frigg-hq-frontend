@@ -39,16 +39,16 @@ export default class WorkerPage extends React.Component {
     this.fetchTimeout = setTimeout(this.fetch.bind(this), 10000);
 
     return (
-      <div className="worker-stats-page">
-        <h2 className="text-center">Worker stats</h2>
+      <div className='worker-stats-page'>
+        <h2 className='text-center'>Worker stats</h2>
 
-        <ul className="worker-list">
+        <ul className='worker-list'>
           {this.state.workers.map(worker => {
             return (
               <li>
                 <h3>{worker.host}</h3>
                 {moment(worker.lastSeen).fromNow()}
-                <dl className="versions">
+                <dl className='versions'>
                   {(worker.versions || []).map((value, key) => {
                     return (
                       <span>

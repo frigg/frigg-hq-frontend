@@ -22,20 +22,20 @@ export default class Header extends React.Component {
 
   render() {
     let offline = false;
-    if (!this.state.online) offline = (<span className="offline">offline</span>);
+    if (!this.state.online) offline = (<span className='offline'>offline</span>);
 
     return (
-      <div className="header">
-        <div className="container">
-          <Link to="/" className="brand">
+      <div className='header'>
+        <div className='container'>
+          <Link to='/' className='brand'>
             Frigg CI
             {offline}
           </Link>
-          <div className="navigation">
-            <Link to="/" className="button">Builds</Link>
-            <StaffButton href="/stats/" text="Stats" isStaff={this.props.user.is_staff} />
-            <StaffButton href="/workers/" text="Workers" isStaff={this.props.user.is_staff} />
-            <StaffButton href="/admin/" text="Admin" isStaff={this.props.user.is_staff} />
+          <div className='navigation'>
+            <Link to='/' className='button'>Builds</Link>
+            <StaffButton href='/stats/' text='Stats' isStaff={this.props.user.is_staff} />
+            <StaffButton href='/workers/' text='Workers' isStaff={this.props.user.is_staff} />
+            <StaffButton href='/admin/' text='Admin' isStaff={this.props.user.is_staff} />
             <LogInOutButton isAnonymous={this.props.user.is_anonymous} />
           </div>
         </div>

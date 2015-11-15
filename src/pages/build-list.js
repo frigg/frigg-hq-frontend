@@ -7,7 +7,7 @@ import BuildListItem from '../components/builds/build-list-item';
 import Loading from '../components/loading';
 
 export default React.createClass({
-  displayName: "BuildListPage",
+  displayName: 'BuildListPage',
 
   stores: [BuildStore],
   mixins: [StoreMixin],
@@ -38,7 +38,7 @@ export default React.createClass({
     const {owner, project} = this.props.params;
 
     return (
-      <div className="build-list">
+      <div className='build-list'>
         {this.state.builds.filter(build => {
           if (project && build.project.name !== project) {
             return false;

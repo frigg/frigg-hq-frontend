@@ -33,8 +33,8 @@ export default class Alerts extends React.Component {
     });
 
     return (
-      <div className="alerts">
-        <ReactCSSTransitionGroup transitionName="alert" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+      <div className='alerts'>
+        <ReactCSSTransitionGroup transitionName='alert' transitionEnterTimeout={500} transitionLeaveTimeout={300}>
         {alerts}
         </ReactCSSTransitionGroup>
       </div>
