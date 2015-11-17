@@ -13,23 +13,12 @@ export class WorkerStatsStore extends Store {
   }
 
   getState() {
-    let workers = [];
-    const stats = this.getItem(this.key);
-    if (stats.lastSeen) {
-      workers = Object.keys(stats.lastSeen);
-    }
-    return {workers: workers.map(worker => {
-      return {
-        host: worker,
-        lastSeen: stats.lastSeen.worker,
-        versions: stats.versions.worker,
-      };
-    })};
+    return this.getItem(this.key);
   }
 
   loadActionHandlers() {
     this.actions[WORKER_STATS_RECEIVE] = action => {
-      this.setItem('stats', action.stats);
+      this.setItem(this.key, action.stats);
       this._loading = false;
       this.emitChange();
     };

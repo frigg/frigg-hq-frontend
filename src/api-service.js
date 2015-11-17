@@ -35,9 +35,28 @@ const http = {
     return request
       .get(url)
       .endAsync()
-      .then(transformForFrontend);
+      .then(extractContent);
   },
 };
+
+export function transformWorkerStats(payload) {
+  let workers = [];
+  if (payload.stats.lastSeen) {
+    workers = Object.keys(payload.stats.lastSeen);
+  }
+
+  return {workers: workers.map(worker => {
+    return {
+      host: worker,
+      lastSeen: payload.stats.lastSeen[worker],
+      versions: payload.stats.versions[worker],
+    };
+  })};
+}
+
+export function extractContent(response) {
+  return response.body;
+}
 
 export default http;
 
@@ -61,5 +80,6 @@ export function getBuild(params) {
 }
 
 export function getWorkerStats() {
-  return http.get('/api/stats');
+  return http.get('/api/stats')
+    .then(transformWorkerStats);
 }

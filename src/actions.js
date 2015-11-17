@@ -7,6 +7,7 @@ import {BUILDS_RECEIVE, USER_RECEIVE, WORKER_STATS_RECEIVE, API_ERROR, ALERT_ADD
 
 const actions = {
   catch: error => {
+    console.log(error, error.stack); // eslint-disable-line
     Dispatcher.dispatch({
       type: API_ERROR,
       error: error,
@@ -25,10 +26,10 @@ const actions = {
   getBuilds: (params) => {
     BuildStore._loading = true;
     return ApiService.getBuilds(params)
-      .then(res => {
+      .then(response => {
         Dispatcher.dispatch({
           type: BUILDS_RECEIVE,
-          builds: res.body.results ? res.body.results : res.body,
+          builds: response.results ? response.results : response,
         });
       })
       .catch(actions.catch);
@@ -37,10 +38,10 @@ const actions = {
   getBuild: slug => {
     BuildStore._loading = true;
     return ApiService.getBuild(slug)
-      .then(res => {
+      .then(response => {
         Dispatcher.dispatch({
           type: BUILDS_RECEIVE,
-          builds: [res.body],
+          builds: [response],
         });
       })
       .catch(actions.catch);
@@ -49,10 +50,10 @@ const actions = {
   getUser: () => {
     UserStore._loading = true;
     return ApiService.getUser()
-      .then(res => {
+      .then(response => {
         Dispatcher.dispatch({
           type: USER_RECEIVE,
-          user: res.body,
+          user: response,
         });
       })
       .catch(actions.catch);
@@ -61,10 +62,10 @@ const actions = {
   getWorkerStats: () => {
     UserStore._loading = true;
     return ApiService.getWorkerStats()
-      .then(res => {
+      .then(response => {
         Dispatcher.dispatch({
           type: WORKER_STATS_RECEIVE,
-          stats: res.body.stats,
+          stats: response,
         });
       })
       .catch(actions.catch);

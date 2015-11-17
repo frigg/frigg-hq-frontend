@@ -18,6 +18,34 @@ describe('ApiService', () => {
     });
   });
 
+  describe('.transformWorkerStats(payload)', () => {
+    const output = ApiService.transformWorkerStats(fixtures.WORKER_STATS);
+
+    it('should transform stats into a list of workers', () => {
+      expect(output).to.contain.key('workers');
+      expect(output.workers.constructor).to.equal(Array);
+    });
+
+    it('should set last seen on worker object', () => {
+      const worker = output.workers[0];
+      expect(worker).to.contain.key('lastSeen');
+      expect(worker.lastSeen).to.equal('2015-11-15T11:01:14.700Z');
+    });
+
+
+    it('should set versions on worker object', () => {
+      const worker = output.workers[0];
+      expect(worker).to.contain.key('versions');
+      expect(worker.versions).to.contain.key('worker');
+    });
+
+    it('should set host on worker object', () => {
+      const worker = output.workers[0];
+      expect(worker).to.contain.key('host');
+      expect(worker.host).to.equal('ron.frigg.io');
+    });
+  });
+
   describe('.getUser()', () => {
     it('should call get with correct url', () => {
       sinon.stub(http, 'get').returns(Promise.resolve({}));
