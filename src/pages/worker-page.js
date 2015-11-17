@@ -5,6 +5,7 @@ import moment from 'moment';
 import Actions from '../actions';
 import {StoreMixin} from '../mixins/page-mixins';
 import WorkerStatsStore from '../stores/worker-stats-store';
+import Worker from '../components/workers/worker';
 
 export default React.createClass({
   displayName: 'WorkerPage',
@@ -37,22 +38,7 @@ export default React.createClass({
 
         <ul className='worker-list'>
           {_.map(this.state.workers, worker => {
-            return (
-              <li>
-                <h3>{worker.host}</h3>
-                {moment(worker.lastSeen).fromNow()}
-                <dl className='versions'>
-                  {(worker.versions || []).map((value, key) => {
-                    return (
-                      <span key={key}>
-                        <dt>{key}</dt>
-                        <dd>{value.current}</dd>
-                      </span>
-                    );
-                  })}
-                </dl>
-              </li>
-            );
+            return <Worker key={worker.host} {...worker} />;
           })}
         </ul>
       </div>

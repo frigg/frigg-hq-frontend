@@ -21,8 +21,8 @@ export class WorkerStatsStore extends Store {
     return {workers: workers.map(worker => {
       return {
         host: worker,
-        lastSeen: stats.lastSeen.get(worker),
-        versions: stats.versions.get(worker),
+        lastSeen: stats.lastSeen.worker,
+        versions: stats.versions.worker,
       };
     })};
   }
