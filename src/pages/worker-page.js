@@ -1,49 +1,42 @@
+import _ from 'lodash';
 import React from 'react';
 import moment from 'moment';
 
 import Actions from '../actions';
-
+import {StoreMixin} from '../mixins/page-mixins';
 import WorkerStatsStore from '../stores/worker-stats-store';
 
-export default class WorkerPage extends React.Component {
+export default React.createClass({
+  displayName: 'WorkerPage',
 
-  constructor() {
-    super();
-    this.state = WorkerStatsStore.getState();
-    this.fetchTimeout = null;
-  }
+  stores: [WorkerStatsStore],
+  mixins: [StoreMixin],
 
-  fetch() {
-    Actions.getWorkerStats();
-  }
+  fetch: () => Actions.getWorkerStats(),
 
-  componentDidMount() {
+  getInitialState: function () {
+    return {};
+  },
+
+  componentDidMount: function() {
     this.setState(WorkerStatsStore.getState());
     this.fetch();
-  }
+  },
 
-  componentWillMount() {
-    WorkerStatsStore.addChangeListener(this._onChange.bind(this));
-  }
-
-  componentWillUnmount() {
-    WorkerStatsStore.removeChangeListener(this._onChange.bind(this));
-  }
-
-  _onChange() {
+  onChange: function() {
     this.setState(WorkerStatsStore.getState());
-  }
+  },
 
-  render() {
+  render: function() {
     clearTimeout(this.fetchTimeout);
-    this.fetchTimeout = setTimeout(this.fetch.bind(this), 10000);
+    this.fetchTimeout = setTimeout(this.fetch, 10000);
 
     return (
       <div className='worker-stats-page'>
         <h2 className='text-center'>Worker stats</h2>
 
         <ul className='worker-list'>
-          {this.state.workers.map(worker => {
+          {_.map(this.state.workers, worker => {
             return (
               <li>
                 <h3>{worker.host}</h3>
@@ -51,7 +44,7 @@ export default class WorkerPage extends React.Component {
                 <dl className='versions'>
                   {(worker.versions || []).map((value, key) => {
                     return (
-                      <span>
+                      <span key={key}>
                         <dt>{key}</dt>
                         <dd>{value.current}</dd>
                       </span>
@@ -64,5 +57,5 @@ export default class WorkerPage extends React.Component {
         </ul>
       </div>
     );
-  }
-}
+  },
+});

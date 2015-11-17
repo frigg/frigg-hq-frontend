@@ -1,4 +1,3 @@
-import Immutable from "immutable";
 import Store from './store';
 import {WORKER_STATS_RECEIVE} from '../constants';
 
@@ -16,16 +15,16 @@ export class WorkerStatsStore extends Store {
   getState() {
     let workers = [];
     const stats = this.getItem(this.key);
-    if (stats.has('lastSeen')) {
+    if (stats.lastSeen) {
       workers = Object.keys(stats.lastSeen);
     }
-    return {workers: Immutable.fromJS(workers.map(worker => {
+    return {workers: workers.map(worker => {
       return {
         host: worker,
         lastSeen: stats.lastSeen.get(worker),
         versions: stats.versions.get(worker),
       };
-    }))};
+    })};
   }
 
   loadActionHandlers() {
