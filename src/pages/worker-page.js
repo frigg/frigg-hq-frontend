@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import moment from 'moment';
 
 import Actions from '../actions';
 import {StoreMixin} from '../mixins/page-mixins';
