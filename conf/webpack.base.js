@@ -21,7 +21,6 @@ module.exports = {
       },
       {
         test: /\.json$/,
-        exclude: /node_modules|vendor/,
         loaders: ['json-loader'],
       },
       {

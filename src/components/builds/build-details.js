@@ -3,9 +3,13 @@ import _ from 'lodash';
 import React from 'react';
 import moment from 'moment';
 import {Link} from 'react-router';
+import Remarkable from 'remarkable';
+import emojis from 'emojis';
 
 import BuildTitle from './build-title';
 import Task from '../task';
+
+const markdown = new Remarkable({html: false});
 
 export default React.createClass({
   displayName: 'BuildDetails',
@@ -46,7 +50,7 @@ export default React.createClass({
         </div>
 
         <div className='message'>
-          {build.message}
+          <span dangerouslySetInnerHTML={{ __html: emojis.replaceWithUnicode(markdown.render(build.message))}} />
         </div>
 
         <div className='tasks'>
