@@ -1,5 +1,3 @@
-import {Map} from 'immutable';
-
 import Store from './store';
 import {USER_RECEIVE} from '../constants';
 
@@ -11,7 +9,7 @@ export class UserStore extends Store {
   }
 
   getCurrentUser() {
-    return this.getItem('user') || Map({is_anonymous: true});
+    return this.getItem('user') || {is_anonymous: true};
   }
 
   isLoading() {
