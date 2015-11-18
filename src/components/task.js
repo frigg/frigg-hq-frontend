@@ -1,7 +1,5 @@
 import React from 'react';
-/* eslint-disable camelcase */
-import {ansi_to_html} from 'ansi_up';
-/* eslint-enable */
+import stripAnsi from 'strip-ansi'
 
 export default class Task extends React.Component {
   constructor() {
@@ -33,7 +31,7 @@ export default class Task extends React.Component {
     if (this.state.show) {
       log = (
         <pre>
-          <code dangerouslySetInnerHTML={{__html: ansi_to_html(this.props.task.log || '')}}></code>
+          <code>{stripAnsi(this.props.task.log || '')}</code>
         </pre>
       );
     }
@@ -57,5 +55,5 @@ export default class Task extends React.Component {
 }
 
 Task.propTypes = {
-  task: React.PropTypes.object,
+  task: React.PropTypes.object.isRequired,
 };
