@@ -3,6 +3,7 @@ import * as ApiService from './api-service';
 import BuildStore from './stores/build-store';
 import UserStore from './stores/user-store';
 import {BUILDS_RECEIVE, USER_RECEIVE, WORKER_STATS_RECEIVE, API_ERROR, ALERT_ADD, ALERT_REMOVE} from './constants';
+import strings from './strings';
 
 
 const actions = {
@@ -31,8 +32,7 @@ const actions = {
           type: BUILDS_RECEIVE,
           builds: response.results ? response.results : response,
         });
-      })
-      .catch(actions.catch);
+      });
   },
 
   getBuild: slug => {
@@ -43,8 +43,7 @@ const actions = {
           type: BUILDS_RECEIVE,
           builds: [response],
         });
-      })
-      .catch(actions.catch);
+      });
   },
 
   getUser: () => {
@@ -55,8 +54,7 @@ const actions = {
           type: USER_RECEIVE,
           user: response,
         });
-      })
-      .catch(actions.catch);
+      });
   },
 
   getWorkerStats: () => {
@@ -67,8 +65,7 @@ const actions = {
           type: WORKER_STATS_RECEIVE,
           stats: response,
         });
-      })
-      .catch(actions.catch);
+      });
   },
 
   addAlert: alert => {
@@ -82,6 +79,14 @@ const actions = {
     if (alert.ttl) {
       actions.removeAlert(alert.key);
     }
+  },
+
+  addLoadingAlert: () => {
+    actions.addAlert({
+      message: strings('LOADING'),
+      iconClasses: 'fa fa-spinner fa-pulse',
+      key: 'loading-data',
+    });
   },
 
   removeAlert: key => {

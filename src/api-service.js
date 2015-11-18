@@ -4,6 +4,8 @@ import camelcase from 'camelcase';
 import snakecase from 'snake-case';
 import _ from 'lodash';
 
+import Actions from './actions';
+
 Promise.promisifyAll(request);
 
 export function transformForFrontend(payload) {
@@ -31,11 +33,16 @@ const http = {
     if (!/\/$/.test(url)) {
       url += '/';
     }
-
+    Actions.addLoadingAlert();
     return request
       .get(url)
       .endAsync()
-      .then(extractContent);
+      .then(extractContent)
+      .then(response => {
+        Actions.removeAlert('loading-data')
+        return response;
+      })
+      .catch(Actions.catch);
   },
 };
 
