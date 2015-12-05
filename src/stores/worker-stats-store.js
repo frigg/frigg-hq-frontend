@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 import Store from './store';
 import {WORKER_STATS_RECEIVE} from '../constants';
 
@@ -13,7 +15,10 @@ export class WorkerStatsStore extends Store {
   }
 
   getState() {
-    return this.getItem(this.key);
+    if (!_.isEmpty(this.getItem(this.key))) {
+      return this.getItem(this.key);
+    }
+    return {workers: []};
   }
 
   loadActionHandlers() {
