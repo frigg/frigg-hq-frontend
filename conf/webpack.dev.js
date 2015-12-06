@@ -11,4 +11,7 @@ module.exports = _.assign({}, base, {
     filename: base.output.filename,
     path: base.output.path,
   },
+  proxy: {
+    '*': 'http://127.0.0.1:8000',
+  },
 });

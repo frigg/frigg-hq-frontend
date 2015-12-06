@@ -6,5 +6,5 @@ React frontend for frigg.
 ## Development
 
 ```
-npm run watch
+npm start
 ```

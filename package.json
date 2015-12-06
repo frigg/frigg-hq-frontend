@@ -10,7 +10,6 @@
     "watch-test": "mocha test/setup.js test -r mock-local-storage --compilers js:babel-core/register --recursive --reporter nyan --watch",
     "coverage": "istanbul cover node_modules/.bin/_mocha test -- -r mock-local-storage --compilers js:babel-core/register --recursive",
     "bundle": "NODE_ENV=production WEBPACK_ENV=prod webpack",
-    "start": "babel-node index.js",
     "lint": "eslint ."
   },
   "repository": {
@@ -64,7 +63,6 @@
     "eslint-config-airbnb": "*",
     "eslint-config-frigg": "frigg/eslint-config-frigg",
     "eslint-plugin-react": "*",
-    "express": "^4.13.3",
     "file-loader": "^0.8.5",
     "istanbul": "^0.4.1",
     "jsdom": "^7.1.1",
@@ -77,6 +75,6 @@
     "stylus-loader": "^1.4.2",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.9",
-    "webpack-dev-middleware": "^1.4.0"
+    "webpack-dev-server": "^1.14.0"
   }
 }
