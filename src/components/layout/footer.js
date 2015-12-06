@@ -11,7 +11,7 @@ export default class Footer extends React.Component {
             <a href='https://frigg.io/feed.xml' title='News Feed'><i className='fa fa-rss-square'></i></a>
             <a href='https://twitter.com/frigg_io' title='Twitter'><i className='fa fa-twitter-square'></i></a>
           </div>
-          {this.props.user.is_staff ? (<div className='text-center'>
+          {this.context.user.is_staff ? (<div className='text-center'>
             <a href='https://frigg.io/terms'>Terms of Service</a>
           </div>) : false}
         </div>
@@ -20,6 +20,6 @@ export default class Footer extends React.Component {
   }
 }
 
-Footer.propTypes = {
-  user: React.PropTypes.object,
+Footer.contextTypes = {
+  user: React.PropTypes.object.isRequired,
 };

@@ -17,6 +17,9 @@ export default React.createClass({
   propTypes: {
     location: React.PropTypes.object.isRequired,
     build: React.PropTypes.object.isRequired,
+  },
+
+  contextTypes: {
     user: React.PropTypes.object.isRequired,
   },
 
@@ -44,7 +47,7 @@ export default React.createClass({
           <strong>Author:</strong> {build.author} <br/>
           <strong>Timestamp:</strong> {moment(build.start_time).fromNow()}<br/>
           <strong>State:</strong> {state}<br/>
-          {this.props.user.is_staff && build.result ? (<span><strong>Worker:</strong> {build.result.worker_host}</span>) : false}
+          {this.context.user.is_staff && build.result ? (<span><strong>Worker:</strong> {build.result.worker_host}</span>) : false}
           <Coverage result={build.result} />
           <DeploymentInfo build={build} deployment={build.deployment} location={this.props.location} />
         </div>

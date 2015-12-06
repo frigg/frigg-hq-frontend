@@ -33,10 +33,10 @@ export default class Header extends React.Component {
           </Link>
           <div className='navigation'>
             <Link to='/' className='button'>Builds</Link>
-            <StaffButton href='/stats/' text='Stats' isStaff={this.props.user.is_staff} />
-            <StaffButton href='/workers/' text='Workers' isStaff={this.props.user.is_staff} />
-            <StaffButton href='/admin/' text='Admin' isStaff={this.props.user.is_staff} />
-            <LogInOutButton isAnonymous={this.props.user.is_anonymous} />
+            <StaffButton href='/stats/' text='Stats' isStaff={this.context.user.is_staff} />
+            <StaffButton href='/workers/' text='Workers' isStaff={this.context.user.is_staff} />
+            <StaffButton href='/admin/' text='Admin' isStaff={this.context.user.is_staff} />
+            <LogInOutButton isAnonymous={this.context.user.is_anonymous} />
           </div>
         </div>
       </div>
@@ -44,6 +44,6 @@ export default class Header extends React.Component {
   }
 }
 
-Header.propTypes = {
-  user: React.PropTypes.object,
+Header.contextTypes = {
+  user: React.PropTypes.object.isRequired,
 };
