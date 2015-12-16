@@ -29,7 +29,7 @@
     "eventemitter3": "1.1.1",
     "flux": "2.1.1",
     "history": "1.16.0",
-    "immutable": "3.7.5",
+    "immutable": "3.7.6",
     "lodash": "3.10.1",
     "lz-string": "1.4.4",
     "mock-local-storage": "1.0.2",
