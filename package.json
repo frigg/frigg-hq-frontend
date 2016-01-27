@@ -65,7 +65,7 @@
     "eslint-plugin-react": "*",
     "file-loader": "^0.8.5",
     "istanbul": "^0.4.1",
-    "jsdom": "^7.1.1",
+    "jsdom": "^8.0.0",
     "json-loader": "^0.5.4",
     "mocha": "^2.3.4",
     "react-addons-test-utils": "^0.14.3",
