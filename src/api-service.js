@@ -34,6 +34,7 @@ const http = {
       url += '/';
     }
     Actions.addLoadingAlert();
+    console.log(url)
     return request
       .get(url)
       .endAsync()

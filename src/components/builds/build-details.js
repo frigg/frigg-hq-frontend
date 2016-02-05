@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 import Remarkable from 'remarkable';
 import emojis from 'emojis';
 
+import Actions from '../../actions';
 import BuildTitle from './build-title';
 import Task from '../task';
 
@@ -17,10 +18,15 @@ export default React.createClass({
   propTypes: {
     location: React.PropTypes.object.isRequired,
     build: React.PropTypes.object.isRequired,
+    params: React.PropTypes.object,
   },
 
   contextTypes: {
     user: React.PropTypes.object.isRequired,
+  },
+
+  componentDidMount: function() {
+    Actions.getBuild(this.props.params);
   },
 
   showSetupTasks: function() {
