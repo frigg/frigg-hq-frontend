@@ -47,7 +47,7 @@
     "superagent": "1.7.2"
   },
   "devDependencies": {
-    "babel": "^6.3.13",
+    "babel": "^6.5.0",
     "babel-core": "^6.3.13",
     "babel-eslint": "^5.0.0-beta10",
     "babel-loader": "^6.2.0",
