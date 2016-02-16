@@ -25,8 +25,21 @@ export default React.createClass({
     user: React.PropTypes.object.isRequired,
   },
 
+  fetch() {
+    return Actions.getBuild(this.props.params);
+  },
+
+  fetchNext() {
+    setTimeout(() => {
+      if (_.get(this.props.build, 'result.still_running')) {
+        this.fetch().then(() => this.fetchNext());
+      }
+    }, 1000);
+  },
+
   componentDidMount: function() {
-    Actions.getBuild(this.props.params);
+    this.fetch();
+    this.fetchNext();
   },
 
   showSetupTasks: function() {
@@ -37,10 +50,8 @@ export default React.createClass({
     const {build} = this.props;
     let state = 'Pending';
 
-    if (!!build.result) {
-      if (!build.result.still_running) {
-        state = build.result.succeeded ? 'Success' : 'Failure';
-      }
+    if (_.get(build, 'result.still_running') === false) {
+      state = build.result.succeeded ? 'Success' : 'Failure';
     }
 
     return (
