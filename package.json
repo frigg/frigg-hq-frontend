@@ -26,7 +26,7 @@
     "bluebird": "3.3.4",
     "camelcase": "2.1.0",
     "emojis": "1.0.7",
-    "eventemitter3": "1.1.1",
+    "eventemitter3": "1.2.0",
     "flux": "2.1.1",
     "history": "2.0.1",
     "immutable": "3.7.6",
