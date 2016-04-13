@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/frigg/frigg-frontend#readme",
   "dependencies": {
-    "bluebird": "3.3.4",
+    "bluebird": "3.3.5",
     "camelcase": "2.1.0",
     "emojis": "1.0.7",
     "eventemitter3": "1.1.1",
