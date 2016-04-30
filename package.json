@@ -68,7 +68,7 @@
     "jsdom": "^8.0.2",
     "json-loader": "^0.5.4",
     "mocha": "^2.3.4",
-    "react-addons-test-utils": "^0.14.7",
+    "react-addons-test-utils": "^15.0.2",
     "sinon": "^1.17.2",
     "sinon-chai": "^2.8.0",
     "style-loader": "^0.13.0",
