@@ -63,7 +63,7 @@
     "eslint-config-airbnb": "*",
     "eslint-config-frigg": "frigg/eslint-config-frigg",
     "eslint-plugin-react": "*",
-    "file-loader": "^0.8.5",
+    "file-loader": "^0.9.0",
     "istanbul": "^0.4.1",
     "jsdom": "^8.0.2",
     "json-loader": "^0.5.4",
